@@ -9,6 +9,7 @@ function MyGraphLeaf(graph, xmlelem) {
   var args = graph.reader.getString(xmlelem, 'args');
 
   if(type == 'rectangle'){
+    this.part = new MyRectangle(graph.scene, args[0], args[1], args[2], args[3]);
     return;
   }
   if(type == 'cylinder'){
