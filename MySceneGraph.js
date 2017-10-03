@@ -24,6 +24,9 @@ function MySceneGraph(filename, scene) {
 
     this.idRoot = null;                    // The id of the root element.
 
+    this.tex_stack = [0];
+    this.mat_stack = [0];
+
     this.axisCoords = [];
     this.axisCoords['x'] = [1, 0, 0];
     this.axisCoords['y'] = [0, 1, 0];
@@ -1425,5 +1428,64 @@ MySceneGraph.generateRandomString = function(length) {
 MySceneGraph.prototype.displayScene = function() {
 	// entry point for graph rendering
 	// remove log below to avoid performance issues
+
+  console.log(this);
+  this.nodesRecursive(this.nodes.root);
+
 	this.log("Graph should be rendered here...");
 }
+
+MySceneGraph.prototype.nodesRecursive = function(node) {
+  var tex_info, material;
+
+  //TEXTURES
+  if(node.textureID == 'null'){
+    this.tex_stack.push(this.tex_top());
+    tex_info = this.textures[this.tex_top()];
+  }else if(node.textureID == 'clear'){
+    this.tex_stack.push(0);
+    tex_info = this.textures[this.tex_top()];
+  }else {
+    this.tex_stack.push(node.textureID);
+    tex_info = this.textures[this.tex_top()];
+  }
+
+  //MATERIALS
+  if(node.materialID != 'null'){
+    this.mat_stack.push(node.materialID);
+    this.scene.material = this.materials[this.mat_top()];
+  }else{
+    this.mat_stack.push(this.mat_top());
+    this.scene.material = this.materials[this.mat_top()];
+  }
+
+  if(tex_info==null){
+    this.scene.material.setTexture(null);
+  }else{
+    this.scene.material.setTexture(tex_info[0]);
+  }
+  this.scene.material.apply();
+
+
+  this.scene.pushMatrix();
+  this.scene.multMatrix(node.transformMatrix);
+
+  for (var i = 0; i < node.children.length; i++) {
+    this.nodesRecursive(this.nodes[node.children[i]]);
+  }
+  for (i = 0; i < node.leaves.length; i++) {
+    node.leaves[i].display();
+  }
+  this.scene.popMatrix();
+
+  this.tex_stack.pop();
+  this.mat_stack.pop();
+};
+
+MySceneGraph.prototype.tex_top = function(){
+  return this.tex_stack[this.tex_stack.length-1];
+};
+
+MySceneGraph.prototype.mat_top = function(){
+  return this.mat_stack[this.mat_stack.length-1];
+};
