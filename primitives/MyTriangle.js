@@ -9,11 +9,11 @@
   this.coord1_y = coord1_y;
   this.coord1_z = coord1_z;
 
-  this.coord2_x = coord2_y;
+  this.coord2_x = coord2_x;
   this.coord2_y = coord2_y;
   this.coord2_z = coord2_z;
 
-  this.coord3_x = coord3_y;
+  this.coord3_x = coord3_x;
   this.coord3_y = coord3_y;
   this.coord3_z = coord3_z;
 
@@ -38,9 +38,9 @@
  	this.primitiveType = this.scene.gl.TRIANGLES;
 
  	this.normals = [
- 	0, 0, 1,
- 	0, 0, 1,
- 	0, 0, 1
+ 	  0, 0, 1,
+ 	  0, 0, 1,
+ 	  0, 0, 1
  	];
 
  	this.initGLBuffers();

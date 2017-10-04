@@ -8,11 +8,14 @@ function MyGraphLeaf(graph, xmlelem) {
   var type = graph.reader.getItem(xmlelem, 'type', ['rectangle', 'cylinder', 'sphere', 'triangle']);
   var args = graph.reader.getString(xmlelem, 'args');
 
+  args = args.split(" ");
+
   if(type == 'rectangle'){
     this.part = new MyRectangle(graph.scene, args[0], args[1], args[2], args[3]);
     return;
   }
   if(type == 'cylinder'){
+    this.part = new MyCylinder(graph.scene,args[0],args[1],args[2],args[3],args[4]);
     return;
   }
   if(type == 'triangle'){
@@ -20,9 +23,10 @@ function MyGraphLeaf(graph, xmlelem) {
     return;
   }
   if(type == 'sphere'){
+    this.part = new MyRectangle(graph.scene, args[0], args[1], args[2], args[3]);
   }
   else{
-    this.part = new MyRectangle(graph.scene,0,0,0,0);
+    this.part = new MyRectangle(graph.scene,args[0], args[1], args[2], args[3]);
   }
 }
 

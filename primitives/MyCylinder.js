@@ -11,11 +11,8 @@
 	this.slices = slices;
 	this.stacks = stacks;
 
-  this.top = top;
-  this.bottom = bottom;
-  this.texture = texture;
-
  	this.initBuffers();
+
  };
 
  MyCylinder.prototype = Object.create(CGFobject.prototype);
