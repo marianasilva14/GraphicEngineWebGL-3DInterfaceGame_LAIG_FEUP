@@ -16,11 +16,13 @@ function MyGraphLeaf(graph, xmlelem) {
     return;
   }
   if(type == 'triangle'){
+    this.part = new MyTriangle(graph.scene, args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8]);
     return;
   }
   if(type == 'sphere'){
   }
   else{
+    this.part = new MyRectangle(graph.scene,0,0,0,0);
   }
 }
 
