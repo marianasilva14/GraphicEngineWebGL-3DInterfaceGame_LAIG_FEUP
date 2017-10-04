@@ -1,79 +1,50 @@
-/**
- * MyCylinder
- * @constructor
- */
- function MySphere(scene, slices, stacks) {
+
+function MySphere(scene, radius, slices, stacks) {
  	CGFobject.call(this,scene);
 
-	this.slices = slices;
-	this.stacks = stacks;
+ 	this.radius=radius;
+	this.slices=slices;
+	this.stacks=stacks;
 
  	this.initBuffers();
  };
 
- MySphere.prototype = Object.create(CGFobject.prototype);
- MySphere.prototype.constructor = MyLamp;
+MySphere.prototype = Object.create(CGFobject.prototype);
+MySphere.prototype.constructor = MySphere;
 
- MySphere.prototype.initBuffers = function() {
- 	/*
- 	* TODO:
- 	* Replace the following lines in order to build a prism with a **single mesh**.
- 	*
- 	* How can the vertices, indices and normals arrays be defined to
- 	* build a prism with varying number of slices and stacks?
- 	*/
- 	var slices = this.slices;
- 	var stacks = this.stacks;
+MySphere.prototype.initBuffers = function() {
+	var ang_perimeter = Math.PI*2/this.slices;
+	var ang_height = Math.PI/this.stacks;
 
-	var t = 0;
-	var s = 0;
+ 	this.indices = [];
+ 	this.vertices = [];
+ 	this.normals = [];
+ 	this.texCoords = [];
 
-	this.vertices = [];
-	this.normals = [];
-	this.indices = [];
-	this.texCoords = [];
+ 	for(var j = 0; j <= this.slices; j++)
+ 	{
+ 		for(var i = 0; i <= this.stacks; i++)
+ 		{
+ 			var temp = Math.PI-ang_height*i;
+			this.vertices.push( Math.sin(temp)*Math.cos(j*ang_perimeter)*this.radius,
+					Math.sin(temp)*Math.sin(j*ang_perimeter)*this.radius,
+					Math.cos(temp)*this.radius );
+			this.normals.push( Math.sin(temp) * Math.cos(j*ang_perimeter),
+					Math.sin(temp) * Math.sin(j*ang_perimeter),
+					Math.cos(temp) );
+			this.texCoords.push( j/this.slices,
+					1 - i/this.stacks );
 
-	var ang_height = Math.PI/2/stacks;
-	var ang = 2*Math.PI / slices;
-
-	for(var stack = 0; stack < stacks+1; stack++){
-
-		for(var slice = 0; slice < slices; slice++)
-		{
-			this.vertices.push(Math.cos(slice*ang)*Math.cos(stack*ang_height),Math.sin(slice*ang)*Math.cos(stack*ang_height), Math.sin(stack*ang_height));
-			this.normals.push(Math.cos(slice*ang)*Math.cos(stack*ang_height),Math.sin(slice*ang)*Math.cos(stack*ang_height), Math.sin(stack*ang_height));
-		}
-	}
-
-	for(var stack = 0; stack < stacks; stack++){
-		for(var slice = 0; slice < slices; slice++)
-		{
-			if (slice != (slices - 1))
-			{
-				this.indices.push(this.slices*stack+slice,this.slices*stack+slice+1,this.slices*(stack+1)+slice);
-				this.indices.push(this.slices*(stack+1)+slice+1,this.slices*(stack+1)+slice,this.slices*stack+slice+1);
+			if(i > 0 && j > 0) {
+					var verts = this.vertices.length/3;
+					this.indices.push(verts-2, verts-1, verts-this.stacks-2);
+					this.indices.push(verts-this.stacks-2, verts-this.stacks-3, verts-2);
 			}
-			else
-			{
-				this.indices.push(this.slices*stack+slice,this.slices*stack+slice+1,this.slices*(stack+1)+slice);
-				this.indices.push(this.slices*stack,this.slices*stack+slice+1,this.slices*stack+slice);
-			}
+ 		}
+ 	}
 
-		}
-
-	}
-
-	//apply texture to lamp
-
-	for(var i = 0; i <= stacks; i++){
-		for(var j =  0; j < slices; j++){
-			this.texCoords.push(s,t);
-			s = s + 1/slices;
-		}
-		s = 0;
-		t = t + 1/stacks;
-	}
-
- 	this.primitiveType = this.scene.gl.TRIANGLES;
+	this.primitiveType = this.scene.gl.TRIANGLES;
  	this.initGLBuffers();
  };
+
+ MySphere.prototype.setAmplifFactor = function(amplif_s, amplif_t) {}

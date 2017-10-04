@@ -23,10 +23,10 @@ function MyGraphLeaf(graph, xmlelem) {
     return;
   }
   if(type == 'sphere'){
-    this.part = new MyRectangle(graph.scene, args[0], args[1], args[2], args[3]);
+    this.part = new MySphere(graph.scene, args[0], args[1], args[2]);
   }
   else{
-    this.part = new MyRectangle(graph.scene,args[0], args[1], args[2], args[3]);
+    this.part = new MyRectangle(graph.scene,0,0,0,0);
   }
 }
 
