@@ -10,6 +10,18 @@
   this.right_bottom_x = right_bottom_x;
   this.right_bottom_y = right_bottom_y;
 
+  if(typeof minS == 'undefined' || typeof maxS == 'undefined' || typeof minT == 'undefined' || typeof maxT == 'undefined'){
+    this.minS = 0;
+  this.maxS = 1;
+  this.minT = 0;
+  this.maxT = 1;
+} else {
+  this.minS = minS;
+  this.maxS = maxS;
+  this.minT = minT;
+  this.maxT = maxT;
+}
+
  	this.initBuffers();
  };
 
@@ -30,14 +42,23 @@
       0, 3, 2
  	];
 
- 	this.primitiveType = this.scene.gl.TRIANGLES;
-
- 	this.normals = [
+  this.normals = [
  	0, 0, 1,
  	0, 0, 1,
  	0, 0, 1,
  	0, 0, 1
  	];
+
+ this.texCoords = [
+     this.minS, this.maxT,
+     this.maxS, this.maxT,
+     this.maxS, this.minT,
+     this.minS, this.minT
+ ]
+
+ 	this.primitiveType = this.scene.gl.TRIANGLES;
+
+
 
  	this.initGLBuffers();
  };

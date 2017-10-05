@@ -70,25 +70,37 @@
     </TEXTURE>
 
     <!-- Rocks -->
-    <TEXTURE id="rocks">
-      <file path="images/rocks.jpg" />
+    <TEXTURE id="relva">
+      <file path="images/relva.jpg" />
       <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-    <!-- Glass work -->
-    <TEXTURE id="vidral">
-      <file path="images/vidral.jpg" />
-      <amplif_factor s="15" t="10" />
-    </TEXTURE>
-
-    <!-- Street bench -->
-    <TEXTURE id="banco">
-      <file path="images/bank.jpg" />
+    <!-- Rocks -->
+    <TEXTURE id="pedra">
+      <file path="images/granito.jpeg" />
       <amplif_factor s="1" t="1" />
     </TEXTURE>
 
+    <TEXTURE id="telha">
+      <file path="images/telhado.jpg" />
+      <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="madeira">
+      <file path="images/porta.png" />
+      <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="vidro">
+      <file path="images/janela.jpg" />
+      <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="parede">
+      <file path="images/parede.jpg" />
+      <amplif_factor s="1" t="1" />
+    </TEXTURE>
   </TEXTURES>
-
 
   <MATERIALS>
     <!-- Pyramid material -->
@@ -175,6 +187,10 @@
         <NODEREF id="casa_frente_pilar" />
         <NODEREF id="arvore" />
         <NODEREF id="arvore2" />
+        <NODEREF id="porta" />
+        <NODEREF id="maçaneta" />
+        <NODEREF id="janela" />
+        <NODEREF id="janela2" />
       </DESCENDANTS>
 
     </NODE>
@@ -183,7 +199,7 @@
     <!-- The floor -->
     <NODE id="chao">
       <MATERIAL id="null" />
-      <TEXTURE id="rocks" />
+      <TEXTURE id="relva" />
 
       <SCALE sx="6" sy="1" sz="8" />
       <TRANSLATION x="0" y="0" z="4" />
@@ -198,7 +214,7 @@
     <!-- The house -->
     <NODE id="casa">
       <MATERIAL id="null" />
-      <TEXTURE id="null" />
+      <TEXTURE id="parede" />
 
       <SCALE sx="15" sy="15" sz="30" />
       <TRANSLATION x="1" y="0.5" z="0" />
@@ -212,7 +228,7 @@
 
     <NODE id="casa2">
       <MATERIAL id="null" />
-      <TEXTURE id="null" />
+      <TEXTURE id="parede" />
 
         <SCALE sx="4" sy="14.5" sz="11" />
         <TRANSLATION x="6" y="0.5" z="-0.86" />
@@ -226,7 +242,7 @@
 
     <NODE id="telhado">
       <MATERIAL id="null" />
-      <TEXTURE id="null" />
+      <TEXTURE id="parede" />
 
       <SCALE sx="7.56" sy="8.25" sz="17" />
       <TRANSLATION x="1.98" y="1.8" z="0" />
@@ -239,7 +255,7 @@
 
     <NODE id="casa_frente_telhado">
       <MATERIAL id="null" />
-      <TEXTURE id="null" />
+      <TEXTURE id="parede" />
 
       <SCALE sx="2" sy="9" sz="10" />
       <TRANSLATION x="12" y="1.6" z="-0.75" />
@@ -252,7 +268,7 @@
 
     <NODE id="mesa">
       <MATERIAL id="null" />
-      <TEXTURE id="null" />
+      <TEXTURE id="pedra" />
 
       <SCALE sx="1" sy="1" sz="1" />
       <TRANSLATION x="30" y="0" z="-30" />
@@ -266,7 +282,7 @@
 
     <NODE id="casa_frente_pilar">
       <MATERIAL id="null" />
-      <TEXTURE id="null" />
+      <TEXTURE id="parede" />
 
       <SCALE sx="0.8" sy="3.6" sz="0.8" />
       <TRANSLATION x="30" y="0" z="1.5" />
@@ -286,7 +302,7 @@
       <ROTATION axis="x" angle="180" />
 
       <DESCENDANTS>
-        <NODEREF  id="pilar" />
+        <NODEREF  id="pilar2" />
         <NODEREF  id="copa" />
       </DESCENDANTS>
 
@@ -301,8 +317,60 @@
       <ROTATION axis="x" angle="180" />
 
       <DESCENDANTS>
-        <NODEREF  id="pilar" />
+        <NODEREF  id="pilar2" />
         <NODEREF  id="copa" />
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="porta">
+      <MATERIAL id="null" />
+      <TEXTURE id="madeira" />
+
+      <SCALE sx="0.4" sy="10" sz="4" />
+      <TRANSLATION x="56" y="0.5" z="-0.5" />
+
+      <DESCENDANTS>
+        <NODEREF  id="cubo" />
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="maçaneta">
+      <MATERIAL id="null" />
+      <TEXTURE id="madeira" />
+
+      <SCALE sx="0.2" sy="0.2" sz="0.2" />
+      <TRANSLATION x="115" y="30" z="-3" />
+
+      <DESCENDANTS>
+        <NODEREF  id="esfera" />
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="janela">
+      <MATERIAL id="null" />
+      <TEXTURE id="vidro" />
+
+      <SCALE sx="0.3" sy="5" sz="8" />
+      <TRANSLATION x="75" y="1.5" z="1" />
+
+      <DESCENDANTS>
+        <NODEREF  id="cubo" />
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="janela2">
+      <MATERIAL id="null" />
+      <TEXTURE id="vidro" />
+
+      <SCALE sx="0.5" sy="8" sz="10" />
+      <TRANSLATION x="52" y="1" z="-0.95" />
+
+      <DESCENDANTS>
+        <NODEREF  id="cubo" />
       </DESCENDANTS>
 
     </NODE>
@@ -526,7 +594,7 @@
 
     <NODE id="faceRetangulo1">
       <MATERIAL id="null" />
-      <TEXTURE id="null" />
+      <TEXTURE id="telha" />
 
       <TRANSLATION x="-1" y="0" z="1" />
       <ROTATION axis="x" angle="-45" />
@@ -539,7 +607,7 @@
 
     <NODE id="faceRetangulo2">
       <MATERIAL id="null" />
-      <TEXTURE id="null" />
+      <TEXTURE id="telha" />
 
       <TRANSLATION x="-1" y="1" z="0" />
       <ROTATION axis="x" angle="-135" />
@@ -626,9 +694,23 @@
       </DESCENDANTS>
     </NODE>
 
-  <NODE id="pilar">
+    <NODE id="pilar">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <SCALE sx="1" sy="1" sz="1" />
+      <TRANSLATION x="0" y="0" z="0" />
+      <ROTATION axis="x" angle="-90" />
+
+      <DESCENDANTS>
+        <LEAF  type="cylinder" args="4 1 1 20 20" />
+      </DESCENDANTS>
+
+    </NODE>
+
+  <NODE id="pilar2">
     <MATERIAL id="null" />
-    <TEXTURE id="null" />
+    <TEXTURE id="trunk" />
 
     <SCALE sx="1" sy="1" sz="1" />
     <TRANSLATION x="0" y="0" z="0" />
@@ -641,6 +723,19 @@
   </NODE>
 
   <NODE id="copa">
+    <MATERIAL id="null" />
+    <TEXTURE id="relva" />
+
+    <SCALE sx="1" sy="1" sz="1" />
+    <TRANSLATION x="0" y="0" z="0" />
+
+    <DESCENDANTS>
+      <LEAF  type="sphere" args="2 20 20" />
+    </DESCENDANTS>
+
+  </NODE>
+
+  <NODE id="esfera">
     <MATERIAL id="null" />
     <TEXTURE id="null" />
 
