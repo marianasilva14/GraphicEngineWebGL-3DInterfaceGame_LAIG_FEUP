@@ -33,3 +33,7 @@ function MyGraphLeaf(graph, xmlelem) {
 MyGraphLeaf.prototype.display = function () {
   this.part.display();
 };
+
+MyGraphLeaf.prototype.setTexCoords = function (ampli_factor_s,ampli_factor_t) {
+  this.part.setTexCoords(ampli_factor_s,ampli_factor_t);
+};

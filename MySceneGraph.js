@@ -1427,7 +1427,7 @@ MySceneGraph.generateRandomString = function(length) {
 MySceneGraph.prototype.displayScene = function() {
   console.log(this);
   this.nodesRecursive(this.nodes.root);
-
+  console.log(this);
   this.log("Graph should be rendered here...");
 };
 
@@ -1471,7 +1471,9 @@ MySceneGraph.prototype.nodesRecursive = function(node) {
     this.nodesRecursive(this.nodes[node.children[i]]);
   }
   for (i = 0; i < node.leaves.length; i++) {
+    node.leaves[i].setTexCoords(tex_info[1],tex_info[2]);
     node.leaves[i].display();
+
   }
   this.scene.popMatrix();
 

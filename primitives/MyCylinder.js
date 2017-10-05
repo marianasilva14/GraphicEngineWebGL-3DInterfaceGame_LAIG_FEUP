@@ -53,4 +53,4 @@ MyCylinder.prototype.initBuffers = function () {
 	this.initGLBuffers();
 };
 
-//MyCylinder.prototype.setAmplifFactor = function(amplif_s, amplif_t) {}
+MyCylinder.prototype.setTexCoords = function(ampli_factor_s, ampli_factor_t) {};

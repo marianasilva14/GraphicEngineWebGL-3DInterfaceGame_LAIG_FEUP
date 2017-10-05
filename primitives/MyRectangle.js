@@ -22,6 +22,9 @@
   this.maxT = maxT;
 }
 
+this.height = this.left_top_y - this.right_bottom_y;
+this.width = this.right_bottom_x - this.left_top_x;
+
  	this.initBuffers();
  };
 
@@ -62,3 +65,14 @@
 
  	this.initGLBuffers();
  };
+
+ MyRectangle.prototype.setTexCoords = function(ampli_factor_s, ampli_factor_t) {
+    this.texCoords= [
+      0, this.height/ampli_factor_t,
+      this.width/ampli_factor_s, this.height/ampli_factor_t,
+      this.width/ampli_factor_s,0,
+      0,0
+    ];
+
+
+}

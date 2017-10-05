@@ -64,3 +64,5 @@
 
  	this.initGLBuffers();
  };
+
+ MyTriangle.prototype.setTexCoords = function(ampli_factor_s, ampli_factor_t) {};
