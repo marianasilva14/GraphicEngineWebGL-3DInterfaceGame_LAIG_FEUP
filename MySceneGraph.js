@@ -1471,7 +1471,7 @@ MySceneGraph.prototype.nodesRecursive = function(node) {
     this.nodesRecursive(this.nodes[node.children[i]]);
   }
   for (i = 0; i < node.leaves.length; i++) {
-    node.leaves[i].setTexCoords(tex_info[1],tex_info[2]);
+    //node.leaves[i].setTexCoords(tex_info[1],tex_info[2]);
     node.leaves[i].display();
 
   }
