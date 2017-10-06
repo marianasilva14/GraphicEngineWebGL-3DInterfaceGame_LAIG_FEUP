@@ -193,6 +193,8 @@
         <NODEREF id="janela2" />
         <NODEREF id="banco" />
         <NODEREF id="banco2" />
+        <NODEREF id="cadeira" />
+        <NODEREF id="cadeira2" />
       </DESCENDANTS>
 
     </NODE>
@@ -399,6 +401,34 @@
 
       <DESCENDANTS>
         <NODEREF  id="banco_quatro_pernas" />
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="cadeira">
+      <MATERIAL id="null" />
+      <TEXTURE id="pedra" />
+
+      <SCALE sx="1" sy="1" sz="1" />
+      <TRANSLATION x="30" y="0" z="-21" />
+      <ROTATION axis="y" angle="90" />
+
+      <DESCENDANTS>
+        <NODEREF  id="cadeira_quatro_pernas" />
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="cadeira2">
+      <MATERIAL id="null" />
+      <TEXTURE id="pedra" />
+
+      <SCALE sx="1" sy="1" sz="1" />
+      <TRANSLATION x="30" y="0" z="-38" />
+      <ROTATION axis="y" angle="-90" />
+
+      <DESCENDANTS>
+        <NODEREF  id="cadeira_quatro_pernas" />
       </DESCENDANTS>
 
     </NODE>
@@ -850,6 +880,96 @@
     </DESCENDANTS>
 
   </NODE>
+
+  <NODE id="cadeira_quatro_pernas">
+    <MATERIAL id="null" />
+    <TEXTURE id="null" />
+
+    <DESCENDANTS>
+      <NODEREF id="tampo_cadeira" />
+      <NODEREF id="assento_costas" />
+      <NODEREF id="perna1_cadeira" />
+      <NODEREF id="perna2_cadeira" />
+      <NODEREF id="perna3_cadeira" />
+      <NODEREF id="perna4_cadeira" />
+    </DESCENDANTS>
+
+  </NODE>
+
+    <NODE id="tampo_cadeira">
+    <MATERIAL id="null" />
+    <TEXTURE id="null" />
+
+    <SCALE sx="3" sy="1" sz="3" />
+    <TRANSLATION x="0" y="3" z="0" />
+
+    <DESCENDANTS>
+      <NODEREF id="cubo" />
+    </DESCENDANTS>
+
+  </NODE>
+
+    <NODE id="assento_costas">
+    <MATERIAL id="null" />
+    <TEXTURE id="null" />
+
+    <ROTATION axis="z" angle="90" />
+    <SCALE sx="3" sy="0.5" sz="3" />
+    <TRANSLATION x="1.5" y="2.5" z="0" />
+    <DESCENDANTS>
+      <NODEREF id="cubo" />
+    </DESCENDANTS>
+
+  </NODE>
+
+    <NODE id="perna1_cadeira">
+    <MATERIAL id="null" />
+    <TEXTURE id="null" />
+
+    <SCALE sx="0.5" sy="3" sz="0.5" />
+    <TRANSLATION x="2.5" y="0.5" z="2.5" />
+    <DESCENDANTS>
+      <NODEREF id="cubo" />
+    </DESCENDANTS>
+
+  </NODE>
+
+    <NODE id="perna2_cadeira">
+    <MATERIAL id="null" />
+    <TEXTURE id="null" />
+
+    <SCALE sx="0.5" sy="3" sz="0.5" />
+    <TRANSLATION x="-2.5" y="0.5" z="-2.5" />
+    <DESCENDANTS>
+      <NODEREF id="cubo" />
+    </DESCENDANTS>
+
+  </NODE>
+
+    <NODE id="perna3_cadeira">
+    <MATERIAL id="null" />
+    <TEXTURE id="null" />
+
+    <SCALE sx="0.5" sy="3" sz="0.5" />
+    <TRANSLATION x="-2.5" y="0.5" z="2.5" />
+    <DESCENDANTS>
+      <NODEREF id="cubo" />
+    </DESCENDANTS>
+
+  </NODE>
+
+    <NODE id="perna4_cadeira">
+    <MATERIAL id="null" />
+    <TEXTURE id="null" />
+
+    <SCALE sx="0.5" sy="3" sz="0.5" />
+    <TRANSLATION x="2.5" y="0.5" z="-2.5" />
+    <DESCENDANTS>
+      <NODEREF id="cubo" />
+  </DESCENDANTS>
+
+</NODE>
+
 
   </NODES>
 
