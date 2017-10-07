@@ -195,6 +195,7 @@
         <NODEREF id="banco2" />
         <NODEREF id="cadeira" />
         <NODEREF id="cadeira2" />
+        <NODEREF id="bancada" />
       </DESCENDANTS>
 
     </NODE>
@@ -302,7 +303,7 @@
       <TEXTURE id="null" />
 
       <SCALE sx="3" sy="3" sz="3" />
-      <TRANSLATION x="15" y="4" z="7" />
+      <TRANSLATION x="15" y="4" z="9" />
       <ROTATION axis="x" angle="180" />
 
       <DESCENDANTS>
@@ -429,6 +430,19 @@
 
       <DESCENDANTS>
         <NODEREF  id="cadeira_quatro_pernas" />
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="bancada">
+      <MATERIAL id="null" />
+      <TEXTURE id="madeira" />
+
+      <SCALE sx="1.5" sy="1" sz="4" />
+      <TRANSLATION x="25" y="0" z="4" />
+
+      <DESCENDANTS>
+        <NODEREF  id="bancada_quatro_pernas" />
       </DESCENDANTS>
 
     </NODE>
@@ -966,11 +980,166 @@
     <TRANSLATION x="2.5" y="0.5" z="-2.5" />
     <DESCENDANTS>
       <NODEREF id="cubo" />
-  </DESCENDANTS>
+    </DESCENDANTS>
 
-</NODE>
+  </NODE>
+
+  <NODE id="bancada_quatro_pernas">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <DESCENDANTS>
+        <NODEREF id="borda1" />
+        <NODEREF id="borda2" />
+        <NODEREF id="borda3" />
+        <NODEREF id="borda4" />
+        <NODEREF id="interior1" />
+        <NODEREF id="interior2" />
+        <NODEREF id="perna1_bancada" />
+        <NODEREF id="perna2_bancada" />
+        <NODEREF id="perna3_bancada" />
+        <NODEREF id="perna4_bancada" />
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="borda1">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <ROTATION axis="x" angle="-90" />
+      <SCALE sx="0.5" sy="3" sz="0.5" />
+      <TRANSLATION x="2.5" y="0" z="6" />
 
 
-  </NODES>
+      <DESCENDANTS>
+        <NODEREF id="cubo" />
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="borda2">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <ROTATION axis="x" angle="-90" />
+      <SCALE sx="0.5" sy="3" sz="0.5" />
+      <TRANSLATION x="-2.5" y="0" z="6" />
+
+      <DESCENDANTS>
+        <NODEREF id="cubo" />
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="borda3">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <ROTATION axis="z" angle="90" />
+      <SCALE sx="0.5" sy="3" sz="0.5" />
+      <TRANSLATION x="6" y="0" z="2.5" />
+
+      <DESCENDANTS>s
+        <NODEREF id="cubo" />
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="borda4">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <ROTATION axis="z" angle="90" />
+      <SCALE sx="0.5" sy="3" sz="0.5" />
+      <TRANSLATION x="6" y="0" z="-2.5" />
+
+      <DESCENDANTS>
+        <NODEREF id="cubo" />
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="interior1">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <ROTATION axis="x" angle="-90" />
+      <SCALE sx="0.4" sy="3" sz="0.5" />
+      <TRANSLATION x="1" y="0" z="6" />
+
+      <DESCENDANTS>
+        <NODEREF id="cubo" />
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="interior2">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <ROTATION axis="x" angle="-90" />
+      <SCALE sx="0.3" sy="3" sz="0.5" />
+      <TRANSLATION x="-1" y="0" z="6" />
+
+      <DESCENDANTS>
+        <NODEREF id="cubo" />
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="perna1_bancada">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <SCALE sx="0.5" sy="3" sz="0.5" />
+      <TRANSLATION x="2.5" y="0.5" z="2.5" />
+
+      <DESCENDANTS>
+        <NODEREF id="cubo" />
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="perna2_bancada">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <SCALE sx="0.5" sy="3" sz="0.5" />
+      <TRANSLATION x="-2.5" y="0.5" z="-2.5" />
+
+      <DESCENDANTS>
+        <NODEREF id="cubo" />
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="perna3_bancada">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <SCALE sx="0.5" sy="3" sz="0.5" />
+      <TRANSLATION x="-2.5" y="0.5" z="2.5" />
+
+      <DESCENDANTS>
+        <NODEREF id="cubo" />
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="perna4_bancada">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <SCALE sx="0.5" sy="3" sz="0.5" />
+      <TRANSLATION x="2.5" y="0.5" z="-2.5" />
+
+      <DESCENDANTS>
+        <NODEREF id="cubo" />
+      </DESCENDANTS>
+
+    </NODE>
+
+</NODES>
 
 </SCENE>
