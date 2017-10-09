@@ -211,6 +211,8 @@
         <NODEREF id="cadeira2" />
         <NODEREF id="bancada" />
         <NODEREF id="candeeiro" />
+        <NODEREF id="candeeiro2" />
+
       </DESCENDANTS>
 
     </NODE>
@@ -454,7 +456,7 @@
       <TEXTURE id="madeira" />
 
       <SCALE sx="1.5" sy="1" sz="4" />
-      <TRANSLATION x="25" y="0" z="4" />
+      <TRANSLATION x="25" y="0" z="3" />
 
       <DESCENDANTS>
         <NODEREF  id="bancada_quatro_pernas" />
@@ -466,7 +468,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="50" y="0" z="-40" />
+        <TRANSLATION x="55" y="0" z="-40" />
 
         <DESCENDANTS>
           <NODEREF id="candeeiro_base" />
@@ -475,6 +477,20 @@
         </DESCENDANTS>
 
       </NODE>
+
+      <NODE id="candeeiro2">
+          <MATERIAL id="null" />
+          <TEXTURE id="null" />
+
+          <TRANSLATION x="5" y="0" z="25" />
+
+          <DESCENDANTS>
+            <NODEREF id="candeeiro_base" />
+            <NODEREF id="candeeiro_pe" />
+            <NODEREF id="candeeiro_luz" />
+          </DESCENDANTS>
+
+        </NODE>
 
 
     <NODE id="candeeiro_base">
@@ -817,7 +833,7 @@
       <ROTATION axis="x" angle="-90" />
 
       <DESCENDANTS>
-        <LEAF  type="cylinder" args="4 1 1 20 20" />
+        <LEAF  type="cylinder" args="4 1 1 20 20 1 1" />
       </DESCENDANTS>
 
     </NODE>
