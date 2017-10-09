@@ -10,6 +10,14 @@ function MyCylinder(scene, height, bottom_radius, top_radius, stacks, slices, to
 	this.top_cap = top_cap;
 	this.bottom_cap = bottom_cap;
 
+
+	if(top_cap == 1){
+		this.top_circle = new MyCircle(scene, this.slices, this.stacks, this.top_radius);
+	}
+	if(bottom_cap == 1){
+		this.bottom_circle = new MyCircle(scene, this.slices, this.stacks, this.bottom_radius);
+	}
+
 	this.initBuffers();
 };
 
@@ -54,3 +62,22 @@ MyCylinder.prototype.initBuffers = function () {
 };
 
 MyCylinder.prototype.setTexCoords = function(ampli_factor_s, ampli_factor_t) {};
+
+MyCylinder.prototype.display = function () {
+
+	if(this.top_cap == 1){
+		this.scene.pushMatrix();
+		this.scene.translate(0, 0, parseFloat(this.height));
+		this.top_circle.display();
+		this.scene.popMatrix();
+	}
+
+	CGFobject.prototype.display.call(this);
+
+	if(this.bottom_cap == 1){
+		this.scene.pushMatrix();
+		this.scene.rotate(Math.PI,0,1,0);
+		this.top_circle.display();
+		this.scene.popMatrix();
+	}
+}
