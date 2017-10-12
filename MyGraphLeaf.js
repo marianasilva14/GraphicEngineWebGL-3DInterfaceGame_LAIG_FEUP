@@ -5,8 +5,9 @@
 
 function MyGraphLeaf(graph, xmlelem) {
   this.part = null;
-  var type = graph.reader.getItem(xmlelem, 'type', ['rectangle', 'cylinder', 'sphere', 'triangle']);
+  var type = graph.reader.getItem(xmlelem, 'type', ['rectangle', 'cylinder', 'sphere', 'triangle','patch']);
   var args = graph.reader.getString(xmlelem, 'args');
+
 
   args = args.split(" ");
 
@@ -24,6 +25,33 @@ function MyGraphLeaf(graph, xmlelem) {
   }
   if(type == 'sphere'){
     this.part = new MySphere(graph.scene, args[0], args[1], args[2]);
+    return;
+  }
+  if(type=='patch'){
+    var lengthU=0;
+    var lengthV=0;
+    var controlPoints=[];
+    var cplines= xmlelem.children;
+    lengthU= cplines.length;
+    for(var i=0; i < cplines.length;i++){
+      var cpline= cplines[i];
+      var points=cpline.children;
+      lengthV=points.length;
+      var U=[];
+      for(j=0;j < points.length;j++){
+        cpoints=points[j];
+        var newVector=[];
+        var xx=parseFloat(graph.reader.getString(cpoints, 'xx'));
+        var yy=parseFloat(graph.reader.getString(cpoints, 'yy'));
+        var zz=parseFloat(graph.reader.getString(cpoints, 'zz'));
+        var ww=parseFloat(graph.reader.getString(cpoints, 'ww'));
+        newVector.push(xx,yy,zz,ww);
+        U.push(newVector);
+      }
+      controlPoints.push(U);
+    }
+    console.log(xmlelem.children[0].children);
+    this.part= new MyPatch(graph.scene,args[0],args[1],lengthU-1,lengthV-1,controlPoints);
   }
   else{
     this.part = new MyRectangle(graph.scene,0,0,0,0);

@@ -212,6 +212,7 @@
         <NODEREF id="bancada" />
         <NODEREF id="candeeiro" />
         <NODEREF id="candeeiro2" />
+        <NODEREF id="patch" />
 
       </DESCENDANTS>
 
@@ -1261,6 +1262,28 @@
         </DESCENDANTS>
 
       </NODE>
+
+      <NODE id="patch">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+          <LEAF type="patch" args ="20 20">
+            <CPLINE>
+              <CPOINT xx="20" yy="20" zz="20" ww="20"/>
+              <CPOINT xx="20" yy="20" zz="20" ww="20"/>
+              <CPOINT xx="20" yy="20" zz="20" ww="20"/>
+            </CPLINE>
+            <CPLINE>
+              <CPOINT xx="20" yy="20" zz="20" ww="20"/>
+              <CPOINT xx="20" yy="20" zz="20" ww="20"/>
+              <CPOINT xx="20" yy="20" zz="20" ww="20"/>
+            </CPLINE>
+          </LEAF>
+        </DESCENDANTS>
+
+      </NODE>
+
 
 </NODES>
 
