@@ -1,8 +1,4 @@
-LAIG Demo Parser
+LAIG 
 
-Base code and demo scene provided by:
-- Rui Pedro Peixoto Cardoso - up201305469@fe.up.pt
-- Diogo da Silva Amaral - up201306082@fe.up.pt
-
-Adapted by:
-- Rui Rodrigues - rui.rodrigues@fe.up.pt
+- Francisca Leão Cerquinho R.Fonseca - up201505791@fe.up.pt
+- Mariana Lopes Silva - up201506197@fe.up.pt
