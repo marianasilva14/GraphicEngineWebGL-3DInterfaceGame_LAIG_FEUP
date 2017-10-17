@@ -26,7 +26,7 @@ function MyGraphLeaf(graph, xmlelem) {
   if(type == 'sphere'){
     this.part = new MySphere(graph.scene, args[0], args[1], args[2]);
     return;
-  }
+    }
   if(type=='patch'){
     var lengthU=0;
     var lengthV=0;
@@ -38,7 +38,7 @@ function MyGraphLeaf(graph, xmlelem) {
       var points=cpline.children;
       lengthV=points.length;
       var U=[];
-      for(j=0;j < points.length;j++){
+      for(var j=0;j < points.length;j++){
         cpoints=points[j];
         var newVector=[];
         var xx=parseFloat(graph.reader.getString(cpoints, 'xx'));
@@ -52,6 +52,7 @@ function MyGraphLeaf(graph, xmlelem) {
     }
     console.log(xmlelem.children[0].children);
     this.part= new MyPatch(graph.scene,args[0],args[1],lengthU-1,lengthV-1,controlPoints);
+    return;
   }
   else{
     this.part = new MyRectangle(graph.scene,0,0,0,0);

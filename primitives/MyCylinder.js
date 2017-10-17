@@ -7,8 +7,8 @@ function MyCylinder(scene, height, bottom_radius, top_radius, stacks, slices, to
 	this.top_radius = parseFloat(top_radius);
 	this.stacks = stacks;
 	this.slices = slices;
-	this.top_cap = top_cap;
-	this.bottom_cap = bottom_cap;
+	this.top_cap = parseInt(top_cap);
+	this.bottom_cap = parseInt(bottom_cap);
 
 
 	if(top_cap == 1){
@@ -80,4 +80,5 @@ MyCylinder.prototype.display = function () {
 		this.top_circle.display();
 		this.scene.popMatrix();
 	}
+
 }
