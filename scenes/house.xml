@@ -212,7 +212,7 @@
         <NODEREF id="bancada" />
         <NODEREF id="candeeiro" />
         <NODEREF id="candeeiro2" />
-        <NODEREF id="patch" />
+        <NODEREF id="patch2" />
 
       </DESCENDANTS>
 
@@ -1263,21 +1263,23 @@
 
       </NODE>
 
-      <NODE id="patch">
+      <NODE id="patch2">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
         <DESCENDANTS>
-          <LEAF type="patch" args ="20 20">
+          <LEAF id="wave" type="patch" args="30 30" >
             <CPLINE>
-              <CPOINT xx="20" yy="20" zz="20" ww="20"/>
-              <CPOINT xx="20" yy="20" zz="20" ww="20"/>
-              <CPOINT xx="20" yy="20" zz="20" ww="20"/>
+              <CPOINT xx="-5.2" yy="-2.5" zz="0" ww="1"/>
+              <CPOINT xx="2.6" yy="1.8" zz="0" ww="1"/>
+              <CPOINT xx="-5.9" yy="-3.6" zz="0" ww="0.5"/>
+              <CPOINT xx="1.6" yy="-2.5" zz="0" ww="0.3"/>
             </CPLINE>
             <CPLINE>
-              <CPOINT xx="20" yy="20" zz="20" ww="20"/>
-              <CPOINT xx="20" yy="20" zz="20" ww="20"/>
-              <CPOINT xx="20" yy="20" zz="20" ww="20"/>
+              <CPOINT xx="-5.2" yy="-2.5" zz="20" ww="1"/>
+              <CPOINT xx="2.6" yy="1.8" zz="20" ww="1"/>
+              <CPOINT xx="-5.9" yy="-3.6" zz="20" ww="0.5"/>
+              <CPOINT xx="1.6" yy="-2.5" zz="20" ww="0.3"/>
             </CPLINE>
           </LEAF>
         </DESCENDANTS>

@@ -1,4 +1,7 @@
 
+MyPatch.prototype = Object.create(CGFscene.prototype);
+MyPatch.prototype.constructor = MyPatch;
+
 function MyPatch(scene,divisionsU,divisionsV,degreesU,degreesV,controlPoints) {
     CGFscene.call(this);
     this.texture = null;
@@ -11,9 +14,6 @@ function MyPatch(scene,divisionsU,divisionsV,degreesU,degreesV,controlPoints) {
     this.degreesV=degreesV;
     this.controlPoints=controlPoints;
 }
-
-MyPatch.prototype = Object.create(CGFscene.prototype);
-MyPatch.prototype.constructor = MyPatch;
 
 MyPatch.prototype.getKnotsVector = function(degree) { // TODO (CGF 0.19.3): add to CGFnurbsSurface
 
