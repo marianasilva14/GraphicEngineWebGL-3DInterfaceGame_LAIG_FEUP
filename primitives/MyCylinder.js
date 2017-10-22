@@ -77,7 +77,7 @@ MyCylinder.prototype.display = function () {
 	if(this.bottom_cap == 1){
 		this.scene.pushMatrix();
 		this.scene.rotate(Math.PI,0,1,0);
-		this.top_circle.display();
+		this.bottom_circle.display();
 		this.scene.popMatrix();
 	}
 
