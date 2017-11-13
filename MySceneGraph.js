@@ -962,13 +962,11 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
       // Retrieves texture ID.
       var animationID = this.reader.getString(eachAnimation[i], 'id');
       var animationType = this.reader.getString(eachAnimation[i], 'type');
-      console.log('animation type');
-      console.log(animationType);
+
       if(animationType == 'linear'){
         var controlP = animationsNode.getElementsByTagName('controlpoint');
         var speed=  animationsNode.getElementsByTagName('speed');
-        console.log('aquiiiiii');
-        console.log(controlP);
+
 				var controlPoints = [];
 				var n = controlP.length;
 				for (var j = 0; j < n; j++) {
@@ -979,9 +977,37 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 				}
 
 				this.animations[i] = new LinearAnimation(this.scene, animationID, controlPoints, speed);
+      }
 
+      if(animationType == 'circular'){
+        var centerx =  animationsNode.getElementsByTagName('centerx');
+        var centery =  animationsNode.getElementsByTagName('centery');
+        var centerz =  animationsNode.getElementsByTagName('centerz');
+        var radius =  animationsNode.getElementsByTagName('radius');
+        var startAng =  animationsNode.getElementsByTagName('startang');
+        var rotAng =  animationsNode.getElementsByTagName('startang');
+        var speed =  animationsNode.getElementsByTagName('speed');
+
+        this.animations[i] = new CircularAnimation(this.scene, center, radius, startAng, rotAng, speed);
+      }
+
+      if(animationType == 'bezier'){
+        var controlP = animationsNode.getElementsByTagName('controlpoint');
+        var speed=  animationsNode.getElementsByTagName('speed');
+
+				var controlPoints = [];
+				var n = controlP.length;
+				for (var j = 0; j < n; j++) {
+					var x = this.reader.getFloat(controlP[j], 'xx', false);
+					var y = this.reader.getFloat(controlP[j], 'yy', false);
+					var z = this.reader.getFloat(controlP[j], 'zz', false);
+					controlPoints.push([x, y, z]);
+				}
+
+				this.animations[i] = new BezierAnimation(this.scene, animationID, controlPoints, speed);
       }
     }
+
   }
 
 }
