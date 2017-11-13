@@ -6,8 +6,10 @@ var ILLUMINATION_INDEX = 1;
 var LIGHTS_INDEX = 2;
 var TEXTURES_INDEX = 3;
 var MATERIALS_INDEX = 4;
-var LEAVES_INDEX = 5;
-var NODES_INDEX = 6;
+var ANIMATIONS_INDEX =5;
+var LEAVES_INDEX = 6;
+var NODES_INDEX = 7;
+
 
 /**
 * MySceneGraph class, representing the scene graph.
@@ -142,6 +144,17 @@ MySceneGraph.prototype.parseLSXFile = function(rootElement) {
     return error;
   }
 
+  // <ANIMATIONS>
+  if ((index = nodeNames.indexOf("ANIMATIONS")) == -1)
+  return "tag <ANIMATIONS> missing";
+  else {
+    if (index != ANIMATIONS_INDEX)
+    this.onXMLMinorError("tag <ANIMATIONS> out of order");
+
+    if ((error = this.parseAnimations(nodes[index])) != null )
+    return error;
+  }
+
   // <NODES>
   if ((index = nodeNames.indexOf("NODES")) == -1)
   return "tag <NODES> missing";
@@ -153,7 +166,11 @@ MySceneGraph.prototype.parseLSXFile = function(rootElement) {
     return error;
   }
 
+
+
 };
+
+
 
 /**
 * Parses the <INITIALS> block.
@@ -929,6 +946,47 @@ MySceneGraph.prototype.parseTextures = function(texturesNode) {
 }
 
 /**
+* Parses the <ANIMATIONS> block.
+*/
+MySceneGraph.prototype.parseAnimations = function(animationsNode) {
+  this.animations = [];
+  var eachAnimation = animationsNode.children;
+
+  console.log(eachAnimation);
+  // Each animation.
+  for (var i = 0; i < eachAnimation.length; i++) {
+    console.log('aqui!');
+
+    var nodeName = eachAnimation[i].nodeName;
+    if (nodeName == "ANIMATION") {
+      // Retrieves texture ID.
+      var animationID = this.reader.getString(eachAnimation[i], 'id');
+      var animationType = this.reader.getString(eachAnimation[i], 'type');
+      console.log('animation type');
+      console.log(animationType);
+      if(animationType == 'linear'){
+        var controlP = animationsNode.getElementsByTagName('controlpoint');
+        var speed=  animationsNode.getElementsByTagName('speed');
+        console.log('aquiiiiii');
+        console.log(controlP);
+				var controlPoints = [];
+				var n = controlP.length;
+				for (var j = 0; j < n; j++) {
+					var x = this.reader.getFloat(controlP[j], 'xx', false);
+					var y = this.reader.getFloat(controlP[j], 'yy', false);
+					var z = this.reader.getFloat(controlP[j], 'zz', false);
+					controlPoints.push([x, y, z]);
+				}
+
+				this.animations[i] = new LinearAnimation(this.scene, animationID, controlPoints, speed);
+
+      }
+    }
+  }
+
+}
+
+/**
 * Parses the <MATERIALS> node.
 */
 MySceneGraph.prototype.parseMaterials = function(materialsNode) {
@@ -1200,7 +1258,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
       // Gathers child nodes.
       var nodeSpecs = children[i].children;
       var specsNames = [];
-      var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE", "DESCENDANTS"];
+      var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE", "DESCENDANTS","ANIMATIONREFS"];
       for (var j = 0; j < nodeSpecs.length; j++) {
         var name = nodeSpecs[j].nodeName;
         specsNames.push(nodeSpecs[j].nodeName);
@@ -1233,6 +1291,30 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
       return "ID does not correspond to a valid texture (node ID = " + nodeID + ")";
 
       this.nodes[nodeID].textureID = textureID;
+
+      var animationRefsIndex = specsNames.indexOf("ANIMATIONREFS");
+      console.log("Cheguei aqui");
+      if (animationRefsIndex != -1){
+
+          var animationRefs = nodeSpecs[animationRefsIndex].children;
+          for (var j = 0; j < animationRefs.length; j++) {
+            if (animationRefs[j].nodeName == "ANIMATIONREF")
+            {
+
+              var curIdAni = this.reader.getString(animationRefs[j], 'id');
+
+              console.log("   AnimationRef: "+curIdAni);
+
+              if (curIdAni == null )
+              this.onXMLMinorError("unable to parse animationRef id");
+            }
+
+            else
+            this.onXMLMinorError("unknown tag <" + animationRefs[j].nodeName + ">");
+
+          }
+
+      }
 
       // Retrieves possible transformations.
       for (var j = 0; j < nodeSpecs.length; j++) {

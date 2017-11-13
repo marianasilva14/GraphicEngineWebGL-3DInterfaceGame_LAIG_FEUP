@@ -1,5 +1,6 @@
 <SCENE>
 
+
 <!-- Initial values -->
 <INITIALS>
     <frustum near="0.1" far="500"/>
@@ -147,11 +148,16 @@
 
 </MATERIALS>
 
+<ANIMATIONS>
+  <ANIMATION id="1" speed="ff" type="linear">
+<controlpoint xx="0.0" yy="0.4" zz="0.4" />
+<controlpoint xx="0.6" yy="0.4" zz="0.6" />
+  </ANIMATION>
+</ANIMATIONS>
 
 <!-- The leaves -->
 <LEAVES>
 </LEAVES>
-
 
 <!-- The nodes -->
 <NODES>

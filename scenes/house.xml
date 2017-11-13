@@ -179,6 +179,13 @@
   </MATERIALS>
 
 
+  <ANIMATIONS>
+    <ANIMATION id="1" speed="ff" type="linear">
+  <controlpoint xx="0.0" yy="0.4" zz="0.4" />
+  <controlpoint xx="0.6" yy="0.4" zz="0.6" />
+    </ANIMATION>
+  </ANIMATIONS>
+
   <!-- The leaves -->
   <LEAVES>
   </LEAVES>
@@ -438,9 +445,14 @@
       <MATERIAL id="null" />
       <TEXTURE id="pedra" />
 
+
       <SCALE sx="1" sy="1" sz="1" />
       <TRANSLATION x="30" y="0" z="-21" />
       <ROTATION axis="y" angle="90" />
+
+      <ANIMATIONREFS>
+        <ANIMATIONREF id="1" />
+      </ANIMATIONREFS>
 
       <DESCENDANTS>
         <NODEREF  id="cadeira_quatro_pernas" />
@@ -455,6 +467,10 @@
       <SCALE sx="1" sy="1" sz="1" />
       <TRANSLATION x="30" y="0" z="-38" />
       <ROTATION axis="y" angle="-90" />
+
+      <ANIMATIONREFS>
+        <ANIMATIONREF id="1" />
+      </ANIMATIONREFS>
 
       <DESCENDANTS>
         <NODEREF  id="cadeira_quatro_pernas" />
