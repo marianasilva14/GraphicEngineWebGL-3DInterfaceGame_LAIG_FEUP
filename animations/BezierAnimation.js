@@ -2,11 +2,11 @@
  * BezierAnimation
  * @constructor
  */
- function BezierAnimation(scene, controlPoints, speed) {
+ function BezierAnimation(scene, id, controlPoints, speed) {
    this.scene = scene;
   this.controlPoints=controlPoints;
   this.speed=speed;
  };
 
  BezierAnimation.prototype = Object.create(Animation.prototype);
- BezierAnimation.prototype.constructor = BezierAnimation;
+ BezierAnimation.prototype.constructor = Object;

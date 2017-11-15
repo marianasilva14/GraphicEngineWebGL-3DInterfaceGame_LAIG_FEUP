@@ -180,8 +180,9 @@
 
 
   <ANIMATIONS>
-    <ANIMATION id="1" speed="ff" type="linear">
-  <controlpoint xx="0.0" yy="0.4" zz="0.4" />
+    <ANIMATION id="1" speed="0.6" type="linear">
+  <controlpoint xx="10" yy="10" zz="10" />
+  <controlpoint xx="0.6" yy="0.4" zz="0.6" />
   <controlpoint xx="0.6" yy="0.4" zz="0.6" />
     </ANIMATION>
   </ANIMATIONS>

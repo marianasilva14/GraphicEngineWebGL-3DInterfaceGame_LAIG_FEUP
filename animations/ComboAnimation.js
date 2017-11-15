@@ -2,14 +2,10 @@
  * ComboAnimation
  * @constructor
  */
- function ComboAnimation(scene, center, radius, startAng, rotAng, speed) {
+ function ComboAnimation(scene, id, animations) {
    this.scene = scene;
-  this.center=center;
-  this.radius=radius;
-  this.startAng=startAng;
-  this.rotAng=rotAng;
-  this.speed=speed;
+   this.animations = [];
  };
 
  ComboAnimation.prototype = Object.create(Animation.prototype);
- ComboAnimation.prototype.constructor = ComboAnimation;
+ ComboAnimation.prototype.constructor = Object;

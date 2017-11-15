@@ -2,7 +2,7 @@
  * CircularAnimation
  * @constructor
  */
- function CircularAnimation(scene, center, radius, startAng, rotAng, speed) {
+ function CircularAnimation(scene, id, center, radius, startAng, rotAng, speed) {
   this.scene = scene;
   this.center=center;
   this.radius=radius;
@@ -12,4 +12,4 @@
  };
 
  CircularAnimation.prototype = Object.create(Animation.prototype);
- CircularAnimation.prototype.constructor = CircularAnimation;
+ CircularAnimation.prototype.constructor = Object;

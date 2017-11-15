@@ -34,6 +34,8 @@ function MySceneGraph(filename, scene) {
   this.axisCoords['y'] = [0, 1, 0];
   this.axisCoords['z'] = [0, 0, 1];
 
+  this.animations = [];
+
   // File reading
   this.reader = new CGFXMLreader();
 
@@ -165,8 +167,6 @@ MySceneGraph.prototype.parseLSXFile = function(rootElement) {
     if ((error = this.parseNodes(nodes[index])) != null )
     return error;
   }
-
-
 
 };
 
@@ -949,14 +949,10 @@ MySceneGraph.prototype.parseTextures = function(texturesNode) {
 * Parses the <ANIMATIONS> block.
 */
 MySceneGraph.prototype.parseAnimations = function(animationsNode) {
-  this.animations = [];
   var eachAnimation = animationsNode.children;
 
-  console.log(eachAnimation);
   // Each animation.
   for (var i = 0; i < eachAnimation.length; i++) {
-    console.log('aqui!');
-
     var nodeName = eachAnimation[i].nodeName;
     if (nodeName == "ANIMATION") {
       // Retrieves texture ID.
@@ -975,8 +971,9 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 					var z = this.reader.getFloat(controlP[j], 'zz', false);
 					controlPoints.push([x, y, z]);
 				}
-
-				this.animations[i] = new LinearAnimation(this.scene, animationID, controlPoints, speed);
+        console.log('Animation ID:');
+        console.log(animationID);
+				this.animations[animationID] = new LinearAnimation(this.scene, animationID, controlPoints, speed);
       }
 
       if(animationType == 'circular'){
@@ -985,10 +982,10 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
         var centerz =  animationsNode.getElementsByTagName('centerz');
         var radius =  animationsNode.getElementsByTagName('radius');
         var startAng =  animationsNode.getElementsByTagName('startang');
-        var rotAng =  animationsNode.getElementsByTagName('startang');
+        var rotAng =  animationsNode.getElementsByTagName('rotang');
         var speed =  animationsNode.getElementsByTagName('speed');
 
-        this.animations[i] = new CircularAnimation(this.scene, center, radius, startAng, rotAng, speed);
+        this.animations[animationID] = new CircularAnimation(this.scene, animationID, center, radius, startAng, rotAng, speed);
       }
 
       if(animationType == 'bezier'){
@@ -1004,12 +1001,20 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 					controlPoints.push([x, y, z]);
 				}
 
-				this.animations[i] = new BezierAnimation(this.scene, animationID, controlPoints, speed);
+				this.animations[animationID] = new BezierAnimation(this.scene, animationID, controlPoints, speed);
+      }
+
+      if(animationType == 'combo'){
+
+        var spanRef = animationsNode.getElementsByTagName('SPANREF');
+
+
+        this.animations[animationID] = new ComboAnimation(this.scene, animationID);
       }
     }
 
   }
-
+  console.log(this.animations);
 }
 
 /**
@@ -1243,7 +1248,7 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
   this.generateDefaultMaterial();
 
   console.log("Parsed materials");
-}
+};
 
 
 /**
@@ -1319,35 +1324,36 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
       this.nodes[nodeID].textureID = textureID;
 
       var animationRefsIndex = specsNames.indexOf("ANIMATIONREFS");
-      console.log("Cheguei aqui");
+
       if (animationRefsIndex != -1){
 
           var animationRefs = nodeSpecs[animationRefsIndex].children;
-          for (var j = 0; j < animationRefs.length; j++) {
-            if (animationRefs[j].nodeName == "ANIMATIONREF")
+          for (var k = 0; k < animationRefs.length; k++) {
+            if (animationRefs[k].nodeName == "ANIMATIONREF")
             {
 
-              var curIdAni = this.reader.getString(animationRefs[j], 'id');
+              var curIdAni = this.reader.getString(animationRefs[k], 'id');
 
-              console.log("   AnimationRef: "+curIdAni);
+              console.log("AnimationRef: "+curIdAni);
+              this.nodes[nodeID].animations.push(curIdAni);
 
               if (curIdAni == null )
               this.onXMLMinorError("unable to parse animationRef id");
             }
 
             else
-            this.onXMLMinorError("unknown tag <" + animationRefs[j].nodeName + ">");
+            this.onXMLMinorError("unknown tag <" + animationRefs[k].nodeName + ">");
 
           }
 
       }
 
       // Retrieves possible transformations.
-      for (var j = 0; j < nodeSpecs.length; j++) {
-        switch (nodeSpecs[j].nodeName) {
+      for (var g = 0; g < nodeSpecs.length; g++) {
+        switch (nodeSpecs[g].nodeName) {
           case "TRANSLATION":
           // Retrieves translation parameters.
-          var x = this.reader.getFloat(nodeSpecs[j], 'x');
+          var x = this.reader.getFloat(nodeSpecs[g], 'x');
           if (x == null ) {
             this.onXMLMinorError("unable to parse x-coordinate of translation; discarding transform");
             break;
@@ -1355,7 +1361,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
           else if (isNaN(x))
           return "non-numeric value for x-coordinate of translation (node ID = " + nodeID + ")";
 
-          var y = this.reader.getFloat(nodeSpecs[j], 'y');
+          var y = this.reader.getFloat(nodeSpecs[g], 'y');
           if (y == null ) {
             this.onXMLMinorError("unable to parse y-coordinate of translation; discarding transform");
             break;
@@ -1363,7 +1369,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
           else if (isNaN(y))
           return "non-numeric value for y-coordinate of translation (node ID = " + nodeID + ")";
 
-          var z = this.reader.getFloat(nodeSpecs[j], 'z');
+          var z = this.reader.getFloat(nodeSpecs[g], 'z');
           if (z == null ) {
             this.onXMLMinorError("unable to parse z-coordinate of translation; discarding transform");
             break;
@@ -1375,12 +1381,12 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
           break;
           case "ROTATION":
           // Retrieves rotation parameters.
-          var axis = this.reader.getItem(nodeSpecs[j], 'axis', ['x', 'y', 'z']);
+          var axis = this.reader.getItem(nodeSpecs[g], 'axis', ['x', 'y', 'z']);
           if (axis == null ) {
             this.onXMLMinorError("unable to parse rotation axis; discarding transform");
             break;
           }
-          var angle = this.reader.getFloat(nodeSpecs[j], 'angle');
+          var angle = this.reader.getFloat(nodeSpecs[g], 'angle');
           if (angle == null ) {
             this.onXMLMinorError("unable to parse rotation angle; discarding transform");
             break;
@@ -1392,7 +1398,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
           break;
           case "SCALE":
           // Retrieves scale parameters.
-          var sx = this.reader.getFloat(nodeSpecs[j], 'sx');
+          var sx = this.reader.getFloat(nodeSpecs[g], 'sx');
           if (sx == null ) {
             this.onXMLMinorError("unable to parse x component of scaling; discarding transform");
             break;
@@ -1400,7 +1406,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
           else if (isNaN(sx))
           return "non-numeric value for x component of scaling (node ID = " + nodeID + ")";
 
-          var sy = this.reader.getFloat(nodeSpecs[j], 'sy');
+          var sy = this.reader.getFloat(nodeSpecs[g], 'sy');
           if (sy == null ) {
             this.onXMLMinorError("unable to parse y component of scaling; discarding transform");
             break;
@@ -1408,7 +1414,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
           else if (isNaN(sy))
           return "non-numeric value for y component of scaling (node ID = " + nodeID + ")";
 
-          var sz = this.reader.getFloat(nodeSpecs[j], 'sz');
+          var sz = this.reader.getFloat(nodeSpecs[g], 'sz');
           if (sz == null ) {
             this.onXMLMinorError("unable to parse z component of scaling; discarding transform");
             break;
@@ -1431,11 +1437,11 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
       var descendants = nodeSpecs[descendantsIndex].children;
 
       var sizeChildren = 0;
-      for (var j = 0; j < descendants.length; j++) {
-        if (descendants[j].nodeName == "NODEREF")
+      for (var l = 0; l < descendants.length; l++) {
+        if (descendants[l].nodeName == "NODEREF")
         {
 
-          var curId = this.reader.getString(descendants[j], 'id');
+          var curId = this.reader.getString(descendants[l], 'id');
 
           this.log("   Descendant: "+curId);
 
@@ -1449,9 +1455,9 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
           }
         }
         else
-        if (descendants[j].nodeName == "LEAF")
+        if (descendants[l].nodeName == "LEAF")
         {
-          var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle','patch']);
+          var type=this.reader.getItem(descendants[l], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle','patch']);
 
           if (type != null)
           this.log("   Leaf: "+ type);
@@ -1459,11 +1465,11 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
           this.warn("Error in leaf");
 
           //parse leaf
-          this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[j]));
+          this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[l]));
           sizeChildren++;
         }
         else
-        this.onXMLMinorError("unknown tag <" + descendants[j].nodeName + ">");
+        this.onXMLMinorError("unknown tag <" + descendants[l].nodeName + ">");
 
       }
       if (sizeChildren == 0)
@@ -1533,10 +1539,9 @@ MySceneGraph.generateRandomString = function(length) {
 * Displays the scene, processing each node, starting in the root node.
 */
 MySceneGraph.prototype.displayScene = function() {
-  console.log(this);
+
   this.nodesRecursive(this.nodes.root);
-  console.log(this);
-  this.log("Graph should be rendered here...");
+
 };
 
 MySceneGraph.prototype.nodesRecursive = function(node) {
@@ -1574,12 +1579,12 @@ MySceneGraph.prototype.nodesRecursive = function(node) {
   //TRANFORMATION MATRIX APPLICATION
   this.scene.pushMatrix();
   this.scene.multMatrix(node.transformMatrix);
+  this.scene.multMatrix(node.getMatrix());
 
   for (var i = 0; i < node.children.length; i++) {
     this.nodesRecursive(this.nodes[node.children[i]]);
   }
   for (i = 0; i < node.leaves.length; i++) {
-    //node.leaves[i].setTexCoords(tex_info[1],tex_info[2]);
     node.leaves[i].display();
 
   }
