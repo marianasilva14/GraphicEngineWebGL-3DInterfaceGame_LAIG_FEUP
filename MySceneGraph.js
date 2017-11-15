@@ -971,8 +971,7 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 					var z = this.reader.getFloat(controlP[j], 'zz', false);
 					controlPoints.push([x, y, z]);
 				}
-        console.log('Animation ID:');
-        console.log(animationID);
+
 				this.animations[animationID] = new LinearAnimation(this.scene, animationID, controlPoints, speed);
       }
 
@@ -1014,7 +1013,6 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
     }
 
   }
-  console.log(this.animations);
 }
 
 /**
@@ -1334,7 +1332,6 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
               var curIdAni = this.reader.getString(animationRefs[k], 'id');
 
-              console.log("AnimationRef: "+curIdAni);
               this.nodes[nodeID].animations.push(curIdAni);
 
               if (curIdAni == null )
@@ -1580,9 +1577,7 @@ MySceneGraph.prototype.nodesRecursive = function(node) {
   this.scene.pushMatrix();
   this.scene.multMatrix(node.transformMatrix);
 
-console.log('BOOLEANO'+node.animationFinished);
   if(!node.animationFinished){
-  console.log('ENTROU AQUI!!!!');
     this.scene.multMatrix(node.getMatrix());
   }
 
