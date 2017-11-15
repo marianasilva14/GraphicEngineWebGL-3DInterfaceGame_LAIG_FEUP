@@ -45,7 +45,8 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
 }
 
 MyGraphNode.prototype.updateAnimation = function(current_time){
-    var currentAnimation = this.animations[this.animationIndex];
+    var currentAnimation = this.graph.animations[this.animations[this.animationIndex]];
+    console.log('currentAnimation' + currentAnimation);
     console.log('currentAnimation' + currentAnimation);
     current_time = current_time/1000;
 
@@ -56,13 +57,13 @@ MyGraphNode.prototype.updateAnimation = function(current_time){
 
       console.log('initial_time'+this.initial_time);
       console.log('delta_time'+this.delta_time);
+      console.log('tempo total da animaçao'+ currentAnimation.time[0]);
 
-    if(this.delta_time >= currentAnimation.time)
+    if(this.delta_time >= currentAnimation.time[0])
       this.animationFinished = true;
     else {
-      this.graph.animations[this.animations[this.animationIndex]].update(this.delta_time);
+      currentAnimation.update(this.delta_time);
     }
-
 
 }
 

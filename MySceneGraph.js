@@ -961,7 +961,7 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 
       if(animationType == 'linear'){
         var controlP = animationsNode.getElementsByTagName('controlpoint');
-        var speed=  animationsNode.getElementsByTagName('speed');
+        var speed=  this.reader.getFloat(eachAnimation[i],'speed');
 
 				var controlPoints = [];
 				var n = controlP.length;
@@ -1579,7 +1579,12 @@ MySceneGraph.prototype.nodesRecursive = function(node) {
   //TRANFORMATION MATRIX APPLICATION
   this.scene.pushMatrix();
   this.scene.multMatrix(node.transformMatrix);
-  this.scene.multMatrix(node.getMatrix());
+
+console.log('BOOLEANO'+node.animationFinished);
+  if(!node.animationFinished){
+  console.log('ENTROU AQUI!!!!');
+    this.scene.multMatrix(node.getMatrix());
+  }
 
   for (var i = 0; i < node.children.length; i++) {
     this.nodesRecursive(this.nodes[node.children[i]]);

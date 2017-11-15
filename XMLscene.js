@@ -161,6 +161,8 @@ XMLscene.prototype.update = function(current_time){
 //  console.log(this.graph.animations["1"]);
 
   this.graph.nodes["cadeira"].updateAnimation(current_time);
+  this.graph.nodes["cadeira2"].updateAnimation(current_time);
+
 //  this.graph.animations["1"].update(current_time);
   console.log("CHEGOU AQUI");
 }
