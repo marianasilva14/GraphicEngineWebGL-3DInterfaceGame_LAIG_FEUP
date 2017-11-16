@@ -976,20 +976,28 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
       }
 
       if(animationType == 'circular'){
-        var centerx =  animationsNode.getElementsByTagName('centerx');
-        var centery =  animationsNode.getElementsByTagName('centery');
-        var centerz =  animationsNode.getElementsByTagName('centerz');
-        var radius =  animationsNode.getElementsByTagName('radius');
-        var startAng =  animationsNode.getElementsByTagName('startang');
-        var rotAng =  animationsNode.getElementsByTagName('rotang');
-        var speed =  animationsNode.getElementsByTagName('speed');
+        var centerx =  this.reader.getFloat(eachAnimation[i],'centerx');
+        var centery =  this.reader.getFloat(eachAnimation[i],'centery');
+        var centerz =  this.reader.getFloat(eachAnimation[i],'centerz');
+        var radius =  this.reader.getFloat(eachAnimation[i],'radius');
+        var startAng = this.reader.getFloat(eachAnimation[i],'startang');
+        var rotAng =  this.reader.getFloat(eachAnimation[i],'rotang');
+        var speed =  this.reader.getFloat(eachAnimation[i],'speed');
+        var center =[];
+        center[0]=centerx;
+        center[1]=centery;
+        center[2]=centerz;
+        console.log('centerx'+centerx);
+        console.log('centery'+centery);
+        console.log('centerz'+centerz);
+
 
         this.animations[animationID] = new CircularAnimation(this.scene, animationID, center, radius, startAng, rotAng, speed);
       }
 
       if(animationType == 'bezier'){
         var controlP = animationsNode.getElementsByTagName('controlpoint');
-        var speed=  animationsNode.getElementsByTagName('speed');
+        var speed=  this.reader.getFloat(eachAnimation[i],'speed');
 
 				var controlPoints = [];
 				var n = controlP.length;

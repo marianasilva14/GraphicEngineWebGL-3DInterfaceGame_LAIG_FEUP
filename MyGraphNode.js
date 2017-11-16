@@ -53,6 +53,8 @@ MyGraphNode.prototype.updateAnimation = function(current_time){
       this.initial_time = current_time;
     else
       this.delta_time=current_time-this.initial_time;
+      console.log('currentAnimation.time[0]');
+      console.log(currentAnimation.time[0]);
 
     if(this.delta_time >= currentAnimation.time[0])
       this.animationFinished = true;

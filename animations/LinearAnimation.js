@@ -22,6 +22,7 @@ function LinearAnimation(scene, id, controlPoints, speed) {
     this.direction[i][2] = (controlPoints[i+1][2] - controlPoints[i][2]);
 
     this.time[i] = this.distance[i]/this.speed;
+
   }
 
 }

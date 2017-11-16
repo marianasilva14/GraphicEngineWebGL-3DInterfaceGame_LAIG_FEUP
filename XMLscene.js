@@ -158,13 +158,10 @@ XMLscene.prototype.display = function() {
 
 XMLscene.prototype.update = function(current_time){
 
-  this.graph.nodes["cadeira"].updateAnimation(current_time);
-  this.graph.nodes["cadeira2"].updateAnimation(current_time);
-/*
 for(node in this.graph.nodes){
-console.log('this.graph.nodes.nodeID');
-console.log(node.nodeID);
-    this.graph.nodes[node.nodeID].updateAnimation(current_time);
-}*/
+  if(this.graph.nodes[node].animations.length!=0){
+    this.graph.nodes[node].updateAnimation(current_time);
+  }
+}
 
 }
