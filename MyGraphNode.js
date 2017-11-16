@@ -47,12 +47,12 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
 MyGraphNode.prototype.updateAnimation = function(current_time){
     var currentAnimation = this.graph.animations[this.animations[this.animationIndex]];
 
-    current_time = current_time/1000;
+    var current_time2 = current_time/1000;
 
     if(this.initial_time == 0)
-      this.initial_time = current_time;
+      this.initial_time = current_time2;
     else
-      this.delta_time=current_time-this.initial_time;
+      this.delta_time=current_time2-this.initial_time;
       console.log('currentAnimation.time[0]');
       console.log(currentAnimation.time[0]);
 

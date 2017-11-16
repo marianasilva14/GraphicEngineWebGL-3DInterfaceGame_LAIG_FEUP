@@ -991,7 +991,6 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
         console.log('centery'+centery);
         console.log('centerz'+centerz);
 
-
         this.animations[animationID] = new CircularAnimation(this.scene, animationID, center, radius, startAng, rotAng, speed);
       }
 

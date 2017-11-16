@@ -36,7 +36,7 @@ mat4.translate(this.matrix,this.matrix,[this.controlPoints[0][0], this.controlPo
 
   for (var i = 0; i < this.controlPoints.length-1; i++) {
 
-    if(current_time < this.time[i]){
+    if(current_time <= this.time[i]){
       mat4.translate(this.matrix,this.matrix,[((this.distance[i]*current_time)/this.time[i])*this.direction[i][0],
       ((this.distance[i]*current_time)/this.time[i])*this.direction[i][1],
       ((this.distance[i]*current_time)/this.time[i])*this.direction[i][2]]);
