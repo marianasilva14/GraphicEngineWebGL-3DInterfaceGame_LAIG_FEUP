@@ -960,66 +960,80 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
       var animationType = this.reader.getString(eachAnimation[i], 'type');
 
       if(animationType == 'linear'){
-        var controlP = animationsNode.getElementsByTagName('controlpoint');
-        var speed=  this.reader.getFloat(eachAnimation[i],'speed');
+        var lengthU=0;
+        var lengthV=0;
+        var controlPoints_linear=[];
+        var points=eachAnimation[i].children;
 
-				var controlPoints = [];
-				var n = controlP.length;
-				for (var j = 0; j < n; j++) {
-					var x = this.reader.getFloat(controlP[j], 'xx', false);
-					var y = this.reader.getFloat(controlP[j], 'yy', false);
-					var z = this.reader.getFloat(controlP[j], 'zz', false);
-					controlPoints.push([x, y, z]);
-				}
-
-				this.animations[animationID] = new LinearAnimation(this.scene, animationID, controlPoints, speed);
-      }
-
-      if(animationType == 'circular'){
-        var centerx =  this.reader.getFloat(eachAnimation[i],'centerx');
-        var centery =  this.reader.getFloat(eachAnimation[i],'centery');
-        var centerz =  this.reader.getFloat(eachAnimation[i],'centerz');
-        var radius =  this.reader.getFloat(eachAnimation[i],'radius');
-        var startAng = this.reader.getFloat(eachAnimation[i],'startang');
-        var rotAng =  this.reader.getFloat(eachAnimation[i],'rotang');
-        var speed =  this.reader.getFloat(eachAnimation[i],'speed');
-        var center =[];
-        center[0]=centerx;
-        center[1]=centery;
-        center[2]=centerz;
-        console.log('centerx'+centerx);
-        console.log('centery'+centery);
-        console.log('centerz'+centerz);
-
-        this.animations[animationID] = new CircularAnimation(this.scene, animationID, center, radius, startAng, rotAng, speed);
-      }
-
-      if(animationType == 'bezier'){
-        var controlP = animationsNode.getElementsByTagName('controlpoint');
-        var speed=  this.reader.getFloat(eachAnimation[i],'speed');
-
-				var controlPoints = [];
-				var n = controlP.length;
-				for (var j = 0; j < n; j++) {
-					var x = this.reader.getFloat(controlP[j], 'xx', false);
-					var y = this.reader.getFloat(controlP[j], 'yy', false);
-					var z = this.reader.getFloat(controlP[j], 'zz', false);
-					controlPoints.push([x, y, z]);
-				}
-
-				this.animations[animationID] = new BezierAnimation(this.scene, animationID, controlPoints, speed);
-      }
-
-      if(animationType == 'combo'){
-
-        var spanRef = animationsNode.getElementsByTagName('SPANREF');
+        lengthV=points.length;
+        var U=[];
+        for(var j=0;j < points.length;j++){
+          cpoints=points[j];
+          var newVector=[];
+          var xx=parseFloat(this.reader.getString(cpoints, 'xx'));
+          var yy=parseFloat(this.reader.getString(cpoints, 'yy'));
+          var zz=parseFloat(this.reader.getString(cpoints, 'zz'));
+          newVector.push(xx,yy,zz);
+          U.push(newVector);
+        }
+        controlPoints_linear.push(U);
 
 
-        this.animations[animationID] = new ComboAnimation(this.scene, animationID);
-      }
+      var speed_linear=  this.reader.getFloat(eachAnimation[i],'speed');
+
+      this.animations[animationID] = new LinearAnimation(this.scene, animationID, controlPoints_linear, speed_linear);
     }
 
+    if(animationType == 'circular'){
+      var centerx =  this.reader.getFloat(eachAnimation[i],'centerx');
+      var centery =  this.reader.getFloat(eachAnimation[i],'centery');
+      var centerz =  this.reader.getFloat(eachAnimation[i],'centerz');
+      var radius =  this.reader.getFloat(eachAnimation[i],'radius');
+      var startAng = this.reader.getFloat(eachAnimation[i],'startang');
+      var rotAng =  this.reader.getFloat(eachAnimation[i],'rotang');
+      var speed_circular =  this.reader.getFloat(eachAnimation[i],'speed');
+      var center =[];
+      center[0]=centerx;
+      center[1]=centery;
+      center[2]=centerz;
+    
+      this.animations[animationID] = new CircularAnimation(this.scene, animationID, center, radius, startAng, rotAng, speed_circular);
+    }
+
+    if(animationType == 'bezier'){
+
+      var speed_bezier=  this.reader.getFloat(eachAnimation[i],'speed');
+      var lengthU=0;
+      var lengthV=0;
+      var controlPoints_bezier=[];
+      var points=eachAnimation[i].children;
+
+      lengthV=points.length;
+      var U=[];
+      for(var j=0;j < points.length;j++){
+        cpoints=points[j];
+        var newVector=[];
+        var xx=parseFloat(this.reader.getString(cpoints, 'xx'));
+        var yy=parseFloat(this.reader.getString(cpoints, 'yy'));
+        var zz=parseFloat(this.reader.getString(cpoints, 'zz'));
+        newVector.push(xx,yy,zz);
+        U.push(newVector);
+      }
+      controlPoints_bezier.push(U);
+
+      this.animations[animationID] = new BezierAnimation(this.scene, animationID, controlPoints_bezier, speed_bezier);
+    }
+
+    if(animationType == 'combo'){
+
+      var spanRef = animationsNode.getElementsByTagName('SPANREF');
+
+
+      this.animations[animationID] = new ComboAnimation(this.scene, animationID);
+    }
   }
+
+}
 }
 
 /**
@@ -1332,23 +1346,23 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
       if (animationRefsIndex != -1){
 
-          var animationRefs = nodeSpecs[animationRefsIndex].children;
-          for (var k = 0; k < animationRefs.length; k++) {
-            if (animationRefs[k].nodeName == "ANIMATIONREF")
-            {
+        var animationRefs = nodeSpecs[animationRefsIndex].children;
+        for (var k = 0; k < animationRefs.length; k++) {
+          if (animationRefs[k].nodeName == "ANIMATIONREF")
+          {
 
-              var curIdAni = this.reader.getString(animationRefs[k], 'id');
+            var curIdAni = this.reader.getString(animationRefs[k], 'id');
 
-              this.nodes[nodeID].animations.push(curIdAni);
+            this.nodes[nodeID].animations.push(curIdAni);
 
-              if (curIdAni == null )
-              this.onXMLMinorError("unable to parse animationRef id");
-            }
-
-            else
-            this.onXMLMinorError("unknown tag <" + animationRefs[k].nodeName + ">");
-
+            if (curIdAni == null )
+            this.onXMLMinorError("unable to parse animationRef id");
           }
+
+          else
+          this.onXMLMinorError("unknown tag <" + animationRefs[k].nodeName + ">");
+
+        }
 
       }
 

@@ -190,14 +190,20 @@
 
 
 <ANIMATIONS>
-  <ANIMATION id="1" speed="0.1" type="linear">
+  <ANIMATION id="1" speed="2" type="linear">
     <controlpoint xx="0" yy="0" zz="0" />
-    <controlpoint xx="0" yy="0" zz="0.4" />
-    <controlpoint xx="0.3" yy="0" zz="0.1" />
+    <controlpoint xx="2" yy="0" zz="0.4" />
+    <controlpoint xx="7" yy="0" zz="1" />
   </ANIMATION>
-  <ANIMATION id="2" speed="0.1" type="circular"
+  <ANIMATION id="2" speed="1" type="circular"
     centerx="0" centery="0" centerz="0"
-    radius="3" startang="40" rotang="20">
+    radius="3" startang="20" rotang="60">
+  </ANIMATION>
+  <ANIMATION id="3" speed="1" type="bezier">
+    <controlpoint xx="0" yy="0" zz="0" />
+    <controlpoint xx="2" yy="0" zz="2" />
+    <controlpoint xx="4" yy="0" zz="4" />
+    <controlpoint xx="6" yy="0" zz="6" />
   </ANIMATION>
 </ANIMATIONS>
 
@@ -439,6 +445,9 @@
     <SCALE sx="0.9" sy="0.9" sz="0.9" />
     <TRANSLATION x="44" y="0" z="-33" />
 
+    <ANIMATIONREFS>
+      <ANIMATIONREF id="3" />
+    </ANIMATIONREFS>
 
     <DESCENDANTS>
       <NODEREF  id="banco_quatro_pernas" />

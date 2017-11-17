@@ -16,7 +16,7 @@
 
   this.perimeter=Math.PI*2*radius;
   this.time=[];
-  this.time[0]=((this.perimeter*this.rotAng)/(2*Math.PI))/(this.speed);
+  this.time[0]=((this.perimeter*this.rotAng)/(2*Math.PI))/this.speed;
 
  };
 
@@ -24,20 +24,13 @@
  CircularAnimation.prototype.constructor = Object;
 
  CircularAnimation.prototype.update = function(current_time){
+    mat4.identity(this.matrix);
 
-  var distance = (this.rotAng * this.perimeter) / (2*Math.PI);
+    var percent_time = current_time / this.time[0];
 
-  console.log('current_time' + current_time);
-  console.log('this.time[0]' + this.time[0]);
-  var percent_time = current_time / this.time[0];
-  console.log('percent_time'+percent_time);
-  if(current_time <= this.time[0]){
-
-    mat4.translate(this.matrix,this.matrix,[this.center[0], this.center[1], this.center[2]]);
+    mat4.translate(this.matrix,this.matrix,this.center);
     mat4.rotate(this.matrix,this.matrix,percent_time*this.rotAng + this.startAng, [0,1,0]);
-  //  mat4.rotate(this.matrix,this.matrix,this.startAng,[0,1,0]);
     mat4.translate(this.matrix,this.matrix,[this.radius,0,0]);
-
-}
+    mat4.rotate(this.matrix,this.matrix,90*(Math.PI/180),[0,1,0]);
 
 }
