@@ -960,7 +960,6 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
       var animationType = this.reader.getString(eachAnimation[i], 'type');
 
       if(animationType == 'linear'){
-        var lengthU=0;
         var lengthV=0;
         var controlPoints_linear=[];
         var points=eachAnimation[i].children;
@@ -996,14 +995,13 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
       center[0]=centerx;
       center[1]=centery;
       center[2]=centerz;
-    
+
       this.animations[animationID] = new CircularAnimation(this.scene, animationID, center, radius, startAng, rotAng, speed_circular);
     }
 
     if(animationType == 'bezier'){
 
       var speed_bezier=  this.reader.getFloat(eachAnimation[i],'speed');
-      var lengthU=0;
       var lengthV=0;
       var controlPoints_bezier=[];
       var points=eachAnimation[i].children;
@@ -1026,10 +1024,18 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 
     if(animationType == 'combo'){
 
-      var spanRef = animationsNode.getElementsByTagName('SPANREF');
+      var lengthV=0;
+      var ids=[];
+      var points=eachAnimation[i].children;
 
-
-      this.animations[animationID] = new ComboAnimation(this.scene, animationID);
+      lengthV=points.length;
+      for(var j=0;j < points.length;j++){
+        cpoints=points[j];
+        var newVector=[];
+        var id=parseFloat(this.reader.getString(cpoints, 'id'));
+        ids.push(id);
+      }
+      this.animations[animationID] = new ComboAnimation(this.scene, animationID,ids);
     }
   }
 

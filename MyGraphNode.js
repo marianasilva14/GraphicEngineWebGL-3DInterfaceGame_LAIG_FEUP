@@ -54,7 +54,7 @@ MyGraphNode.prototype.updateAnimation = function(current_time){
     else
       this.delta_time=current_time2-this.initial_time;
 
-    if(this.delta_time >= currentAnimation.time[0])
+    if(this.delta_time >= currentAnimation.totalTime)
       this.animationFinished = true;
     else {
       currentAnimation.update(this.delta_time);

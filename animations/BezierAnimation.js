@@ -9,7 +9,8 @@ function BezierAnimation(scene, id, controlPoints, speed) {
   this.matrix = mat4.create();
 
   this.time = [];
-
+  this.totalTime = 0;
+  
   this.pointP1=controlPoints[0][0];
   this.pointP2=controlPoints[0][1];
   this.pointP3=controlPoints[0][2];
@@ -30,6 +31,8 @@ function BezierAnimation(scene, id, controlPoints, speed) {
 
   this.distance=this.distanceP1P12+this.distanceP12P123+this.distanceP123P234+this.distanceP234P34+this.distanceP34P4;
   this.time[0] = this.distance/speed;
+  this.totalTime = this.time[0];
+
 
 };
 

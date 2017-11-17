@@ -10,6 +10,7 @@
   this.rotAng=rotAng;
   this.speed=speed;
   this.matrix = mat4.create();
+  this.totalTime = 0;
 
   this.startAng=this.startAng * (Math.PI / 180);
   this.rotAng=this.rotAng * (Math.PI / 180);
@@ -17,6 +18,7 @@
   this.perimeter=Math.PI*2*radius;
   this.time=[];
   this.time[0]=((this.perimeter*this.rotAng)/(2*Math.PI))/this.speed;
+  this.totalTime = this.time[0];
 
  };
 

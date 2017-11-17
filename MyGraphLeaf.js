@@ -50,7 +50,6 @@ function MyGraphLeaf(graph, xmlelem) {
       }
       controlPoints.push(U);
     }
-    console.log(xmlelem.children[0].children);
     this.part= new MyPatch(graph.scene,parseFloat(args[0]),parseFloat(args[1]),lengthU-1,lengthV-1,controlPoints);
     return;
   }
