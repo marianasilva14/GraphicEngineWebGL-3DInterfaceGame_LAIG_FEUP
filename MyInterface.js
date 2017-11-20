@@ -3,7 +3,7 @@
  * @constructor
  */
 function MyInterface() {
-    //call CGFinterface constructor 
+    //call CGFinterface constructor
     CGFinterface.call(this);
 }
 ;
@@ -21,11 +21,30 @@ MyInterface.prototype.init = function(application) {
 
     // init GUI. For more information on the methods, check:
     //  http://workshop.chromeexperiments.com/examples/gui
-    
-    this.gui = new dat.GUI();
 
-    // add a group of controls (and open/expand by defult)
-    
+    this.gui = new dat.GUI();
+    this.gui.add(this.scene, 'selectedExampleShader', {
+        'Flat Shading': 0,
+        'Passing a scale as uniform': 1,
+        'Passing a varying parameter from VS -> FS': 2,
+        'Simple texturing': 3,
+        'Multiple textures in the FS': 4,
+        'Multiple textures in VS and FS': 5,
+        'Sepia': 6,
+        'Convolution': 7
+
+    }).name('Shader examples');
+
+    obj=this;
+    this.gui.add(this.scene, 'wireframe').onChange(function(v)
+      { obj.scene.updateWireframe(v)	});
+
+    this.gui.add(this.scene, 'scaleFactor',-50,50).onChange(function(v)
+    {
+      obj.scene.updateScaleFactor(v);
+    });
+
+
     return true;
 };
 
@@ -47,4 +66,3 @@ MyInterface.prototype.addLightsGroup = function(lights) {
         }
     }
 }
-
