@@ -24,16 +24,20 @@ MyInterface.prototype.init = function(application) {
 
     this.gui = new dat.GUI();
     this.gui.add(this.scene, 'selectedExampleShader', {
-        'Flat Shading': 0,
-        'Passing a scale as uniform': 1,
+        'Flat Shading': 0
+      /*  'Passing a scale as uniform': 1,
         'Passing a varying parameter from VS -> FS': 2,
         'Simple texturing': 3,
         'Multiple textures in the FS': 4,
         'Multiple textures in VS and FS': 5,
         'Sepia': 6,
-        'Convolution': 7
+        'Convolution': 7*/
 
     }).name('Shader examples');
+
+    this.gui.add(this.scene, 'objects', {
+
+    }).name('Selectable Nodes');
 
     obj=this;
     this.gui.add(this.scene, 'wireframe').onChange(function(v)

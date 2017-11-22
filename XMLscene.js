@@ -13,6 +13,8 @@ function XMLscene(interface) {
     this.texture = null;
     this.appearance = null;
     this.selectedExampleShader=0;
+    this.objects=0;
+    this.objectsSelectable = [];
     this.wireframe=false;
     this.scaleFactor=50.0;
 }
@@ -41,25 +43,25 @@ XMLscene.prototype.init = function(application) {
   	this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
   	this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
   	this.appearance.setShininess(120);
-    
+
     this.texture = new CGFtexture(this, "textures/texture.jpg");
   	this.appearance.setTexture(this.texture);
   	this.appearance.setTextureWrap ('REPEAT', 'REPEAT');
 
-  	this.testShaders=[
-  		new CGFshader(this.gl, "shaders/flat.vert", "shaders/flat.frag"),
-  		new CGFshader(this.gl, "shaders/uScale.vert", "shaders/uScale.frag"),
+  	this.shader=
+  		new CGFshader(this.gl, "shaders/flat.vert", "shaders/flat.frag");
+  		/*new CGFshader(this.gl, "shaders/uScale.vert", "shaders/uScale.frag"),
   		new CGFshader(this.gl, "shaders/varying.vert", "shaders/varying.frag"),
   		new CGFshader(this.gl, "shaders/texture1.vert", "shaders/texture1.frag"),
   		new CGFshader(this.gl, "shaders/texture2.vert", "shaders/texture2.frag"),
   		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/texture3.frag"),
   		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/sepia.frag"),
-  		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/convolution.frag")
-  	];
+  		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/convolution.frag")*/
+
 
   	// texture will have to be bound to unit 1 later, when using the shader, with "this.texture2.bind(1);"
-  	this.testShaders[4].setUniformsValues({uSampler2: 1});
-  	this.testShaders[5].setUniformsValues({uSampler2: 1});
+  	this.shader.setUniformsValues({uSampler2: 1});
+  	this.shader.setUniformsValues({uSampler2: 1});
 
   	this.texture2 = new CGFtexture(this, "textures/FEUP.jpg");
 
@@ -79,9 +81,9 @@ XMLscene.prototype.updateWireframe=function(v)
 
 XMLscene.prototype.updateScaleFactor=function(v)
 {
-	this.testShaders[1].setUniformsValues({normScale: this.scaleFactor});
-	this.testShaders[2].setUniformsValues({normScale: this.scaleFactor});
-	this.testShaders[5].setUniformsValues({normScale: this.scaleFactor});
+	this.shader.setUniformsValues({normScale: this.scaleFactor});
+	this.shader.setUniformsValues({normScale: this.scaleFactor});
+	this.shader.setUniformsValues({normScale: this.scaleFactor});
 }
 /**
  * Initializes the scene lights with the values read from the LSX file.
@@ -199,7 +201,16 @@ XMLscene.prototype.display = function() {
 		this.axis.display();
 	}
 
-  	this.setActiveShader(this.testShaders[this.selectedExampleShader]);
+  	this.setActiveShader(this.shader);
+
+    for(node in this.graph.nodes){
+      if(this.graph.nodes[node].selectable != null){
+        this.objectsSelectable[node] = this.graph.nodes[node];
+        console.log("OBJECTS SELECTABLE");
+        console.log(this.objectsSelectable);
+      }
+    }
+
   	this.pushMatrix();
 
     this.texture2.bind(1);

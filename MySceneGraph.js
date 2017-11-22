@@ -1300,6 +1300,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
     else if (nodeName == "NODE") {
       // Retrieves node ID.
       var nodeID = this.reader.getString(children[i], 'id');
+      var selectable = this.reader.getString(children[i], 'selectable',false);
       if (nodeID == null )
       return "failed to retrieve node ID";
       // Checks if ID is valid.
@@ -1310,6 +1311,9 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
       // Creates node.
       this.nodes[nodeID] = new MyGraphNode(this,nodeID);
+      if(selectable != null){
+        this.nodes[nodeID].selectable = selectable;
+      }
 
       // Gathers child nodes.
       var nodeSpecs = children[i].children;

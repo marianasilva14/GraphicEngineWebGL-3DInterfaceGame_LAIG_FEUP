@@ -502,7 +502,7 @@
 
   </NODE>
 
-  <NODE id="bancada">
+  <NODE id="bancada" selectable="true">
     <MATERIAL id="null" />
     <TEXTURE id="madeira" />
 
