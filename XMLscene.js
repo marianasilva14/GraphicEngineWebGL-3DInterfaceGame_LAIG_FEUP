@@ -15,6 +15,8 @@ function XMLscene(interface) {
     this.selectedExampleShader=0;
     this.objects=0;
     this.objectsSelectable = [];
+    this.objectsSelectableNames = {};
+    this.objectsSelectableID = 0;
     this.wireframe=false;
     this.scaleFactor=50.0;
 }
@@ -201,15 +203,7 @@ XMLscene.prototype.display = function() {
 		this.axis.display();
 	}
 
-  	this.setActiveShader(this.shader);
-
-    for(node in this.graph.nodes){
-      if(this.graph.nodes[node].selectable != null){
-        this.objectsSelectable[node] = this.graph.nodes[node];
-        console.log("OBJECTS SELECTABLE");
-        console.log(this.objectsSelectable);
-      }
-    }
+  	//this.setActiveShader(this.shader);
 
   	this.pushMatrix();
 
@@ -221,7 +215,7 @@ XMLscene.prototype.display = function() {
   	this.teapot.display();
   	this.popMatrix();
 
-  	this.setActiveShader(this.defaultShader);
+  	//this.setActiveShader(this.defaultShader);
 
     this.popMatrix();
 

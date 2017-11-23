@@ -33,11 +33,9 @@ MyInterface.prototype.init = function(application) {
         'Sepia': 6,
         'Convolution': 7*/
 
-    }).name('Shader examples');
+    }).name('Shader');
 
-    this.gui.add(this.scene, 'objects', {
-
-    }).name('Selectable Nodes');
+  //  this.gui.add(this.scene, 'objectsSelectableID', this.scene.objectsSelectableNames).name('Selectable Nodes');
 
     obj=this;
     this.gui.add(this.scene, 'wireframe').onChange(function(v)

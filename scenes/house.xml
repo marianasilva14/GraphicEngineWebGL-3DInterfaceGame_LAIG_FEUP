@@ -195,6 +195,7 @@
     <controlpoint xx="5" yy="0" zz="0" />
     <controlpoint xx="5" yy="0" zz="5" />
     <controlpoint xx="0" yy="0" zz="5" />
+
   </ANIMATION>
   <ANIMATION id="2" speed="1" type="circular"
     centerx="0" centery="0" centerz="0"
@@ -207,6 +208,8 @@
     <controlpoint xx="1" yy="0" zz="6" />
   </ANIMATION>
   <ANIMATION id="4" type="combo">
+    <SPANREF id="2" />
+    <SPANREF id="1" />
     <SPANREF id="2" />
     <SPANREF id="1" />
   </ANIMATION>
@@ -1553,8 +1556,7 @@
     <TEXTURE id="bola" />
 
     <SCALE sx="0.6" sy="0.6" sz="0.6" />
-    <!--<TRANSLATION x="55" y="2" z="-5" />-->
-      <TRANSLATION x="0" y="0" z="0" />
+    <TRANSLATION x="55" y="2" z="-5" />
 
     <ANIMATIONREFS>
       <ANIMATIONREF id="1" />

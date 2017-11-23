@@ -8,23 +8,29 @@
    this.totalTime = 0;
    this.time=[];
    this.matrix=mat4.create();
+   this.currentAnimationID = 0;
+   this.ellapsedTimeLastAnimations = 0;
 
    for(var i=0; i < animations.length;i++){
      this.totalTime+=this.scene.graph.animations[animations[i]].totalTime;
-     this.time[i] = this.scene.graph.animations[animations[i]].totalTime;
    }
-
  };
 
  ComboAnimation.prototype = Object.create(Animation.prototype);
  ComboAnimation.prototype.constructor = Object;
 
  ComboAnimation.prototype.update=function(current_time){
-//   mat4.identity(this.matrix);
+   mat4.identity(this.matrix);
 
-   for(var i=0; i < this.animations.length;i++){
-     this.scene.graph.animations[this.animations[i]].update(current_time/this.time[i]);
-     this.matrix=this.scene.graph.animations[this.animations[i]].matrix;
-     console.log('aquiiii');
+   var currentAnimation=this.scene.graph.animations[this.animations[this.currentAnimationID]];
+
+   if((current_time - this.ellapsedTimeLastAnimations) > currentAnimation.totalTime){
+     this.currentAnimationID++;
+     this.ellapsedTimeLastAnimations += currentAnimation.totalTime;
    }
+    else{
+      currentAnimation.update(current_time);
+      this.matrix=currentAnimation.matrix;
+    }
+
  };

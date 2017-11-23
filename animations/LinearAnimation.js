@@ -13,18 +13,13 @@ function LinearAnimation(scene, id, controlPoints, speed) {
   this.time=[];
   this.time[0]=0;
   this.totalTime =0;
-
+  this.actualControlPoint=0;
+  this.distanceAcu=0;
+  this.lastTime=-1;
+console.log('CONTROLPOINTS', this.controlPoints);
   for (var i = 1; i < controlPoints[0].length; i++) {
 
-    this.distance[i-1] = Math.sqrt(Math.pow((controlPoints[0][i][0] - controlPoints[0][i-1][0]),2) + Math.pow((controlPoints[0][i][1] - controlPoints[0][i-1][1]),2) + Math.pow((controlPoints[0][i][2] - controlPoints[0][i-1][2]),2));
-
-
-    this.direction[i-1]=[];
-    this.direction[i-1][0] = speed * ((controlPoints[0][i][0] - controlPoints[0][i-1][0])/this.distance[i-1]);
-    this.direction[i-1][1] = speed * ((controlPoints[0][i][1] - controlPoints[0][i-1][1])/this.distance[i-1]);
-    this.direction[i-1][2] = speed * ((controlPoints[0][i][2] - controlPoints[0][i-1][2])/this.distance[i-1]);
-
-    this.time[i] = this.distance[i-1]/speed;
+    this.distance.push(Math.sqrt(Math.pow((controlPoints[0][i][0] - controlPoints[0][i-1][0]),2) + Math.pow((controlPoints[0][i][1] - controlPoints[0][i-1][1]),2) + Math.pow((controlPoints[0][i][2] - controlPoints[0][i-1][2]),2)));
     this.totalTime += this.distance[i-1]/speed;
   }
 
@@ -37,25 +32,39 @@ LinearAnimation.prototype.constructor = Object;
 LinearAnimation.prototype.update = function(current_time){
   console.log(current_time);
    mat4.identity(this.matrix);
+   if(this.lastTime==-1){
+     this.lastTime=current_time;
+     return;
+   }
 
-  // mat4.translate(this.matrix,this.matrix,[this.controlPoints[0][0][0], this.controlPoints[0][0][1], this.controlPoints[0][0][2]]);
-  for (var i = 0; i < this.controlPoints[0].length-1; i++) {
-    if(current_time>=this.time[i+1]){
-        current_time-=this.time[i+1];
-        mat4.translate(this.matrix,this.matrix,[this.controlPoints[0][i+1][0], this.controlPoints[0][i+1][1], this.controlPoints[0][i+1][2]]);
-        console.log(this.matrix);
-      }
-    else {
-      mat4.translate(this.matrix,this.matrix,[this.controlPoints[0][i][0], this.controlPoints[0][i][1], this.controlPoints[0][i][2]]);
-      mat4.translate(this.matrix,this.matrix,[((this.distance[i]*current_time)/this.time[i+1])*this.direction[i][0],
-      ((this.distance[i]*current_time)/this.time[i+1])*this.direction[i][1],
-      ((this.distance[i]*current_time)/this.time[i+1])*this.direction[i][2]]);
+   var ellapsedTime=current_time-this.lastTime;
 
-      break;
-    }
+   console.log('ellapsedTime', ellapsedTime);
 
+   this.distanceAcu += ellapsedTime*this.speed;
 
-  }
+   this.lastTime=current_time;
+   var t = this.distanceAcu/this.distance[this.actualControlPoint];
+   console.log('distance acumulada',this.distanceAcu);
+   console.log('distance',this.distance);
+   console.log('T', t);
 
+   if(t >= 1){
+     this.actualControlPoint++;
+     this.distanceAcu = 0;
+   }
+
+     var P1 = this.controlPoints[0][this.actualControlPoint];
+     var P2 = this.controlPoints[0][this.actualControlPoint+1];
+     //console.log('P1',P1[0]);
+
+      var x = P1[0] * (1-t) + P2[0]*t;
+      var y = P1[1] * (1-t) + P2[1]*t;
+      var z = P1[2] * (1-t) + P2[2]*t;
+      console.log('P2',x);
+      console.log('actualControlPoint', this.actualControlPoint);
+     mat4.translate(this.matrix,this.matrix,[x,y,z]);
+     mat4.rotate(this.matrix,this.matrix,Math.atan2(P2[0]-P1[0],P2[2]-P1[2]),[0,1,0]);
+   
 
 };

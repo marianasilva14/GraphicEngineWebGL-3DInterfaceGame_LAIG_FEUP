@@ -28,6 +28,9 @@ function MyGraphNode(graph, nodeID) {
 
     this.transformMatrix = mat4.create();
     mat4.identity(this.transformMatrix);
+
+    // this.teste = mat4.create();
+    // mat4.identity(this.teste);
 }
 
 /**
@@ -66,7 +69,8 @@ MyGraphNode.prototype.getMatrix = function(){
 
     var animation = this.graph.animations[this.animations[this.animationIndex]];
 
-    if(animation != null){
+    if(animation != null || this.animationFinished){
+      animation.update(this.delta_time);
       return animation.matrix;
     }
 
