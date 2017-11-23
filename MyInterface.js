@@ -35,7 +35,8 @@ MyInterface.prototype.init = function(application) {
 
     }).name('Shader');
 
-  //  this.gui.add(this.scene, 'objectsSelectableID', this.scene.objectsSelectableNames).name('Selectable Nodes');
+
+    this.gui.add(this.scene, 'objectsSelectableID', this.scene.objectsSelectableNames).name('Selectable Nodes');
 
     obj=this;
     this.gui.add(this.scene, 'wireframe').onChange(function(v)

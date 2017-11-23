@@ -1315,7 +1315,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
         this.nodes[nodeID].selectable = selectable;
         this.scene.objectsSelectable.push(nodeID);
         this.scene.objectsSelectableNames[nodeID]=this.scene.objectsSelectable.length-1;
-        console.log(this.scene.objectsSelectableNames);
+        console.log('this.scene.objectsSelectable',this.scene.objectsSelectableNames[nodeID]);
       }
 
       // Gathers child nodes.
@@ -1616,11 +1616,12 @@ MySceneGraph.prototype.nodesRecursive = function(node) {
   }
 
   for (var i = 0; i < node.children.length; i++) {
-    //if(node.children[i].nodeID == this.scene.objectsSelectable[this.scene.objectsSelectableID]){
-    //  this.scene.setActiveShader(this.scene.shader);
-  //  }
+
+  if(this.nodes[node.children[i]].nodeID == this.scene.objectsSelectable[this.scene.objectsSelectableID]){
+     this.scene.setActiveShader(this.scene.shader);
+    }
     this.nodesRecursive(this.nodes[node.children[i]]);
-  //  this.scene.setActiveShader(this.scene.defaultShader);
+    this.scene.setActiveShader(this.scene.defaultShader);
   }
   for (i = 0; i < node.leaves.length; i++) {
     node.leaves[i].display();

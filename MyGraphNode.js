@@ -69,10 +69,12 @@ MyGraphNode.prototype.getMatrix = function(){
 
     var animation = this.graph.animations[this.animations[this.animationIndex]];
 
-    if(animation != null || this.animationFinished){
+    if(animation != null){
       animation.update(this.delta_time);
       return animation.matrix;
     }
+    if(this.animationFinished)
+    return animation.matrix;
 
     return mat4.create();
 

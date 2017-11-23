@@ -16,21 +16,20 @@ function LinearAnimation(scene, id, controlPoints, speed) {
   this.actualControlPoint=0;
   this.distanceAcu=0;
   this.lastTime=-1;
-console.log('CONTROLPOINTS', this.controlPoints);
+
   for (var i = 1; i < controlPoints[0].length; i++) {
 
     this.distance.push(Math.sqrt(Math.pow((controlPoints[0][i][0] - controlPoints[0][i-1][0]),2) + Math.pow((controlPoints[0][i][1] - controlPoints[0][i-1][1]),2) + Math.pow((controlPoints[0][i][2] - controlPoints[0][i-1][2]),2)));
     this.totalTime += this.distance[i-1]/speed;
   }
 
-  console.log(this.time);
 }
 
 LinearAnimation.prototype = Object.create(Animation.prototype);
 LinearAnimation.prototype.constructor = Object;
 
 LinearAnimation.prototype.update = function(current_time){
-  console.log(current_time);
+
    mat4.identity(this.matrix);
    if(this.lastTime==-1){
      this.lastTime=current_time;
@@ -39,15 +38,10 @@ LinearAnimation.prototype.update = function(current_time){
 
    var ellapsedTime=current_time-this.lastTime;
 
-   console.log('ellapsedTime', ellapsedTime);
-
    this.distanceAcu += ellapsedTime*this.speed;
 
    this.lastTime=current_time;
    var t = this.distanceAcu/this.distance[this.actualControlPoint];
-   console.log('distance acumulada',this.distanceAcu);
-   console.log('distance',this.distance);
-   console.log('T', t);
 
    if(t >= 1){
      this.actualControlPoint++;
@@ -56,15 +50,13 @@ LinearAnimation.prototype.update = function(current_time){
 
      var P1 = this.controlPoints[0][this.actualControlPoint];
      var P2 = this.controlPoints[0][this.actualControlPoint+1];
-     //console.log('P1',P1[0]);
 
       var x = P1[0] * (1-t) + P2[0]*t;
       var y = P1[1] * (1-t) + P2[1]*t;
       var z = P1[2] * (1-t) + P2[2]*t;
-      console.log('P2',x);
-      console.log('actualControlPoint', this.actualControlPoint);
+
      mat4.translate(this.matrix,this.matrix,[x,y,z]);
      mat4.rotate(this.matrix,this.matrix,Math.atan2(P2[0]-P1[0],P2[2]-P1[2]),[0,1,0]);
-   
+
 
 };

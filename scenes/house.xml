@@ -210,8 +210,6 @@
   <ANIMATION id="4" type="combo">
     <SPANREF id="2" />
     <SPANREF id="1" />
-    <SPANREF id="2" />
-    <SPANREF id="1" />
   </ANIMATION>
 </ANIMATIONS>
 
