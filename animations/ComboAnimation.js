@@ -1,7 +1,7 @@
 /**
  * ComboAnimation
  * @param id id of animation
- * @param animations array of animations 
+ * @param animations array of animations
  * @constructor
  */
  function ComboAnimation(scene, id, animations) {
@@ -21,17 +21,21 @@
  ComboAnimation.prototype = Object.create(Animation.prototype);
  ComboAnimation.prototype.constructor = Object;
 
- ComboAnimation.prototype.update=function(current_time){
+ /**
+ * Function that updates the animation
+ * @param delta_time delta time
+ **/
+ ComboAnimation.prototype.update=function(delta_time){
    mat4.identity(this.matrix);
 
    var currentAnimation=this.scene.graph.animations[this.animations[this.currentAnimationID]];
 
-   if((current_time - this.ellapsedTimeLastAnimations) > currentAnimation.totalTime){
+   if((delta_time - this.ellapsedTimeLastAnimations) > currentAnimation.totalTime){
      this.currentAnimationID++;
      this.ellapsedTimeLastAnimations += currentAnimation.totalTime;
    }
     else{
-      currentAnimation.update(current_time);
+      currentAnimation.update(delta_time);
       this.matrix=currentAnimation.matrix;
     }
 

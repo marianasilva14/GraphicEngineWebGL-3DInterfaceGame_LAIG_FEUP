@@ -42,11 +42,15 @@ function BezierAnimation(scene, id, controlPoints, speed) {
 BezierAnimation.prototype = Object.create(Animation.prototype);
 BezierAnimation.prototype.constructor = Object;
 
-BezierAnimation.prototype.update= function(current_time){
+/**
+* Function that updates the animation
+* @param delta_time delta time
+**/
+BezierAnimation.prototype.update= function(delta_time){
 
       mat4.identity(this.matrix);
 
-      var s= current_time/this.time[0];
+      var s= delta_time/this.time[0];
       var calculateQ=[];
       var calculateDervQ=[];
       calculateQ[0]=Math.pow(1-s,3)*this.pointP1[0]+3*s*Math.pow(1-s,2)*this.pointP2[0]+3*Math.pow(s,2)*(1-s)*this.pointP3[0]+Math.pow(s,3)*this.pointP4[0];

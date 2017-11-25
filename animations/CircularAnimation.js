@@ -31,10 +31,14 @@
  CircularAnimation.prototype = Object.create(Animation.prototype);
  CircularAnimation.prototype.constructor = Object;
 
- CircularAnimation.prototype.update = function(current_time){
+ /**
+ * Function that updates the animation
+ * @param delta_time delta time
+ **/
+ CircularAnimation.prototype.update = function(delta_time){
     mat4.identity(this.matrix);
 
-    var percent_time = current_time / this.time[0];
+    var percent_time = delta_time / this.time[0];
 
     mat4.translate(this.matrix,this.matrix,this.center);
     mat4.rotate(this.matrix,this.matrix,percent_time*this.rotAng + this.startAng, [0,1,0]);

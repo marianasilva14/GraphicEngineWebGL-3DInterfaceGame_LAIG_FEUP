@@ -30,20 +30,23 @@ function LinearAnimation(scene, id, controlPoints, speed) {
 
 LinearAnimation.prototype = Object.create(Animation.prototype);
 LinearAnimation.prototype.constructor = Object;
-
-LinearAnimation.prototype.update = function(current_time){
+/**
+* Function that updates the animation
+* @param delta_time delta time
+**/
+LinearAnimation.prototype.update = function(delta_time){
 
    mat4.identity(this.matrix);
    if(this.lastTime==-1){
-     this.lastTime=current_time;
+     this.lastTime=delta_time;
      return;
    }
 
-   var ellapsedTime=current_time-this.lastTime;
+   var ellapsedTime=delta_time-this.lastTime;
 
    this.distanceAcu += ellapsedTime*this.speed;
 
-   this.lastTime=current_time;
+   this.lastTime=delta_time;
    var t = this.distanceAcu/this.distance[this.actualControlPoint];
 
    if(t >= 1){
