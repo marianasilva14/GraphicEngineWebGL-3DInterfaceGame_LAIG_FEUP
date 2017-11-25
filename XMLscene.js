@@ -15,7 +15,7 @@ function XMLscene(interface) {
     this.selectedExampleShader=0;
     this.objects=0;
     this.objectsSelectable = [];
-    this.objectsSelectableNames = {};
+    this.objectsSelectableNames = {'Nothing': null};
     this.objectsSelectableID = 0;
     this.wireframe=false;
     this.scaleFactor=50.0;
@@ -69,17 +69,10 @@ XMLscene.prototype.init = function(application) {
 
   	this.updateScaleFactor();
 
-  	this.teapot=new Teapot(this);
+
 
 }
-XMLscene.prototype.updateWireframe=function(v)
-{
-	if (v)
-		this.teapot.setLineMode();
-	else
-		this.teapot.setFillMode();
 
-}
 
 XMLscene.prototype.updateScaleFactor=function(v)
 {
@@ -148,6 +141,7 @@ XMLscene.prototype.onGraphLoaded = function()
 
     // Adds lights group.
     this.interface.addLightsGroup(this.graph.lights);
+    this.interface.dropDown();
 }
 
 /**
@@ -212,7 +206,6 @@ XMLscene.prototype.display = function() {
   	this.translate(0,-6,0);
   	this.scale(0.5,0.5,0.5);
   	this.rotate(-Math.PI/2, 1, 0, 0);
-  	this.teapot.display();
   	this.popMatrix();
 
   	//this.setActiveShader(this.defaultShader);

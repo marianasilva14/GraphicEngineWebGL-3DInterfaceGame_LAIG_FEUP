@@ -1315,7 +1315,6 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
         this.nodes[nodeID].selectable = selectable;
         this.scene.objectsSelectable.push(nodeID);
         this.scene.objectsSelectableNames[nodeID]=this.scene.objectsSelectable.length-1;
-        console.log('this.scene.objectsSelectable',this.scene.objectsSelectableNames[nodeID]);
       }
 
       // Gathers child nodes.
@@ -1615,19 +1614,26 @@ MySceneGraph.prototype.nodesRecursive = function(node) {
     this.scene.multMatrix(node.getMatrix());
   }
 
-  for (var i = 0; i < node.children.length; i++) {
+  console.log('selectable',this.scene.objectsSelectable[this.scene.objectsSelectableID]);
+  console.log('nodes',node.nodeID);
 
-  if(this.nodes[node.children[i]].nodeID == this.scene.objectsSelectable[this.scene.objectsSelectableID]){
+  if(node.nodeID == this.scene.objectsSelectable[this.scene.objectsSelectableID]){
      this.scene.setActiveShader(this.scene.shader);
     }
+
+  for (var i = 0; i < node.children.length; i++) {
     this.nodesRecursive(this.nodes[node.children[i]]);
-    this.scene.setActiveShader(this.scene.defaultShader);
   }
+
   for (i = 0; i < node.leaves.length; i++) {
     node.leaves[i].display();
 
   }
   this.scene.popMatrix();
+
+  if(node.nodeID == this.scene.objectsSelectable[this.scene.objectsSelectableID]){
+     this.scene.setActiveShader(this.scene.defaultShader);
+   }
 
   this.tex_stack.pop();
   this.mat_stack.pop();
