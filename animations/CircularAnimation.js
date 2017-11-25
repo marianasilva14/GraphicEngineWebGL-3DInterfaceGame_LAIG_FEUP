@@ -1,5 +1,11 @@
 /**
  * CircularAnimation
+ * @param id id of animation
+ * @param center the center of the circle
+ * @param radius circle radius
+ * @param startAng initial angle
+ * @param rotAng angle of rotation
+ * @param speed speed animation
  * @constructor
  */
  function CircularAnimation(scene, id, center, radius, startAng, rotAng, speed) {

@@ -1,5 +1,7 @@
 /**
  * ComboAnimation
+ * @param id id of animation
+ * @param animations array of animations 
  * @constructor
  */
  function ComboAnimation(scene, id, animations) {

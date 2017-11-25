@@ -1,5 +1,8 @@
 /**
 * LinearAnimation
+* @param id id of animation
+* @param controlPoints animation control points
+* @param speed animation speed
 * @constructor
 */
 function LinearAnimation(scene, id, controlPoints, speed) {

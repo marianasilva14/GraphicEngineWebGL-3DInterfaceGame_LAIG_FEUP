@@ -1,5 +1,8 @@
 /**
 * BezierAnimation
+* @param id id of animation
+* @param controlPoints control points of animation
+* @param speed animation speed
 * @constructor
 */
 function BezierAnimation(scene, id, controlPoints, speed) {
@@ -10,7 +13,7 @@ function BezierAnimation(scene, id, controlPoints, speed) {
 
   this.time = [];
   this.totalTime = 0;
-  
+
   this.pointP1=controlPoints[0][0];
   this.pointP2=controlPoints[0][1];
   this.pointP3=controlPoints[0][2];
