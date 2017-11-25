@@ -45,16 +45,8 @@ MyInterface.prototype.addLightsGroup = function(lights) {
 }
 
 MyInterface.prototype.dropDown = function(){
-      
+
       this.gui.add(this.scene, 'objectsSelectableID', this.scene.objectsSelectableNames).name('Selectable Nodes');
 
-      obj=this;
-      this.gui.add(this.scene, 'wireframe').onChange(function(v)
-        { obj.scene.updateWireframe(v)	});
-
-      this.gui.add(this.scene, 'scaleFactor',-50,50).onChange(function(v)
-      {
-        obj.scene.updateScaleFactor(v);
-      });
 
 }

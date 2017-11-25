@@ -1614,9 +1614,6 @@ MySceneGraph.prototype.nodesRecursive = function(node) {
     this.scene.multMatrix(node.getMatrix());
   }
 
-  console.log('selectable',this.scene.objectsSelectable[this.scene.objectsSelectableID]);
-  console.log('nodes',node.nodeID);
-
   if(node.nodeID == this.scene.objectsSelectable[this.scene.objectsSelectableID]){
      this.scene.setActiveShader(this.scene.shader);
     }

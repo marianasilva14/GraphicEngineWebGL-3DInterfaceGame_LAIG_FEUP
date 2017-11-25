@@ -362,7 +362,7 @@
 
   </NODE>
 
-  <NODE id="arvore">
+  <NODE id="arvore" selectable="true" >
     <MATERIAL id="null" />
     <TEXTURE id="null" />
 
@@ -377,7 +377,7 @@
 
   </NODE>
 
-  <NODE id="arvore2">
+  <NODE id="arvore2" selectable="true">
     <MATERIAL id="null" />
     <TEXTURE id="null" />
 
@@ -516,7 +516,7 @@
 
   </NODE>
 
-  <NODE id="candeeiro">
+  <NODE id="candeeiro" selectable="true">
     <MATERIAL id="null" />
     <TEXTURE id="null" />
 

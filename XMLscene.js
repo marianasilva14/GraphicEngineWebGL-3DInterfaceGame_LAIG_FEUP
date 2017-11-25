@@ -52,13 +52,6 @@ XMLscene.prototype.init = function(application) {
 
   	this.shader=
   		new CGFshader(this.gl, "shaders/flat.vert", "shaders/flat.frag");
-  		/*new CGFshader(this.gl, "shaders/uScale.vert", "shaders/uScale.frag"),
-  		new CGFshader(this.gl, "shaders/varying.vert", "shaders/varying.frag"),
-  		new CGFshader(this.gl, "shaders/texture1.vert", "shaders/texture1.frag"),
-  		new CGFshader(this.gl, "shaders/texture2.vert", "shaders/texture2.frag"),
-  		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/texture3.frag"),
-  		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/sepia.frag"),
-  		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/convolution.frag")*/
 
 
   	// texture will have to be bound to unit 1 later, when using the shader, with "this.texture2.bind(1);"
@@ -67,18 +60,14 @@ XMLscene.prototype.init = function(application) {
 
   	this.texture2 = new CGFtexture(this, "textures/FEUP.jpg");
 
-  	this.updateScaleFactor();
-
-
+  	this.updateScaleFactor(0);
 
 }
 
 
-XMLscene.prototype.updateScaleFactor=function(v)
+XMLscene.prototype.updateScaleFactor=function(current_time)
 {
-	this.shader.setUniformsValues({normScale: this.scaleFactor});
-	this.shader.setUniformsValues({normScale: this.scaleFactor});
-	this.shader.setUniformsValues({normScale: this.scaleFactor});
+	this.shader.setUniformsValues({normScale: 0.5+0.5*Math.sin(current_time/1000)});
 }
 /**
  * Initializes the scene lights with the values read from the LSX file.
@@ -223,5 +212,8 @@ for(node in this.graph.nodes){
     this.graph.nodes[node].updateAnimation(current_time);
   }
 }
+
+this.updateScaleFactor(current_time);
+
 
 }
