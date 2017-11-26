@@ -44,9 +44,11 @@ MyInterface.prototype.addLightsGroup = function(lights) {
     }
 }
 
+/**
+ * Adds a drop dropDown containing the IDs of the selectable objects
+ */
 MyInterface.prototype.dropDown = function(){
 
-      this.gui.add(this.scene, 'objectsSelectableID', this.scene.objectsSelectableNames).name('Selectable Nodes');
-
+this.gui.add(this.scene, 'objectsSelectableID', this.scene.objectsSelectableNames).name('Selectable Nodes');
 
 }

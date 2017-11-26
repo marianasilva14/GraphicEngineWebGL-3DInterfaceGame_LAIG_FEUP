@@ -205,6 +205,10 @@ XMLscene.prototype.display = function() {
 
 }
 
+/**
+* Function that will update the animations over time and also refresh the scale of the selectable object
+* @param current_time time of the system
+*/
 XMLscene.prototype.update = function(current_time){
 
 for(node in this.graph.nodes){

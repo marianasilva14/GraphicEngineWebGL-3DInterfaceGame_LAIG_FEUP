@@ -47,6 +47,10 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
     this.leaves.push(leaf);
 }
 
+/**
+* Function responsible for handling the received time and invoking the update of each animation
+* @param current_time tyme of the system
+*/
 MyGraphNode.prototype.updateAnimation = function(current_time){
     var currentAnimation = this.graph.animations[this.animations[this.animationIndex]];
 
@@ -65,6 +69,9 @@ MyGraphNode.prototype.updateAnimation = function(current_time){
 
 }
 
+/**
+* Function responsible for returning the transformation matrix of each animation
+*/
 MyGraphNode.prototype.getMatrix = function(){
 
     var animation = this.graph.animations[this.animations[this.animationIndex]];
