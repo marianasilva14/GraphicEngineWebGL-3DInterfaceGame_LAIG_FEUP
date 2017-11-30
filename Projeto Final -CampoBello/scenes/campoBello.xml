@@ -69,7 +69,7 @@
     </TEXTURE>
 
     <TEXTURE id="cor_jogador2">
-      <file path="images/verde.png" />
+      <file path="images/azul.png" />
       <amplif_factor s="2" t="2" />
     </TEXTURE>
 
