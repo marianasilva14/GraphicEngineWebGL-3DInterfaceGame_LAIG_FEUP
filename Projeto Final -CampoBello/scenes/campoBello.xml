@@ -59,7 +59,7 @@
   <TEXTURES>
 
     <TEXTURE id="tabuleiro">
-      <file path="images/tabuleiro.jpg" />
+      <file path="images/tabuleiro.png" />
       <amplif_factor s="2" t="2" />
     </TEXTURE>
 
@@ -69,12 +69,7 @@
     </TEXTURE>
 
     <TEXTURE id="cor_jogador2">
-      <file path="images/azul.png" />
-      <amplif_factor s="2" t="2" />
-    </TEXTURE>
-
-    <TEXTURE id="quadrado">
-      <file path="images/quadrado.png" />
+      <file path="images/vermelho.png" />
       <amplif_factor s="2" t="2" />
     </TEXTURE>
 
@@ -135,11 +130,7 @@
 
         <!-- <NODEREF id="luzes" /> -->
         <NODEREF id="chao" />
-        <NODEREF id="tabuleiro_auxiliar"/>
-        <NODEREF id="area_jogador1"/>
-        <NODEREF id="area_jogador2"/>
-        <NODEREF id="quadrado"/>
-        <NODEREF id="peca"/>
+        <NODEREF id="peca" />
       </DESCENDANTS>
 
     </NODE>
@@ -160,247 +151,18 @@
 
     </NODE>
 
-    <NODE id="tabuleiro_auxiliar">
-      <MATERIAL id="null" />
-      <TEXTURE id="null" />
-
-      <DESCENDANTS>
-        <NODEREF  id="tabuleiro_auxiliar1"/>
-        <NODEREF  id="tabuleiro_auxiliar2"/>
-      </DESCENDANTS>
-
-    </NODE>
-
-    <NODE id="tabuleiro_auxiliar1">
-      <MATERIAL id="null" />
-      <TEXTURE id="cor_jogador1" />
-      <SCALE sx="5" sy="0.5" sz="5" />
-      <TRANSLATION x="5.5" y="0" z="0.5"/>
-
-      <DESCENDANTS>
-        <NODEREF  id="cubo"/>
-      </DESCENDANTS>
-
-    </NODE>
-
-    <NODE id="tabuleiro_auxiliar2">
-      <MATERIAL id="null" />
-      <TEXTURE id="cor_jogador2" />
-      <SCALE sx="5" sy="0.5" sz="5" />
-      <TRANSLATION x="0.5" y="0" z="5.5"/>
-
-      <DESCENDANTS>
-        <NODEREF  id="cubo"/>
-      </DESCENDANTS>
-
-    </NODE>
-
-    <NODE id="cubo">
-      <MATERIAL id="null" />
-      <TEXTURE id="null" />
-
-
-      <DESCENDANTS>
-        <NODEREF id="faceCubo1" />
-        <NODEREF id="faceCubo2" />
-        <NODEREF id="faceCubo3" />
-        <NODEREF id="faceCubo4" />
-        <NODEREF id="faceCubo5" />
-        <NODEREF id="faceCubo6" />
-      </DESCENDANTS>
-
-    </NODE>
-
-    <!-- A cube face -->
-    <NODE id="faceCubo1">
-      <MATERIAL id="null" />
-      <TEXTURE id="null" />
-
-      <TRANSLATION x="-0.5" y="-0.5" z="0.5" />
-
-      <DESCENDANTS>
-        <LEAF  type="rectangle" args="0 1 1 0" />
-      </DESCENDANTS>
-
-    </NODE>
-
-    <!-- Another cube face -->
-    <NODE id="faceCubo2">
-      <MATERIAL id="null" />
-      <TEXTURE id="null" />
-
-      <TRANSLATION x="-0.5" y="-0.5" z="-0.5" />
-      <ROTATION axis="y" angle="-90" />
-
-      <DESCENDANTS>
-        <LEAF  type="rectangle" args="0 1 1 0" />
-      </DESCENDANTS>
-
-    </NODE>
-
-    <!-- Another cube face -->
-    <NODE id="faceCubo3">
-      <MATERIAL id="null" />
-      <TEXTURE id="null" />
-
-      <TRANSLATION x="0.5" y="-0.5" z="0.5" />
-      <ROTATION axis="y" angle="90" />
-
-      <DESCENDANTS>
-        <LEAF  type="rectangle" args="0 1 1 0" />
-      </DESCENDANTS>
-
-    </NODE>
-
-    <!-- Another cube face -->
-    <NODE id="faceCubo4">
-      <MATERIAL id="null" />
-      <TEXTURE id="null" />
-
-      <TRANSLATION x="0.5" y="-0.5" z="-0.5" />
-      <ROTATION axis="y" angle="180" />
-
-      <DESCENDANTS>
-        <LEAF  type="rectangle" args="0 1 1 0" />
-      </DESCENDANTS>
-
-    </NODE>
-
-    <!-- Another cube face -->
-    <NODE id="faceCubo5">
-      <MATERIAL id="null" />
-      <TEXTURE id="null" />
-
-      <TRANSLATION x="-0.5" y="0.5" z="0.5" />
-      <ROTATION axis="x" angle="-90" />
-
-      <DESCENDANTS>
-        <LEAF  type="rectangle" args="0 1 1 0" />
-      </DESCENDANTS>
-
-    </NODE>
-
-    <!-- Another cube face -->
-    <NODE id="faceCubo6">
-      <MATERIAL id="null" />
-      <TEXTURE id="null" />
-
-      <TRANSLATION x="-0.5" y="-0.5" z="-0.5" />
-      <ROTATION axis="x" angle="90" />
-
-      <DESCENDANTS>
-        <LEAF  type="rectangle" args="0 1 1 0" />
-      </DESCENDANTS>
-
-    </NODE>
-
-
-    <NODE id="area_jogador1">
-      <MATERIAL id="null" />
-      <TEXTURE id="cor_jogador1" />
-
-      <DESCENDANTS>
-        <NODEREF id="triangulo1_jogador1" />
-        <NODEREF id="triangulo2_jogador1" />
-      </DESCENDANTS>
-
-    </NODE>
-
-    <NODE id="area_jogador2">
-      <MATERIAL id="null" />
-      <TEXTURE id="cor_jogador2" />
-
-      <DESCENDANTS>
-        <NODEREF id="triangulo1_jogador2" />
-        <NODEREF id="triangulo2_jogador2" />
-      </DESCENDANTS>
-
-    </NODE>
-
-
-    <NODE id="triangulo1_jogador1">
-      <MATERIAL id="null" />
-      <TEXTURE id="null" />
-
-      <TRANSLATION x="0" y="0.1" z="9.8" />
-      <SCALE sx="6" sy="6" sz="6"/>
-
-      <DESCENDANTS>
-        <LEAF  type="triangle" args="2 0 0 0 0 0 0 0 2" />
-      </DESCENDANTS>
-
-    </NODE>
-
-    <NODE id="triangulo2_jogador1">
-      <MATERIAL id="null" />
-      <TEXTURE id="null" />
-
-      <TRANSLATION x="-2" y="0.1" z="30" />
-      <ROTATION axis="x" angle="-90" />
-      <SCALE sx="6" sy="6" sz="6"/>
-
-      <DESCENDANTS>
-      <LEAF  type="triangle" args="2 0 0 4 0 0 2 2 0" />
-      </DESCENDANTS>
-
-    </NODE>
-
-    <NODE id="triangulo1_jogador2">
-      <MATERIAL id="null" />
-      <TEXTURE id="null" />
-
-      <TRANSLATION x="19.8" y="0.1" z="12" />
-      <ROTATION axis="z" angle="90" />
-      <ROTATION axis="y" angle="90" />
-      <SCALE sx="6" sy="6" sz="6"/>
-
-      <DESCENDANTS>
-        <LEAF  type="triangle" args="0 0 0 2 0 0 2 2 0" />
-      </DESCENDANTS>
-
-    </NODE>
-
-    <NODE id="triangulo2_jogador2">
-      <MATERIAL id="null" />
-      <TEXTURE id="null" />
-
-      <TRANSLATION x="6" y="0.1" z="31.6" />
-      <ROTATION axis="x" angle="-90" />
-      <SCALE sx="6" sy="6" sz="6"/>
-
-      <DESCENDANTS>
-          <LEAF  type="triangle" args="2 2 0 4 2 0 4 4 0" />
-      </DESCENDANTS>
-
-    </NODE>
-
-    <NODE id="quadrado">
-      <MATERIAL id="null" />
-      <TEXTURE id="quadrado" />
-
-      <TRANSLATION x="10" y="0.15" z="19.6" />
-      <ROTATION axis="x" angle="-90" />
-      <SCALE sx="4.9" sy="4.9" sz="4.9"/>
-
-      <DESCENDANTS>
-        <LEAF  type="rectangle" args="0 2 2 0" />
-      </DESCENDANTS>
-    </NODE>
-
     <NODE id="peca">
-      <MATERIAL id="null" />
-      <TEXTURE id="cor_jogador1" />
+  <MATERIAL id="null" />
+  <TEXTURE id="cor_jogador1" />
 
-      <TRANSLATION x="0" y="0" z="0" />
-      <SCALE sx="0.5" sy="0.25" sz="0.5"/>
+  <TRANSLATION x="0" y="0" z="0" />
+  <SCALE sx="0.5" sy="0.25" sz="0.5"/>
 
-      <DESCENDANTS>
-      <LEAF  type="sphere" args="2 20 20" />
-      </DESCENDANTS>
+  <DESCENDANTS>
+  <LEAF  type="sphere" args="2 20 20" />
+  </DESCENDANTS>
 
-    </NODE>
-
-
+</NODE>
   </NODES>
 
 </SCENE>
