@@ -40,13 +40,8 @@ XMLscene.prototype.init = function(application) {
     this.gl.depthFunc(this.gl.LEQUAL);
 
     this.axis = new CGFaxis(this);
-    this.appearance = new CGFappearance(this);
-  	this.appearance.setAmbient(0.3, 0.3, 0.3, 1);
-  	this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
-  	this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
-  	this.appearance.setShininess(120);
 
-
+    this.setPickEnabled(true);
 
   	this.shader=
   		new CGFshader(this.gl, "shaders/flat.vert", "shaders/flat.frag");
@@ -183,20 +178,9 @@ XMLscene.prototype.display = function() {
 		this.axis.display();
 	}
 
-  	//this.setActiveShader(this.shader);
+  this.logPicking();
+  this.clearPickRegistration();
 
-  	this.pushMatrix();
-
-  	this.translate(0,-6,0);
-  	this.scale(0.5,0.5,0.5);
-  	this.rotate(-Math.PI/2, 1, 0, 0);
-  	this.popMatrix();
-
-  	//this.setActiveShader(this.defaultShader);
-
-    this.popMatrix();
-
-    // ---- END Background, camera and axis setup
 
 }
 
@@ -215,4 +199,22 @@ for(node in this.graph.nodes){
 this.updateScaleFactor(current_time);
 
 
+}
+
+
+XMLscene.prototype.logPicking = function ()
+{
+	if (this.pickMode == false) {
+		if (this.pickResults != null && this.pickResults.length > 0) {
+			for (var i=0; i< this.pickResults.length; i++) {
+				var obj = this.pickResults[i][0];
+				if (obj)
+				{
+					var customId = this.pickResults[i][1];
+					console.log("Picked object: " + obj + ", with pick id " + customId);
+				}
+			}
+			this.pickResults.splice(0,this.pickResults.length);
+		}
+	}
 }

@@ -16,7 +16,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js',
 			 'MyGraphNode.js', 'MyGraphLeaf.js', 'MyInterface.js', '../primitives/MyRectangle.js', '../primitives/MyTriangle.js',
        '../primitives/MyCylinder.js', '../primitives/MySphere.js', '../primitives/MyCircle.js',  '../primitives/MyPatch.js',
        '../animations/Animation.js', '../animations/BezierAnimation.js','../animations/CircularAnimation.js',
-       '../animations/ComboAnimation.js','../animations/LinearAnimation.js',
+       '../animations/ComboAnimation.js','../animations/LinearAnimation.js','../game/CampoBello.js','../game/Player.js',
 main=function()
 {
 	// Standard application, scene and interface setup
