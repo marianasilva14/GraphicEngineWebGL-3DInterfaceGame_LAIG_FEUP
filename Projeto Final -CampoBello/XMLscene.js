@@ -19,6 +19,8 @@ function XMLscene(interface) {
     this.objectsSelectableID = 0;
     this.wireframe=false;
     this.scaleFactor=50.0;
+
+
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -53,6 +55,13 @@ XMLscene.prototype.init = function(application) {
 
 
   	this.updateScaleFactor(0);
+
+    this.piece1Appearance = new CGFappearance(this);
+	  this.piece1Appearance.loadTexture("scenes/images/amarelo.png");
+
+    this.piece2Appearance = new CGFappearance(this);
+	  this.piece2Appearance.loadTexture("scenes/images/vermelho.png");
+    this.CampoBello= new CampoBello(this);
 
 }
 
@@ -180,7 +189,7 @@ XMLscene.prototype.display = function() {
 
   this.logPicking();
   this.clearPickRegistration();
-
+  this.CampoBello.display();
 
 }
 

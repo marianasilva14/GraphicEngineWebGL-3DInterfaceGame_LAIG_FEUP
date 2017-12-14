@@ -130,7 +130,7 @@
 
         <!-- <NODEREF id="luzes" /> -->
         <NODEREF id="chao" />
-        <NODEREF id="peca" />
+      
       </DESCENDANTS>
 
     </NODE>
@@ -151,18 +151,7 @@
 
     </NODE>
 
-    <NODE id="peca">
-  <MATERIAL id="null" />
-  <TEXTURE id="cor_jogador1" />
 
-  <TRANSLATION x="0" y="0" z="0" />
-  <SCALE sx="0.5" sy="0.25" sz="0.5"/>
-
-  <DESCENDANTS>
-  <LEAF  type="sphere" args="2 20 20" />
-  </DESCENDANTS>
-
-</NODE>
   </NODES>
 
 </SCENE>
