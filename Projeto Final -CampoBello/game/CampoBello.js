@@ -83,14 +83,14 @@ CampoBello.prototype.getInitialBoard=function(){
     console.log("Request successful. Reply: " + data.target.response);
    this.board=JSON.parse(data.target.response);
   });
-
+/*
     for(var j=1; j <= 4;j++){
       this.areas[0].pieces[PIECE1_ID]=this.board[0][j];
       this.areas[0].pieces[PIECE2_ID]=this.board[0][j];
       this.areas[0].pieces[PIECE3_ID]=this.board[0][j];
       this.areas[0].pieces[PIECE4_ID]=this.board[0][j];
       }
-
+*/
 }
 
 
