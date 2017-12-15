@@ -17,7 +17,11 @@ function CampoBello(scene) {
 
   this.scene=scene;
 
-  this.board=[];
+  this.board= new Array(9);
+
+  for(var i=0; i <9;i++){
+      this.board[i]=new Array(9);
+  }
   this.areas=[];
 
   this.areas[0]=new Area(scene,PLAYER1_ID,AREA1_ID);
@@ -79,18 +83,68 @@ function getPrologRequest(requestString, onSuccess, onError, port)
 }
 
 CampoBello.prototype.getInitialBoard=function(){
+var this_t=this;
   getPrologRequest('initialBoard',function(data){
-    console.log("Request successful. Reply: " + data.target.response);
-   this.board=JSON.parse(data.target.response);
+    //console.log("Request successful. Reply: " + data.target.response);
+   this_t.board=JSON.parse(data.target.response);
+
   });
-/*
-    for(var j=1; j <= 4;j++){
-      this.areas[0].pieces[PIECE1_ID]=this.board[0][j];
-      this.areas[0].pieces[PIECE2_ID]=this.board[0][j];
-      this.areas[0].pieces[PIECE3_ID]=this.board[0][j];
-      this.areas[0].pieces[PIECE4_ID]=this.board[0][j];
-      }
-*/
+  //Area1 JOGADOR1
+    this_t.areas[0].pieces[PIECE1_ID].position=this_t.board[0][1];
+    this_t.areas[0].pieces[PIECE2_ID].position=this_t.board[0][2];
+    this_t.areas[0].pieces[PIECE3_ID].position=this_t.board[0][3];
+    this_t.areas[0].pieces[PIECE4_ID].position=this_t.board[0][4];
+
+    this_t.areas[0].pieces[PIECE5_ID].position=this_t.board[1][2];
+    this_t.areas[0].pieces[PIECE6_ID].position=this_t.board[1][3];
+    this_t.areas[0].pieces[PIECE7_ID].position=this_t.board[1][4];
+
+    this_t.areas[0].pieces[PIECE8_ID].position=this_t.board[2][3];
+    this_t.areas[0].pieces[PIECE9_ID].position=this_t.board[2][4];
+
+  //AREA2 JOGADOR1
+    this_t.areas[1].pieces[PIECE1_ID].position=this_t.board[4][0];
+    this_t.areas[1].pieces[PIECE2_ID].position=this_t.board[4][1];
+    this_t.areas[1].pieces[PIECE3_ID].position=this_t.board[4][2];
+
+    this_t.areas[1].pieces[PIECE4_ID].position=this_t.board[5][0];
+    this_t.areas[1].pieces[PIECE5_ID].position=this_t.board[5][1];
+    this_t.areas[1].pieces[PIECE6_ID].position=this_t.board[5][2];
+
+    this_t.areas[1].pieces[PIECE7_ID].position=this_t.board[6][0];
+    this_t.areas[1].pieces[PIECE8_ID].position=this_t.board[6][1];
+
+    this_t.areas[1].pieces[PIECE9_ID].position=this_t.board[7][0];
+
+  //Area1 JOGADOR2
+    this_t.areas[2].pieces[PIECE1_ID].position=this_t.board[1][8];
+
+    this_t.areas[2].pieces[PIECE2_ID].position=this_t.board[2][7];
+    this_t.areas[2].pieces[PIECE3_ID].position=this_t.board[2][8];
+
+    this_t.areas[2].pieces[PIECE4_ID].position=this_t.board[3][6];
+    this_t.areas[2].pieces[PIECE5_ID].position=this_t.board[3][7];
+    this_t.areas[2].pieces[PIECE6_ID].position=this_t.board[3][8];
+
+    this_t.areas[2].pieces[PIECE7_ID].position=this_t.board[4][6];
+    this_t.areas[2].pieces[PIECE8_ID].position=this_t.board[4][7];
+    this_t.areas[2].pieces[PIECE9_ID].position=this_t.board[4][9];
+
+  //Area2 JOGADOR2
+
+  this_t.areas[3].pieces[PIECE1_ID].position=this_t.board[6][4];
+  this_t.areas[3].pieces[PIECE2_ID].position=this_t.board[6][5];
+
+  this_t.areas[3].pieces[PIECE3_ID].position=this_t.board[7][4];
+  this_t.areas[3].pieces[PIECE4_ID].position=this_t.board[7][5];
+  this_t.areas[3].pieces[PIECE5_ID].position=this_t.board[7][6];
+
+  this_t.areas[3].pieces[PIECE6_ID].position=this_t.board[8][4];
+  this_t.areas[3].pieces[PIECE7_ID].position=this_t.board[8][5];
+  this_t.areas[3].pieces[PIECE8_ID].position=this_t.board[8][6];
+  this_t.areas[3].pieces[PIECE9_ID].position=this_t.board[8][7];
+
+  console.log()
 }
 
 
@@ -99,8 +153,14 @@ CampoBello.prototype.game = function(){
     case this.state.INITIAL_STATE:
     this.getInitialBoard();
     break;
-
-
+    case this.state.INVALID_MOVEMENT:
+    break;
+    case this.state.INVALID_MOVEMENT:
+    break;
+    case this.state.VALID_MOVEMENT:
+    break;
+    case this.state.ANOTHER_MOVEMENT:
+    break;
     default:
   }
 }

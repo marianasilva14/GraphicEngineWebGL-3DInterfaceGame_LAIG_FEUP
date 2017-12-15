@@ -8,6 +8,7 @@
   this.scene=scene;
   this.selectable=false;
   this.appearance;
+  this.position;
   if(playerID==PLAYER1_ID){
       this.appearance=this.scene.piece1Appearance;
   }
