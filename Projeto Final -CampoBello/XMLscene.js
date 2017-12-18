@@ -132,6 +132,7 @@ XMLscene.prototype.onGraphLoaded = function()
     // Adds lights group.
     this.interface.addLightsGroup(this.graph.lights);
     this.interface.dropDown();
+
 }
 
 /**
@@ -187,8 +188,6 @@ XMLscene.prototype.display = function() {
 		this.axis.display();
 	}
 
-  this.logPicking();
-  this.clearPickRegistration();
   this.CampoBello.display();
 
 }

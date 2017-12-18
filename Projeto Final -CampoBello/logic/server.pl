@@ -112,5 +112,9 @@ parse_input(initialBoard,Board):-
 	initialBoard(TmpBoard),
 	boardToNumbers(TmpBoard,Board).
 
+parse_input(validateMove(Area,LastCol,LastRow,Ncol,Nrow,Board),[Board]):-
+	initialBoard(TmpBoard),
+	boardToNumbers(TmpBoard,Board).
+
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).

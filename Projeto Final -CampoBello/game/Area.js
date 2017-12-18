@@ -15,19 +15,11 @@ function Area(scene,idPlayer,id) {
 
    this.pieces=[];
 
-
-   this.pieces[PIECE1_ID]=new Piece(scene,idPlayer);
-   this.pieces[PIECE2_ID]=new Piece(scene,idPlayer);
-   this.pieces[PIECE3_ID]=new Piece(scene,idPlayer);
-   this.pieces[PIECE4_ID]=new Piece(scene,idPlayer);
-   this.pieces[PIECE5_ID]=new Piece(scene,idPlayer);
-   this.pieces[PIECE6_ID]=new Piece(scene,idPlayer);
-   this.pieces[PIECE7_ID]=new Piece(scene,idPlayer);
-   this.pieces[PIECE8_ID]=new Piece(scene,idPlayer);
-   this.pieces[PIECE9_ID]=new Piece(scene,idPlayer);
-
-
-
+   var i=1;
+   for(var j=id*9; j < (id*9+9);j++){
+   this.pieces[i]=new Piece(scene,idPlayer,j);
+   i++;
+ }
 
 };
 

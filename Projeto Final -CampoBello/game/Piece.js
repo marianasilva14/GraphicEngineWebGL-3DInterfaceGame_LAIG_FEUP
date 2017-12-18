@@ -2,13 +2,16 @@
  * Piece
  * @constructor
  */
- function Piece(scene,playerID) {
+ function Piece(scene,playerID,pickingId) {
  	CGFobject.call(this,scene);
 
+  this.pickingId=pickingId;
   this.scene=scene;
   this.selectable=false;
   this.appearance;
-  this.position;
+  this.typeOfPiece;
+  this.idPiece;
+
   if(playerID==PLAYER1_ID){
       this.appearance=this.scene.piece1Appearance;
   }
@@ -23,13 +26,20 @@
  Piece.prototype.constructor = Piece;
 
 Piece.prototype.display= function(){
-  if(this.selectable){
-    console.log('entrou no if!!');
-    this.scene.registerForPick(this);
-    console.log('fez o registerForPick');
-  }
+
+  this.scene.logPicking();
+  this.scene.clearPickRegistration();
+
+    this.scene.registerForPick(this.pickingId,this);
+
 
   this.appearance.apply();
   this.piece.display();
 
+}
+
+Piece.prototype.setPiece=function(typeOfPiece,idPiece){
+  this.typeOfPiece= typeOfPiece;
+
+  this.idPiece=idPiece;
 }

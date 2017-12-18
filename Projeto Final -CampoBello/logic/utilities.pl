@@ -70,8 +70,6 @@ set_level(Level):-
   boardToNumbersLine(List, NumberList),
   boardToNumbers(R, Numbers).
 
-
-
   boardToNumbersLine([], []).
   boardToNumbersLine([Element | Rest], [Number | NumberRest]):-
   atomString(Element,Number),
@@ -81,6 +79,7 @@ set_level(Level):-
   atomString(pieceX, 1).
   atomString(pieceY, 2).
   atomString(noPiece, 3).
+
 %Predicate copying one board to another
 duplicate(_Old,_New):-fail.
 duplicate(_Old,_Old).

@@ -87,64 +87,67 @@ var this_t=this;
   getPrologRequest('initialBoard',function(data){
     //console.log("Request successful. Reply: " + data.target.response);
    this_t.board=JSON.parse(data.target.response);
+     console.log(this_t.board);
 
-  });
+
   //Area1 JOGADOR1
-    this_t.areas[0].pieces[PIECE1_ID].position=this_t.board[0][1];
-    this_t.areas[0].pieces[PIECE2_ID].position=this_t.board[0][2];
-    this_t.areas[0].pieces[PIECE3_ID].position=this_t.board[0][3];
-    this_t.areas[0].pieces[PIECE4_ID].position=this_t.board[0][4];
+    this_t.areas[0].pieces[PIECE1_ID].setPiece(this_t.board[0][1]);
+    this_t.areas[0].pieces[PIECE2_ID].setPiece(this_t.board[0][2]);
+    this_t.areas[0].pieces[PIECE3_ID].setPiece(this_t.board[0][3]);
+    this_t.areas[0].pieces[PIECE4_ID].setPiece(this_t.board[0][4]);
 
-    this_t.areas[0].pieces[PIECE5_ID].position=this_t.board[1][2];
-    this_t.areas[0].pieces[PIECE6_ID].position=this_t.board[1][3];
-    this_t.areas[0].pieces[PIECE7_ID].position=this_t.board[1][4];
+    this_t.areas[0].pieces[PIECE5_ID].setPiece(this_t.board[1][2]);
+    this_t.areas[0].pieces[PIECE6_ID].setPiece(this_t.board[1][3]);
+    this_t.areas[0].pieces[PIECE7_ID].setPiece(this_t.board[1][4]);
 
-    this_t.areas[0].pieces[PIECE8_ID].position=this_t.board[2][3];
-    this_t.areas[0].pieces[PIECE9_ID].position=this_t.board[2][4];
+    this_t.areas[0].pieces[PIECE8_ID].setPiece(this_t.board[2][3]);
+    this_t.areas[0].pieces[PIECE9_ID].setPiece(this_t.board[2][4]);
 
   //AREA2 JOGADOR1
-    this_t.areas[1].pieces[PIECE1_ID].position=this_t.board[4][0];
-    this_t.areas[1].pieces[PIECE2_ID].position=this_t.board[4][1];
-    this_t.areas[1].pieces[PIECE3_ID].position=this_t.board[4][2];
+    this_t.areas[1].pieces[PIECE1_ID].setPiece(this_t.board[4][0]);
+    this_t.areas[1].pieces[PIECE2_ID].setPiece(this_t.board[4][1]);
+    this_t.areas[1].pieces[PIECE3_ID].setPiece(this_t.board[4][2]);
 
-    this_t.areas[1].pieces[PIECE4_ID].position=this_t.board[5][0];
-    this_t.areas[1].pieces[PIECE5_ID].position=this_t.board[5][1];
-    this_t.areas[1].pieces[PIECE6_ID].position=this_t.board[5][2];
+    this_t.areas[1].pieces[PIECE4_ID].setPiece(this_t.board[5][0]);
+    this_t.areas[1].pieces[PIECE5_ID].setPiece(this_t.board[5][1]);
+    this_t.areas[1].pieces[PIECE6_ID].setPiece(this_t.board[5][2]);
 
-    this_t.areas[1].pieces[PIECE7_ID].position=this_t.board[6][0];
-    this_t.areas[1].pieces[PIECE8_ID].position=this_t.board[6][1];
+    this_t.areas[1].pieces[PIECE7_ID].setPiece(this_t.board[6][0]);
+    this_t.areas[1].pieces[PIECE8_ID].setPiece(this_t.board[6][1]);
 
-    this_t.areas[1].pieces[PIECE9_ID].position=this_t.board[7][0];
+    this_t.areas[1].pieces[PIECE9_ID].setPiece(this_t.board[7][0]);
 
   //Area1 JOGADOR2
-    this_t.areas[2].pieces[PIECE1_ID].position=this_t.board[1][8];
+    this_t.areas[2].pieces[PIECE1_ID].setPiece(this_t.board[1][8]);
 
-    this_t.areas[2].pieces[PIECE2_ID].position=this_t.board[2][7];
-    this_t.areas[2].pieces[PIECE3_ID].position=this_t.board[2][8];
+    this_t.areas[2].pieces[PIECE2_ID].setPiece(this_t.board[2][7]);
+    this_t.areas[2].pieces[PIECE3_ID].setPiece(this_t.board[2][8]);
 
-    this_t.areas[2].pieces[PIECE4_ID].position=this_t.board[3][6];
-    this_t.areas[2].pieces[PIECE5_ID].position=this_t.board[3][7];
-    this_t.areas[2].pieces[PIECE6_ID].position=this_t.board[3][8];
+    this_t.areas[2].pieces[PIECE4_ID].setPiece(this_t.board[3][6]);
+    this_t.areas[2].pieces[PIECE5_ID].setPiece(this_t.board[3][7]);
+    this_t.areas[2].pieces[PIECE6_ID].setPiece(this_t.board[3][8]);
 
-    this_t.areas[2].pieces[PIECE7_ID].position=this_t.board[4][6];
-    this_t.areas[2].pieces[PIECE8_ID].position=this_t.board[4][7];
-    this_t.areas[2].pieces[PIECE9_ID].position=this_t.board[4][9];
+    this_t.areas[2].pieces[PIECE7_ID].setPiece(this_t.board[4][6]);
+    this_t.areas[2].pieces[PIECE8_ID].setPiece(this_t.board[4][7]);
+    this_t.areas[2].pieces[PIECE9_ID].setPiece(this_t.board[4][9]);
 
   //Area2 JOGADOR2
 
-  this_t.areas[3].pieces[PIECE1_ID].position=this_t.board[6][4];
-  this_t.areas[3].pieces[PIECE2_ID].position=this_t.board[6][5];
+  this_t.areas[3].pieces[PIECE1_ID].setPiece(this_t.board[6][4]);
+  this_t.areas[3].pieces[PIECE2_ID].setPiece(this_t.board[6][5]);
 
-  this_t.areas[3].pieces[PIECE3_ID].position=this_t.board[7][4];
-  this_t.areas[3].pieces[PIECE4_ID].position=this_t.board[7][5];
-  this_t.areas[3].pieces[PIECE5_ID].position=this_t.board[7][6];
+  this_t.areas[3].pieces[PIECE3_ID].setPiece(this_t.board[7][4]);
+  this_t.areas[3].pieces[PIECE4_ID].setPiece(this_t.board[7][5]);
+  this_t.areas[3].pieces[PIECE5_ID].setPiece(this_t.board[7][6]);
 
-  this_t.areas[3].pieces[PIECE6_ID].position=this_t.board[8][4];
-  this_t.areas[3].pieces[PIECE7_ID].position=this_t.board[8][5];
-  this_t.areas[3].pieces[PIECE8_ID].position=this_t.board[8][6];
-  this_t.areas[3].pieces[PIECE9_ID].position=this_t.board[8][7];
+  this_t.areas[3].pieces[PIECE6_ID].setPiece(this_t.board[8][4]);
+  this_t.areas[3].pieces[PIECE7_ID].setPiece(this_t.board[8][5]);
+  this_t.areas[3].pieces[PIECE8_ID].setPiece(this_t.board[8][6]);
+  this_t.areas[3].pieces[PIECE9_ID].setPiece(this_t.board[8][7]);
+  });
 
-  console.log()
+
+
 }
 
 
