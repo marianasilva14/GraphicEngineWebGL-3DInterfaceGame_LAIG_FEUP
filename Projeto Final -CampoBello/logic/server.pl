@@ -116,16 +116,20 @@ parse_input(initialBoard,Board):-
 
 %valid move
 parse_input(validateGame(Board,Source,Destiny,AreaNumber),BoardOut):-
+	player(Curr_player),
 	boardToNumbers(TmpBoard,Board),
 	transformPiece(Source,Piece),
 	transformArea(Area,AreaNumber),
 	transformToCoordinates(RowSource,ColSource,Source),
 	transformToCoordinates(RowDestiny,ColDestiny,Destiny),
 	validateDestinyPiece(ColSource,RowSource,ColDestiny,RowDestiny,TmpBoard,Piece, Area,Board2),
-	boardToNumbers(Board2,BoardOut).
+	boardToNumbers(Board2,BoardOut),
+	if_then_else(Curr_player == 'playerX', set_player('playerY'),set_player('playerX')).
 
 %invalid move
 parse_input(validateGame(Board,Source,Destiny,AreaNumber),[]).
+
+
 
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).

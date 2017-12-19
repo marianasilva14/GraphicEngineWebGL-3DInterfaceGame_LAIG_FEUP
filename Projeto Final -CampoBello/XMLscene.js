@@ -66,7 +66,6 @@ XMLscene.prototype.init = function(application) {
 
 }
 
-
 XMLscene.prototype.updateScaleFactor=function(current_time)
 {
 	this.shader.setUniformsValues({normScale: 0.5+0.5*Math.sin(current_time/1000)});
@@ -206,6 +205,14 @@ for(node in this.graph.nodes){
   if(this.graph.nodes[node].animations.length!=0){
     this.graph.nodes[node].updateAnimation(current_time);
   }
+}
+
+for(var j=0; j < this.CampoBello.areas.length;j++){
+  for(var i=1;i < this.CampoBello.areas[j].pieces.length;i++){
+  if(this.CampoBello.areas[j].pieces[i].animations.length!=0){
+    this.CampoBello.areas[j].pieces[i].updateAnimation(current_time);
+  }
+}
 }
 
 this.updateScaleFactor(current_time);

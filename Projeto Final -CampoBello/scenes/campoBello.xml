@@ -99,7 +99,7 @@
       centerx="0" centery="0" centerz="0"
       radius="3" startang="20" rotang="60">
     </ANIMATION>
-    <ANIMATION id="3" speed="1" type="bezier">
+    <ANIMATION id="3" speed="2" type="bezier">
       <controlpoint xx="0" yy="0" zz="0" />
       <controlpoint xx="2" yy="0" zz="2" />
       <controlpoint xx="4" yy="0" zz="4" />
@@ -130,7 +130,7 @@
 
         <!-- <NODEREF id="luzes" /> -->
         <NODEREF id="chao" />
-      
+
       </DESCENDANTS>
 
     </NODE>

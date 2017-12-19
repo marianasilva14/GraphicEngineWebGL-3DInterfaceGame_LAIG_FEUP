@@ -22,7 +22,18 @@ function Area(scene,idPlayer,id) {
    this.pieces[i]=new Piece(scene,idPlayer,j);
    i++;
  }
+//visibilidade pecas
+  this.pieces[PIECE1_ID].visible=true;
+  this.pieces[PIECE2_ID].visible=true;
+  this.pieces[PIECE3_ID].visible=true;
+  this.pieces[PIECE4_ID].visible=true;
+  this.pieces[PIECE5_ID].visible=true;
+  this.pieces[PIECE6_ID].visible=true;
+  this.pieces[PIECE7_ID].visible=true;
+  this.pieces[PIECE8_ID].visible=true;
+  this.pieces[PIECE9_ID].visible=true;
 
+//coordenadas pecas
  this.pieces[PIECE1_ID].x=1.6;
  this.pieces[PIECE1_ID].y=0.3;
  this.pieces[PIECE1_ID].z=8.7;
@@ -64,7 +75,6 @@ Area.prototype.display= function(){
   this.scene.pushMatrix();
   this.scene.scale(1,0.5,1);
   this.scene.translate(this.pieces[PIECE1_ID].x,this.pieces[PIECE1_ID].y,this.pieces[PIECE1_ID].z);
-  this.pieces[PIECE1_ID].visible=true;
   this.pieces[PIECE1_ID].display();
   this.scene.popMatrix();
 
@@ -72,56 +82,48 @@ Area.prototype.display= function(){
   this.scene.pushMatrix();
   this.scene.scale(1,0.5,1);
   this.scene.translate(this.pieces[PIECE2_ID].x,this.pieces[PIECE2_ID].y,this.pieces[PIECE2_ID].z);
-  this.pieces[PIECE2_ID].visible=true;
   this.pieces[PIECE2_ID].display();
   this.scene.popMatrix();
 
   this.scene.pushMatrix();
   this.scene.scale(1,0.5,1);
   this.scene.translate(this.pieces[PIECE3_ID].x,this.pieces[PIECE3_ID].y,this.pieces[PIECE3_ID].z);
-  this.pieces[PIECE3_ID].visible=true;
   this.pieces[PIECE3_ID].display();
   this.scene.popMatrix();
 
   this.scene.pushMatrix();
   this.scene.scale(1,0.5,1);
   this.scene.translate(this.pieces[PIECE4_ID].x,this.pieces[PIECE4_ID].y,this.pieces[PIECE4_ID].z);
-  this.pieces[PIECE4_ID].visible=true;
   this.pieces[PIECE4_ID].display();
   this.scene.popMatrix();
 
   this.scene.pushMatrix();
   this.scene.scale(1,0.5,1);
   this.scene.translate(this.pieces[PIECE5_ID].x,this.pieces[PIECE5_ID].y,this.pieces[PIECE5_ID].z);
-  this.pieces[PIECE5_ID].visible=true;
   this.pieces[PIECE5_ID].display();
   this.scene.popMatrix();
 
   this.scene.pushMatrix();
   this.scene.scale(1,0.5,1);
   this.scene.translate(this.pieces[PIECE6_ID].x,this.pieces[PIECE6_ID].y,this.pieces[PIECE6_ID].z);
-  this.pieces[PIECE6_ID].visible=true;
   this.pieces[PIECE6_ID].display();
   this.scene.popMatrix();
 
   this.scene.pushMatrix();
   this.scene.scale(1,0.5,1);
   this.scene.translate(this.pieces[PIECE7_ID].x,this.pieces[PIECE7_ID].y,this.pieces[PIECE7_ID].z);
-  this.pieces[PIECE7_ID].visible=true;
   this.pieces[PIECE7_ID].display();
   this.scene.popMatrix();
 
   this.scene.pushMatrix();
   this.scene.scale(1,0.5,1);
   this.scene.translate(this.pieces[PIECE8_ID].x,this.pieces[PIECE8_ID].y,this.pieces[PIECE8_ID].z);
-  this.pieces[PIECE8_ID].visible=true;
   this.pieces[PIECE8_ID].display();
   this.scene.popMatrix();
 
   this.scene.pushMatrix();
   this.scene.scale(1,0.5,1);
   this.scene.translate(this.pieces[PIECE9_ID].x,this.pieces[PIECE9_ID].y,this.pieces[PIECE9_ID].z);
-  this.pieces[PIECE9_ID].visible=true;
   this.pieces[PIECE9_ID].display();
   this.scene.popMatrix();
 
