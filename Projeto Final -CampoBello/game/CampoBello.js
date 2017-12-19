@@ -4,8 +4,10 @@
 const PLAYER1_ID = 1;
 const PLAYER2_ID = 2;
 
+const AREA0_ID = 0 ;
 const AREA1_ID = 1 ;
 const AREA2_ID = 2 ;
+const AREA3_ID = 3 ;
 
 const EMPTY=0;
 const pieceX=1;
@@ -24,16 +26,16 @@ function CampoBello(scene) {
   }
   this.areas=[];
 
-  this.areas[0]=new Area(scene,PLAYER1_ID,AREA1_ID);
-  this.areas[1]=new Area(scene,PLAYER1_ID,AREA2_ID);
-  this.areas[2]=new Area(scene,PLAYER2_ID,AREA1_ID);
-  this.areas[3]=new Area(scene,PLAYER2_ID,AREA2_ID);
+  this.areas[0]=new Area(scene,PLAYER1_ID,AREA0_ID);
+  this.areas[1]=new Area(scene,PLAYER1_ID,AREA1_ID);
+  this.areas[2]=new Area(scene,PLAYER2_ID,AREA2_ID);
+  this.areas[3]=new Area(scene,PLAYER2_ID,AREA3_ID);
 
   this.state={
     INITIAL_STATE: 1,
-    INVALID_MOVEMENT:2,
+    CHOOSE_ORIGIN:2,
     VALID_MOVEMENT:3,
-    ANOTHER_MOVEMENT:4,
+    CHOOSE_DESTINY:4,
     END_GAME:5
   };
 
@@ -103,6 +105,8 @@ var this_t=this;
     this_t.areas[0].pieces[PIECE8_ID].setPiece(this_t.board[2][3]);
     this_t.areas[0].pieces[PIECE9_ID].setPiece(this_t.board[2][4]);
 
+    this_t.areas[0].pieces[PIECE10_ID].setPiece(this_t.board[2][5]);
+
   //AREA2 JOGADOR1
     this_t.areas[1].pieces[PIECE1_ID].setPiece(this_t.board[4][0]);
     this_t.areas[1].pieces[PIECE2_ID].setPiece(this_t.board[4][1]);
@@ -116,6 +120,8 @@ var this_t=this;
     this_t.areas[1].pieces[PIECE8_ID].setPiece(this_t.board[6][1]);
 
     this_t.areas[1].pieces[PIECE9_ID].setPiece(this_t.board[7][0]);
+
+    this_t.areas[1].pieces[PIECE10_ID].setPiece(this_t.board[4][4]);
 
   //Area1 JOGADOR2
     this_t.areas[2].pieces[PIECE1_ID].setPiece(this_t.board[1][8]);
@@ -131,24 +137,102 @@ var this_t=this;
     this_t.areas[2].pieces[PIECE8_ID].setPiece(this_t.board[4][7]);
     this_t.areas[2].pieces[PIECE9_ID].setPiece(this_t.board[4][9]);
 
+    this_t.areas[2].pieces[PIECE10_ID].setPiece(this_t.board[4][5]);
+
   //Area2 JOGADOR2
 
-  this_t.areas[3].pieces[PIECE1_ID].setPiece(this_t.board[6][4]);
-  this_t.areas[3].pieces[PIECE2_ID].setPiece(this_t.board[6][5]);
+    this_t.areas[3].pieces[PIECE1_ID].setPiece(this_t.board[6][4]);
+    this_t.areas[3].pieces[PIECE2_ID].setPiece(this_t.board[6][5]);
 
-  this_t.areas[3].pieces[PIECE3_ID].setPiece(this_t.board[7][4]);
-  this_t.areas[3].pieces[PIECE4_ID].setPiece(this_t.board[7][5]);
-  this_t.areas[3].pieces[PIECE5_ID].setPiece(this_t.board[7][6]);
+    this_t.areas[3].pieces[PIECE3_ID].setPiece(this_t.board[7][4]);
+    this_t.areas[3].pieces[PIECE4_ID].setPiece(this_t.board[7][5]);
+    this_t.areas[3].pieces[PIECE5_ID].setPiece(this_t.board[7][6]);
 
-  this_t.areas[3].pieces[PIECE6_ID].setPiece(this_t.board[8][4]);
-  this_t.areas[3].pieces[PIECE7_ID].setPiece(this_t.board[8][5]);
-  this_t.areas[3].pieces[PIECE8_ID].setPiece(this_t.board[8][6]);
-  this_t.areas[3].pieces[PIECE9_ID].setPiece(this_t.board[8][7]);
+    this_t.areas[3].pieces[PIECE6_ID].setPiece(this_t.board[8][4]);
+    this_t.areas[3].pieces[PIECE7_ID].setPiece(this_t.board[8][5]);
+    this_t.areas[3].pieces[PIECE8_ID].setPiece(this_t.board[8][6]);
+    this_t.areas[3].pieces[PIECE9_ID].setPiece(this_t.board[8][7]);
+
+    this_t.areas[3].pieces[PIECE10_ID].setPiece(this_t.board[5][4]);
   });
 
+  this.currentState=this.state.CHOOSE_ORIGIN;
+  this.game();
+}
+
+CampoBello.prototype.chooseDestiny=function(){
+
+  if(this.scene.selectObjectDestiny!=-1){
+    console.log('entrei');
+    this.currentState=this.state.VALID_MOVEMENT;
+    this.game();
+  }
+
+}
+
+CampoBello.prototype.areaPiece=function(idPiece) {
+  for(var i=0; i< this.areas.length;i++){
+    for(var j=1; j < this.areas[i].pieces.length;j++){
+      if(this.areas[i].pieces[j].pickingId==idPiece){
+        return i;
+      }
+    }
+  }
+}
+CampoBello.prototype.chooseOrigin=function(){
+
+  if(this.scene.selectObjectOrigin!=-1){
+        console.log('entreinoOr');
+    this.currentState=this.state.CHOOSE_DESTINY;
+    //this.game();
+  }
+
+}
+
+CampoBello.prototype.createPieceAnimation=function(){
+    var areaOriginPiece=this.areaPiece(this.scene.selectObjectOrigin);
+    var areaDestinyPiece=this.areaPiece(this.scene.selectObjectOrigin);
+      for(var j=1; j< this.areas[areaDestinyPiece].pieces.length;j++){
+            if(this.areas[areaDestinyPiece].pieces[j].pickingId==this.scene.selectObjectDestiny){
+              var pieceDestiny=this.areas[areaDestinyPiece].pieces[j];
+              pieceDestiny.visible=false;
+            }
+          }
+
+    for(var j=1; j< this.areas[areaOriginPiece].pieces.length;j++){
+      var pieceOrigin=this.areas[areaOriginPiece].pieces[j];
+          if(pieceOrigin.pickingId==this.scene.selectObjectOrigin){
+            pieceOrigin.x=pieceDestiny.x;
+            pieceOrigin.y=pieceDestiny.y;
+            pieceOrigin.z=pieceDestiny.z;
+          }
+    }
 
 
 }
+
+CampoBello.prototype.validateMove=function(){
+  var this_t=this;
+  var areaPiece=this.areaPiece(this.scene.selectObjectOrigin);
+  console.log(JSON.stringify(areaPiece));
+console.log(JSON.stringify(this_t.board));
+    getPrologRequest(
+      "validateGame("+JSON.stringify(this_t.board)+","+
+                      JSON.stringify(this_t.scene.selectObjectOrigin)+","+
+                      JSON.stringify(this_t.scene.selectObjectDestiny)+","+
+                      JSON.stringify(areaPiece)+")",
+                      function(data){
+                              //console.log("Request successful. Reply: " + data.target.response);
+                              var info=JSON.parse(data.target.response);
+                              if(info!=[]){
+                            //  this_t.board=info;
+                              this_t.createPieceAnimation();
+                              }
+
+                              // console.log(info);
+                        });
+}
+
 
 
 CampoBello.prototype.game = function(){
@@ -156,11 +240,16 @@ CampoBello.prototype.game = function(){
     case this.state.INITIAL_STATE:
     this.getInitialBoard();
     break;
-    case this.state.INVALID_MOVEMENT:
+    case this.state.CHOOSE_ORIGIN:
+    //this.chooseOrigin();
     break;
-    case this.state.INVALID_MOVEMENT:
+    case this.state.CHOOSE_DESTINY:
+  //  this.chooseDestiny();
     break;
     case this.state.VALID_MOVEMENT:
+    this.validateMove();
+    break;
+    case this.state.INVALID_MOVEMENT:
     break;
     case this.state.ANOTHER_MOVEMENT:
     break;

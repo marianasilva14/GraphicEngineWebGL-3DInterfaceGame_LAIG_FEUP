@@ -88,6 +88,9 @@ if_then_else(Curr_player == 'playerX', set_player('playerY'),set_player('playerX
 write('List Of Possible Moves: '),
 write(List), write(' Row: '),write(RowDestiny), write(' Col: '),
 numberToLetter(ColDestiny,Letter),write(Letter),nl.
+
+
+
 %Predicate that returns a list with parts that have possible moves
 listOfPiecesThatHasPossibleMoveX(FinalList,Board):-
   saveElements(Board,'pieceX',ListOfDestiny),

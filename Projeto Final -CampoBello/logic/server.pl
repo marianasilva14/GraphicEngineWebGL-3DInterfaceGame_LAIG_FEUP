@@ -109,12 +109,23 @@ parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(quit, goodbye).
 
 parse_input(initialBoard,Board):-
+	set_player('playerX'),
+	set_mode_game(1),
 	initialBoard(TmpBoard),
 	boardToNumbers(TmpBoard,Board).
 
-parse_input(validateMove(Area,LastCol,LastRow,Ncol,Nrow,Board),[Board]):-
-	initialBoard(TmpBoard),
-	boardToNumbers(TmpBoard,Board).
+%valid move
+parse_input(validateGame(Board,Source,Destiny,AreaNumber),BoardOut):-
+	boardToNumbers(TmpBoard,Board),
+	transformPiece(Source,Piece),
+	transformArea(Area,AreaNumber),
+	transformToCoordinates(RowSource,ColSource,Source),
+	transformToCoordinates(RowDestiny,ColDestiny,Destiny),
+	validateDestinyPiece(ColSource,RowSource,ColDestiny,RowDestiny,TmpBoard,Piece, Area,Board2),
+	boardToNumbers(Board2,BoardOut).
+
+%invalid move
+parse_input(validateGame(Board,Source,Destiny,AreaNumber),[]).
 
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).

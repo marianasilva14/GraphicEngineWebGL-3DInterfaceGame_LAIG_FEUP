@@ -19,7 +19,8 @@ function XMLscene(interface) {
     this.objectsSelectableID = 0;
     this.wireframe=false;
     this.scaleFactor=50.0;
-
+    this.selectObjectOrigin=-1;
+    this.selectObjectDestiny=-1;
 
 }
 
@@ -139,6 +140,8 @@ XMLscene.prototype.onGraphLoaded = function()
  * Displays the scene.
  */
 XMLscene.prototype.display = function() {
+    this.logPicking();
+    this.clearPickRegistration();
     // ---- BEGIN Background, camera and axis setup
 
     // Clear image and depth buffer everytime we update the scene
@@ -181,6 +184,7 @@ XMLscene.prototype.display = function() {
         // Displays the scene.
         this.graph.displayScene();
 
+
     }
 	else
 	{
@@ -220,6 +224,19 @@ XMLscene.prototype.logPicking = function ()
 				{
 					var customId = this.pickResults[i][1];
 					console.log("Picked object: " + obj + ", with pick id " + customId);
+          switch (this.CampoBello.currentState) {
+            case this.CampoBello.state.CHOOSE_ORIGIN:
+            this.selectObjectOrigin=customId;
+            this.CampoBello.chooseOrigin();
+              break;
+            case this.CampoBello.state.CHOOSE_DESTINY:
+            this.selectObjectDestiny=customId;
+            this.CampoBello.chooseDestiny();
+            break;
+            default:
+
+          }
+
 				}
 			}
 			this.pickResults.splice(0,this.pickResults.length);
