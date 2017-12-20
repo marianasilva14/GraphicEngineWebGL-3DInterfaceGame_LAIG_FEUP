@@ -20,12 +20,13 @@ function CampoBello(scene) {
   this.scene=scene;
 
   this.board= new Array(9);
+  this.piecesPlayer1=[0,1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,17,18];
+  this.piecesPlayer2=[20,21,22,23,24,25,26,27,28,30,31,32,33,34,35,36,37,38];
 
   for(var i=0; i <9;i++){
     this.board[i]=new Array(9);
   }
   this.areas=[];
-
   this.areas[0]=new Area(scene,PLAYER1_ID,AREA0_ID);
   this.areas[1]=new Area(scene,PLAYER1_ID,AREA1_ID);
   this.areas[2]=new Area(scene,PLAYER2_ID,AREA2_ID);
@@ -36,10 +37,12 @@ function CampoBello(scene) {
     CHOOSE_ORIGIN:2,
     VALID_MOVEMENT:3,
     CHOOSE_DESTINY:4,
-    END_GAME:5
+    UPDATE_ANIMATION:5,
+    END_GAME:6
   };
 
   this.currentState=this.state.INITIAL_STATE;
+  this.currentPlayer=PLAYER1_ID;
   this.game();
 };
 
@@ -52,20 +55,14 @@ CampoBello.prototype.display=function(){
   this.scene.popMatrix();
 
   this.scene.pushMatrix();
-  this.scene.translate(0,0,30.5);
-  this.scene.rotate(90*Math.PI/180, 0, 1, 0);
   this.areas[1].display();
   this.scene.popMatrix();
 
   this.scene.pushMatrix();
-  this.scene.translate(30.2,0,30.5);
-  this.scene.rotate(180*Math.PI/180, 0, 1, 0);
   this.areas[2].display();
   this.scene.popMatrix();
 
   this.scene.pushMatrix();
-  this.scene.translate(30.8,0,0.03);
-  this.scene.rotate(-90*Math.PI/180, 0, 1, 0);
   this.areas[3].display();
   this.scene.popMatrix();
 
@@ -87,9 +84,8 @@ function getPrologRequest(requestString, onSuccess, onError, port)
 CampoBello.prototype.getInitialBoard=function(){
   var this_t=this;
   getPrologRequest('initialBoard',function(data){
-    //console.log("Request successful. Reply: " + data.target.response);
+
     this_t.board=JSON.parse(data.target.response);
-    console.log(this_t.board);
 
   });
 
@@ -124,13 +120,13 @@ CampoBello.prototype.chooseOrigin=function(){
 }
 
 CampoBello.prototype.createPieceAnimation=function(){
+  this.currentState=this.state.UPDATE_ANIMATION;
   var areaOriginPiece=this.areaPiece(this.scene.selectObjectOrigin);
   var areaDestinyPiece=this.areaPiece(this.scene.selectObjectOrigin);
 
   for(var j=1; j< this.areas[areaDestinyPiece].pieces.length;j++){
     if(this.areas[areaDestinyPiece].pieces[j].pickingId==this.scene.selectObjectDestiny){
       var pieceDestiny=this.areas[areaDestinyPiece].pieces[j];
-      //pieceDestiny.visible=false;
       break;
     }
   }
@@ -143,21 +139,53 @@ CampoBello.prototype.createPieceAnimation=function(){
       for(var k=0; k < 4;k++){
         cpointsOrigin[0][k]=new Array();
       }
-      cpointsOrigin[0][0][0]=0;
-      cpointsOrigin[0][0][1]=3;
-      cpointsOrigin[0][0][2]=0;
-      cpointsOrigin[0][1][0]=0.5;
-      cpointsOrigin[0][1][1]=3;
-      cpointsOrigin[0][1][2]=0.5;
-      cpointsOrigin[0][2][0]=pieceDestiny.x;
-      cpointsOrigin[0][2][1]=2;
-      cpointsOrigin[0][2][2]=pieceDestiny.z-pieceOrigin.z;
-      cpointsOrigin[0][3][0]=pieceDestiny.x-pieceOrigin.x;
-      cpointsOrigin[0][3][1]=0;
-      cpointsOrigin[0][3][2]=pieceDestiny.z-pieceOrigin.z;
+      cpointsOrigin[0][0][0]=pieceOrigin.x;
+      cpointsOrigin[0][0][1]=pieceOrigin.y;
+      cpointsOrigin[0][0][2]=pieceOrigin.z;
+      cpointsOrigin[0][1][0]=pieceOrigin.x+1;
+      cpointsOrigin[0][1][1]=4;
+      cpointsOrigin[0][1][2]=pieceOrigin.z+1;
+      cpointsOrigin[0][2][0]=pieceOrigin.x+1.5;
+      cpointsOrigin[0][2][1]=4;
+      cpointsOrigin[0][2][2]=pieceOrigin.z+1.5;
+      cpointsOrigin[0][3][0]=pieceDestiny.x;
+      cpointsOrigin[0][3][1]=pieceDestiny.y;
+      cpointsOrigin[0][3][2]=pieceDestiny.z;
 
       this.scene.graph.animations['3'].setControlPoints(cpointsOrigin);
       pieceOrigin.animations.push('3');
+
+      var cpointsDestiny=new Array();
+      cpointsDestiny[0]=new Array(4);
+      for(var k=0; k < 4;k++){
+        cpointsDestiny[0][k]=new Array();
+      }
+      var x=(2-pieceDestiny.x)/3;
+      var y=(0-pieceDestiny.y)/3;
+      var z=(28-pieceDestiny.z)/3;
+
+      var vector=[x,y,z];
+
+      cpointsDestiny[0][0][0]=pieceDestiny.x;
+      cpointsDestiny[0][0][1]=pieceDestiny.y;
+      cpointsDestiny[0][0][2]=pieceDestiny.z;
+
+      cpointsDestiny[0][1][0]=pieceDestiny.x+x;
+      cpointsDestiny[0][1][1]=3;
+      cpointsDestiny[0][1][2]=pieceDestiny.z+z;
+
+      cpointsDestiny[0][2][0]=pieceDestiny.x+(2*x);
+      cpointsDestiny[0][2][1]=3;
+      cpointsDestiny[0][2][2]=pieceDestiny.z+(2*z);;
+
+      cpointsDestiny[0][3][0]=2;
+      cpointsDestiny[0][3][1]=0;
+      cpointsDestiny[0][3][2]=28;
+
+      this.scene.graph.animations['1'].setControlPoints(cpointsDestiny);
+      pieceDestiny.animations.push('1');
+
+
       //pieceOrigin.visible=false;
     //  pieceOrigin.x=pieceDestiny.x;
       //pieceOrigin.y=pieceDestiny.y;
@@ -181,10 +209,17 @@ CampoBello.prototype.validateMove=function(){
     function(data){
       //console.log("Request successful. Reply: " + data.target.response);
       var info=JSON.parse(data.target.response);
-      if(info!=[]){
+
+      if(info.length!=0){
         this_t.createPieceAnimation();
-        this_t.board=info;
+        //this_t.board=info;
         this_t.currentState=this_t.state.CHOOSE_ORIGIN;
+      }
+      else{
+        this_t.scene.selectObjectOrigin=-1;
+        this_t.scene.selectObjectDestiny=-1;
+        this_t.currentState=this_t.state.CHOOSE_ORIGIN;
+        this_t.chooseOrigin()
       }
 
     });

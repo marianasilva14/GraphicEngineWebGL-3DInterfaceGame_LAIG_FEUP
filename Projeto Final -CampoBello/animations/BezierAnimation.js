@@ -61,7 +61,7 @@ BezierAnimation.prototype.update= function(delta_time){
       calculateDervQ[2]=-3*Math.pow(1-s,2)*this.pointP1[2]+(3*Math.pow(1-s,2)-6*s*(1-s))*this.pointP2[2]+(6*s*(1-s)-3*Math.pow(s,2))*this.pointP3[2]+3*Math.pow(s,2)*this.pointP4[2];
 
       var angle=Math.atan(calculateDervQ[0]/calculateDervQ[2]);
-      mat4.translate(this.matrix,this.matrix,this.pointP1);
+      //mat4.translate(this.matrix,this.matrix,this.pointP1);
       mat4.translate(this.matrix,this.matrix,calculateQ);
       mat4.rotate(this.matrix,this.matrix,angle,[0,1,0]);
 }

@@ -115,21 +115,29 @@ parse_input(initialBoard,Board):-
 	boardToNumbers(TmpBoard,Board).
 
 %valid move
+
 parse_input(validateGame(Board,Source,Destiny,AreaNumber),BoardOut):-
-	player(Curr_player),
 	boardToNumbers(TmpBoard,Board),
 	transformPiece(Source,Piece),
 	transformArea(Area,AreaNumber),
 	transformToCoordinates(RowSource,ColSource,Source),
 	transformToCoordinates(RowDestiny,ColDestiny,Destiny),
-	validateDestinyPiece(ColSource,RowSource,ColDestiny,RowDestiny,TmpBoard,Piece, Area,Board2),
-	boardToNumbers(Board2,BoardOut),
-	if_then_else(Curr_player == 'playerX', set_player('playerY'),set_player('playerX')).
+	validateMove(Area,ColSource,RowSource,ColDestiny,RowDestiny,TmpBoard),
+	getPiece(TmpBoard, RowDestiny, ColDestiny, NewPiece),
+	setPiece(TmpBoard,RowSource,ColSource,'noPiece',TmpBoard2),
+	setPiece(TmpBoard2,RowDestiny,ColDestiny,NewPiece,TmpBoard3),
+	printFinalBoard(TmpBoard3),
+	boardToNumbers(TmpBoard3,BoardOut).
+
+parse_input(removePiece(Board,Piece,Player),BoardOut):-
+	Player==1,
+	transformToCoordinates(Row,Col,Piece),
+	checkIfCanRemoveX(Board, Col, Row),
+	setPiece(Board,Row,Col,'noPiece',BoardOut),
+	printFinalBoard(TmpBoard3).
 
 %invalid move
 parse_input(validateGame(Board,Source,Destiny,AreaNumber),[]).
-
-
 
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).

@@ -207,13 +207,15 @@ for(node in this.graph.nodes){
   }
 }
 
+//if(this.CampoBello.currentState==this.CampoBello.state.UPDATE_ANIMATION){
 for(var j=0; j < this.CampoBello.areas.length;j++){
   for(var i=1;i < this.CampoBello.areas[j].pieces.length;i++){
   if(this.CampoBello.areas[j].pieces[i].animations.length!=0){
     this.CampoBello.areas[j].pieces[i].updateAnimation(current_time);
   }
+  }
 }
-}
+//}
 
 this.updateScaleFactor(current_time);
 
@@ -233,8 +235,18 @@ XMLscene.prototype.logPicking = function ()
 					console.log("Picked object: " + obj + ", with pick id " + customId);
           switch (this.CampoBello.currentState) {
             case this.CampoBello.state.CHOOSE_ORIGIN:
-            this.selectObjectOrigin=customId;
-            this.CampoBello.chooseOrigin();
+            if(this.CampoBello.currentPlayer==PLAYER1_ID){
+              if(this.CampoBello.piecesPlayer1.indexOf(customId)!=-1){
+                this.selectObjectOrigin=customId;
+                this.CampoBello.chooseOrigin();
+              }
+            }
+            else{
+              if(this.CampoBello.piecesPlayer2.indexOf(customId)!=-1){
+                this.selectObjectOrigin=customId;
+                this.CampoBello.chooseOrigin();
+              }
+            }
               break;
             case this.CampoBello.state.CHOOSE_DESTINY:
             this.selectObjectDestiny=customId;

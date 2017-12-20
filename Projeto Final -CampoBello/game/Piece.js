@@ -2,32 +2,36 @@
 * Piece
 * @constructor
 */
-function Piece(scene,playerID,pickingId) {
+function Piece(scene,playerID,pickingId,typeOfPiece,visible) {
   CGFobject.call(this,scene);
 
   this.pickingId=pickingId;
   this.scene=scene;
   this.appearance;
-  this.typeOfPiece;
-  this.visible=false;
   this.x;
   this.y;
   this.z;
   this.animations = [];
+  this.visible=visible;
   this.animationIndex=0;
   this.animationFinished = false;
   this.initial_time = 0;
   this.delta_time = 0;
+  this.typeOfPiece=typeOfPiece;
 
   this.transformMatrix = mat4.create();
   mat4.identity(this.transformMatrix);
 
-  if(playerID==PLAYER1_ID){
+  this.origin = mat4.create();
+  mat4.identity(this.origin);
+
+
+  if(typeOfPiece==1)
     this.appearance=this.scene.piece1Appearance;
-  }
-  else {
+
+  else if(typeOfPiece==2)
     this.appearance=this.scene.piece2Appearance;
-  }
+
 
   this.piece = new MySphere(scene,1,20,20);
 };
@@ -46,11 +50,17 @@ Piece.prototype.display= function(){
     this.scene.registerForPick(this.pickingId,this);
     this.appearance.apply();
     if(!this.animationFinished){
-      this.scene.multMatrix(this.getMatrix());
+      this.updateTransformMatrix();
+
     }
+    this.scene.multMatrix(this.transformMatrix);
     this.piece.display();
   }
 
+}
+
+Piece.prototype.setTypeOfPiece=function(newType){
+  this.typeOfPiece=newType;
 }
 
 Piece.prototype.updateAnimation =function(current_time){
@@ -72,13 +82,16 @@ Piece.prototype.updateAnimation =function(current_time){
 
 }
 
-Piece.prototype.getMatrix = function(){
+Piece.prototype.updateTransformMatrix = function(){
+
 
     var animation = this.scene.graph.animations[this.animations[this.animationIndex]];
 
     if(animation != null){
       animation.update(this.delta_time);
-      return animation.matrix;
+      //return animation.matrix;
+      mat4.multiply(this.transformMatrix, this.origin, animation.matrix);
+      return;
     }
     //if(this.animationFinished)
     //return animation.matrix;
