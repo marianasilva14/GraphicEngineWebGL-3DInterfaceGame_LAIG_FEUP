@@ -10,8 +10,8 @@ const AREA2_ID = 2 ;
 const AREA3_ID = 3 ;
 
 const EMPTY=0;
-const pieceX=1;
-const pieceY=2;
+const PIECEX=1;
+const PIECEY=2;
 const NO_PIECE=3;
 
 function CampoBello(scene) {
@@ -43,6 +43,7 @@ function CampoBello(scene) {
 
   this.currentState=this.state.INITIAL_STATE;
   this.currentPlayer=PLAYER1_ID;
+  this.numberOfLoops=0;
   this.game();
 };
 
@@ -50,21 +51,11 @@ CampoBello.prototype = Object.create(CGFobject.prototype);
 CampoBello.prototype.constructor = CampoBello;
 
 CampoBello.prototype.display=function(){
+  for(var i=0; i <= 3; i++){
   this.scene.pushMatrix();
-  this.areas[0].display();
+  this.areas[i].display();
   this.scene.popMatrix();
-
-  this.scene.pushMatrix();
-  this.areas[1].display();
-  this.scene.popMatrix();
-
-  this.scene.pushMatrix();
-  this.areas[2].display();
-  this.scene.popMatrix();
-
-  this.scene.pushMatrix();
-  this.areas[3].display();
-  this.scene.popMatrix();
+  }
 
 }
 
@@ -119,113 +110,135 @@ CampoBello.prototype.chooseOrigin=function(){
 
 }
 
+CampoBello.prototype.pieceChoosen=function(pickingId){
+    var area=this.areaPiece(pickingId);
+    for(var j=1; j< this.areas[area].pieces.length;j++){
+      if(this.areas[area].pieces[j].pickingId==pickingId){
+        var piece=this.areas[area].pieces[j];
+        return piece;
+      }
+    }
+}
+
 CampoBello.prototype.createPieceAnimation=function(){
   this.currentState=this.state.UPDATE_ANIMATION;
-  var areaOriginPiece=this.areaPiece(this.scene.selectObjectOrigin);
-  var areaDestinyPiece=this.areaPiece(this.scene.selectObjectOrigin);
+  var pieceOrigin= this.pieceChoosen(this.scene.selectObjectOrigin);
+  var pieceDestiny=this.pieceChoosen(this.scene.selectObjectDestiny);
 
-  for(var j=1; j< this.areas[areaDestinyPiece].pieces.length;j++){
-    if(this.areas[areaDestinyPiece].pieces[j].pickingId==this.scene.selectObjectDestiny){
-      var pieceDestiny=this.areas[areaDestinyPiece].pieces[j];
-      break;
-    }
+  var cpointsOrigin=new Array();
+  cpointsOrigin[0]=new Array(4);
+  for(var k=0; k < 4;k++){
+    cpointsOrigin[0][k]=new Array();
   }
+  cpointsOrigin[0][0][0]=pieceOrigin.x;
+  cpointsOrigin[0][0][1]=pieceOrigin.y;
+  cpointsOrigin[0][0][2]=pieceOrigin.z;
+  cpointsOrigin[0][1][0]=pieceOrigin.x+1;
+  cpointsOrigin[0][1][1]=4;
+  cpointsOrigin[0][1][2]=pieceOrigin.z+1;
+  cpointsOrigin[0][2][0]=pieceOrigin.x+1.5;
+  cpointsOrigin[0][2][1]=4;
+  cpointsOrigin[0][2][2]=pieceOrigin.z+1.5;
+  cpointsOrigin[0][3][0]=pieceDestiny.x;
+  cpointsOrigin[0][3][1]=pieceDestiny.y;
+  cpointsOrigin[0][3][2]=pieceDestiny.z;
 
-  for(var j=1; j< this.areas[areaOriginPiece].pieces.length;j++){
-    if(this.areas[areaOriginPiece].pieces[j].pickingId==this.scene.selectObjectOrigin){
-      var pieceOrigin=this.areas[areaOriginPiece].pieces[j];
-      var cpointsOrigin=new Array();
-      cpointsOrigin[0]=new Array(4);
-      for(var k=0; k < 4;k++){
-        cpointsOrigin[0][k]=new Array();
-      }
-      cpointsOrigin[0][0][0]=pieceOrigin.x;
-      cpointsOrigin[0][0][1]=pieceOrigin.y;
-      cpointsOrigin[0][0][2]=pieceOrigin.z;
-      cpointsOrigin[0][1][0]=pieceOrigin.x+1;
-      cpointsOrigin[0][1][1]=4;
-      cpointsOrigin[0][1][2]=pieceOrigin.z+1;
-      cpointsOrigin[0][2][0]=pieceOrigin.x+1.5;
-      cpointsOrigin[0][2][1]=4;
-      cpointsOrigin[0][2][2]=pieceOrigin.z+1.5;
-      cpointsOrigin[0][3][0]=pieceDestiny.x;
-      cpointsOrigin[0][3][1]=pieceDestiny.y;
-      cpointsOrigin[0][3][2]=pieceDestiny.z;
+  this.scene.graph.animations['3'].setControlPoints(cpointsOrigin);
+  pieceOrigin.animations.push('3');
 
-      this.scene.graph.animations['3'].setControlPoints(cpointsOrigin);
-      pieceOrigin.animations.push('3');
-
-      var cpointsDestiny=new Array();
-      cpointsDestiny[0]=new Array(4);
-      for(var k=0; k < 4;k++){
-        cpointsDestiny[0][k]=new Array();
-      }
-      var x=(2-pieceDestiny.x)/3;
-      var y=(0-pieceDestiny.y)/3;
-      var z=(28-pieceDestiny.z)/3;
-
-      var vector=[x,y,z];
-
-      cpointsDestiny[0][0][0]=pieceDestiny.x;
-      cpointsDestiny[0][0][1]=pieceDestiny.y;
-      cpointsDestiny[0][0][2]=pieceDestiny.z;
-
-      cpointsDestiny[0][1][0]=pieceDestiny.x+x;
-      cpointsDestiny[0][1][1]=3;
-      cpointsDestiny[0][1][2]=pieceDestiny.z+z;
-
-      cpointsDestiny[0][2][0]=pieceDestiny.x+(2*x);
-      cpointsDestiny[0][2][1]=3;
-      cpointsDestiny[0][2][2]=pieceDestiny.z+(2*z);;
-
-      cpointsDestiny[0][3][0]=2;
-      cpointsDestiny[0][3][1]=0;
-      cpointsDestiny[0][3][2]=28;
-
-      this.scene.graph.animations['1'].setControlPoints(cpointsDestiny);
-      pieceDestiny.animations.push('1');
-
-
-      //pieceOrigin.visible=false;
-    //  pieceOrigin.x=pieceDestiny.x;
-      //pieceOrigin.y=pieceDestiny.y;
-    //pieceOrigin.z=pieceDestiny.z;
-      break;
-    }
+  var cpointsDestiny=new Array();
+  cpointsDestiny[0]=new Array(4);
+  for(var k=0; k < 4;k++){
+    cpointsDestiny[0][k]=new Array();
   }
+  var x=(2-pieceDestiny.x)/3;
+  var y=(0-pieceDestiny.y)/3;
+  var z=(28-pieceDestiny.z)/3;
+
+  var vector=[x,y,z];
+
+  cpointsDestiny[0][0][0]=pieceDestiny.x;
+  cpointsDestiny[0][0][1]=pieceDestiny.y;
+  cpointsDestiny[0][0][2]=pieceDestiny.z;
+
+  cpointsDestiny[0][1][0]=pieceDestiny.x+x;
+  cpointsDestiny[0][1][1]=3;
+  cpointsDestiny[0][1][2]=pieceDestiny.z+z;
+
+  cpointsDestiny[0][2][0]=pieceDestiny.x+(2*x);
+  cpointsDestiny[0][2][1]=3;
+  cpointsDestiny[0][2][2]=pieceDestiny.z+(2*z);;
+
+  cpointsDestiny[0][3][0]=2;
+  cpointsDestiny[0][3][1]=0;
+  cpointsDestiny[0][3][2]=28;
+
+  this.scene.graph.animations['1'].setControlPoints(cpointsDestiny);
+  pieceDestiny.animations.push('1');
+
   this.scene.selectObjectDestiny==-1;
   this.scene.selectObjectOrigin==-1;
 }
 
+CampoBello.prototype.choosePieceToRemove=function(){
+  var this_t=this;
+
+  getPrologRequest(
+    "removePiece("+JSON.stringify(this_t.board)+","+
+    JSON.stringify(this_t.scene.selectObjectOrigin)+","+
+    JSON.stringify(this_t.currentPlayer)+")",
+    function(data){
+    });
+}
+
 CampoBello.prototype.validateMove=function(){
   var this_t=this;
-  var areaPiece=this.areaPiece(this.scene.selectObjectOrigin);
+  var areaOriginPiece=this.areaPiece(this.scene.selectObjectOrigin);
+
+  var pieceOrigin= this.pieceChoosen(this.scene.selectObjectOrigin);
+  var pieceDestiny=this.pieceChoosen(this.scene.selectObjectDestiny);
 
   getPrologRequest(
     "validateGame("+JSON.stringify(this_t.board)+","+
     JSON.stringify(this_t.scene.selectObjectOrigin)+","+
     JSON.stringify(this_t.scene.selectObjectDestiny)+","+
-    JSON.stringify(areaPiece)+")",
+    JSON.stringify(areaOriginPiece)+")",
     function(data){
       //console.log("Request successful. Reply: " + data.target.response);
       var info=JSON.parse(data.target.response);
 
       if(info.length!=0){
         this_t.createPieceAnimation();
-        //this_t.board=info;
+        this_t.board=info;
         this_t.currentState=this_t.state.CHOOSE_ORIGIN;
-      }
-      else{
         this_t.scene.selectObjectOrigin=-1;
         this_t.scene.selectObjectDestiny=-1;
-        this_t.currentState=this_t.state.CHOOSE_ORIGIN;
-        this_t.chooseOrigin()
+        if(pieceDestiny.typeOfPiece==NO_PIECE){
+          if(this_t.numberOfLoops!=3){
+          this_t.numberOfLoops++;
+          }
+          else{
+            this_t.numberOfLoops=0;
+            if(this_t.currentPlayer==PLAYER1_ID)
+              this_t.currentPlayer=PLAYER2_ID;
+            else
+              this_t.currentPlayer=PLAYER1_ID;
+          }
+        }
+        else if(pieceDestiny.typeOfPiece!=pieceOrigin.typeOfPiece){
+          this_t.choosePieceToRemove();
+        }
       }
+      else{
+        this_t.scene.selectObjectOrigin=0;
+        this_t.scene.selectObjectDestiny=0;
+        this_t.currentState=this_t.state.CHOOSE_ORIGIN;
+      }
+
+      this_t.game();
 
     });
   }
-
-
 
   CampoBello.prototype.game = function(){
     switch (this.currentState) {
@@ -239,9 +252,7 @@ CampoBello.prototype.validateMove=function(){
       case this.state.VALID_MOVEMENT:
       this.validateMove();
       break;
-      case this.state.INVALID_MOVEMENT:
-      break;
-      case this.state.ANOTHER_MOVEMENT:
+      case this.state.END_GAME:
       break;
       default:
     }

@@ -66,57 +66,57 @@ set_level(Level):-
     numberToLetter(9,'I').
 
 %AREA 0
-    transformToCoordinates(1,2,3).
-    transformToCoordinates(1,3,2).
-    transformToCoordinates(1,4,1).
-    transformToCoordinates(1,5,0).
-    transformToCoordinates(2,3,4).
-    transformToCoordinates(2,4,5).
-    transformToCoordinates(2,5,6).
-    transformToCoordinates(3,4,8).
-    transformToCoordinates(3,5,7).
-    transformToCoordinates(4,5,9).
+    transformToCoordinates(1,2,4).
+    transformToCoordinates(1,3,3).
+    transformToCoordinates(1,4,2).
+    transformToCoordinates(1,5,1).
+    transformToCoordinates(2,3,7).
+    transformToCoordinates(2,4,6).
+    transformToCoordinates(2,5,5).
+    transformToCoordinates(3,4,9).
+    transformToCoordinates(3,5,8).
+    transformToCoordinates(4,5,10).
 
 %AREA 1
-    transformToCoordinates(5,1,10).
-    transformToCoordinates(5,2,16).
-    transformToCoordinates(5,3,17).
-    transformToCoordinates(5,4,19).
-    transformToCoordinates(6,1,11).
-    transformToCoordinates(6,2,15).
-    transformToCoordinates(6,3,18).
-    transformToCoordinates(7,1,12).
-    transformToCoordinates(7,2,14).
-    transformToCoordinates(8,1,13).
+    transformToCoordinates(5,1,11).
+    transformToCoordinates(5,2,15).
+    transformToCoordinates(5,3,18).
+    transformToCoordinates(5,4,20).
+    transformToCoordinates(6,1,12).
+    transformToCoordinates(6,2,16).
+    transformToCoordinates(6,3,19).
+    transformToCoordinates(7,1,13).
+    transformToCoordinates(7,2,17).
+    transformToCoordinates(8,1,14).
 
 %AREA 2
 
-    transformToCoordinates(6,5,29).
-    transformToCoordinates(7,5,27).
-    transformToCoordinates(7,6,28).
-    transformToCoordinates(8,5,26).
-    transformToCoordinates(8,6,25).
-    transformToCoordinates(8,7,24).
-    transformToCoordinates(9,5,20).
-    transformToCoordinates(9,6,21).
-    transformToCoordinates(9,7,22).
-    transformToCoordinates(9,8,23).
+    transformToCoordinates(2,9,24).
+    transformToCoordinates(3,8,27).
+    transformToCoordinates(3,9,23).
+    transformToCoordinates(4,7,28).
+    transformToCoordinates(4,8,26).
+    transformToCoordinates(4,9,22).
+    transformToCoordinates(5,7,29).
+    transformToCoordinates(5,8,25).
+    transformToCoordinates(5,9,29).
+    transformToCoordinates(5,6,30).
 
 %AREA 3
+    transformToCoordinates(6,5,40).
+    transformToCoordinates(7,5,39).
+    transformToCoordinates(7,6,38).
+    transformToCoordinates(8,5,37).
+    transformToCoordinates(8,6,36).
+    transformToCoordinates(8,7,35).
+    transformToCoordinates(9,5,31).
+    transformToCoordinates(9,6,32).
+    transformToCoordinates(9,7,33).
+    transformToCoordinates(9,8,34).
 
-    transformToCoordinates(2,9,33).
-    transformToCoordinates(3,8,34).
-    transformToCoordinates(3,9,32).
-    transformToCoordinates(4,7,38).
-    transformToCoordinates(4,8,35).
-    transformToCoordinates(4,9,31).
-    transformToCoordinates(5,7,37).
-    transformToCoordinates(5,8,36).
-    transformToCoordinates(5,9,30).
-    transformToCoordinates(5,6,39).
+
 
 %PIECEX
-    transformPiece(0,'pieceX').
     transformPiece(1,'pieceX').
     transformPiece(2,'pieceX').
     transformPiece(3,'pieceX').
@@ -134,9 +134,9 @@ set_level(Level):-
     transformPiece(15,'pieceX').
     transformPiece(16,'pieceX').
     transformPiece(17,'pieceX').
+    transformPiece(18,'pieceX').
 
 %PIECEY
-    transformPiece(18,'pieceY').
     transformPiece(19,'pieceY').
     transformPiece(20,'pieceY').
     transformPiece(21,'pieceY').
@@ -154,6 +154,7 @@ set_level(Level):-
     transformPiece(33,'pieceY').
     transformPiece(34,'pieceY').
     transformPiece(35,'pieceY').
+    transformPiece(36,'pieceY').
 
   boardToNumbers([], []).
   boardToNumbers([List | R], [NumberList | Numbers]):-

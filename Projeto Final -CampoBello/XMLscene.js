@@ -236,13 +236,13 @@ XMLscene.prototype.logPicking = function ()
           switch (this.CampoBello.currentState) {
             case this.CampoBello.state.CHOOSE_ORIGIN:
             if(this.CampoBello.currentPlayer==PLAYER1_ID){
-              if(this.CampoBello.piecesPlayer1.indexOf(customId)!=-1){
+              if(this.CampoBello.piecesPlayer1.indexOf(customId)!=0){
                 this.selectObjectOrigin=customId;
                 this.CampoBello.chooseOrigin();
               }
             }
             else{
-              if(this.CampoBello.piecesPlayer2.indexOf(customId)!=-1){
+              if(this.CampoBello.piecesPlayer2.indexOf(customId)!=0){
                 this.selectObjectOrigin=customId;
                 this.CampoBello.chooseOrigin();
               }

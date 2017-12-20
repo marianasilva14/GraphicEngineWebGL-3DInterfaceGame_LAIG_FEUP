@@ -136,6 +136,13 @@ parse_input(removePiece(Board,Piece,Player),BoardOut):-
 	setPiece(Board,Row,Col,'noPiece',BoardOut),
 	printFinalBoard(TmpBoard3).
 
+parse_input(removePiece(Board,Piece,Player),BoardOut):-
+	Player==2,
+	transformToCoordinates(Row,Col,Piece),
+	checkIfCanRemoveY(Board, Col, Row),
+	setPiece(Board,Row,Col,'noPiece',BoardOut),
+	printFinalBoard(TmpBoard3).
+
 %invalid move
 parse_input(validateGame(Board,Source,Destiny,AreaNumber),[]).
 

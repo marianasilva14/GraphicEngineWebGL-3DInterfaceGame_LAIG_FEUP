@@ -41,13 +41,14 @@ Piece.prototype.constructor = Piece;
 
 Piece.prototype.display= function(){
 
-
-  if(this.scene.pickMode && !this.visible){
+this.scene.pushMatrix();
+  if(!this.visible){
     this.scene.registerForPick(this.pickingId,this);
+  this.scene.multMatrix(this.transformMatrix);
     this.piece.display();
+        this.scene.clearPickRegistration();
   }
-  else if(this.visible){
-    this.scene.registerForPick(this.pickingId,this);
+  else{
     this.appearance.apply();
     if(!this.animationFinished){
       this.updateTransformMatrix();
@@ -56,7 +57,7 @@ Piece.prototype.display= function(){
     this.scene.multMatrix(this.transformMatrix);
     this.piece.display();
   }
-
+this.scene.popMatrix();
 }
 
 Piece.prototype.setTypeOfPiece=function(newType){
@@ -98,8 +99,4 @@ Piece.prototype.updateTransformMatrix = function(){
 
     return mat4.create();
 
-}
-
-Piece.prototype.setPiece=function(typeOfPiece){
-  this.typeOfPiece= typeOfPiece;
 }

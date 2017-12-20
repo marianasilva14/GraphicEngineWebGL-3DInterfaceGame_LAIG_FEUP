@@ -11,7 +11,7 @@ const PIECE10_ID =10;
 
 
 function Area(scene,idPlayer,id) {
- 	  CGFobject.call(this,scene);
+ 	 CGFobject.call(this,scene);
 
    this.scene=scene;
 
@@ -19,22 +19,25 @@ function Area(scene,idPlayer,id) {
    this.piecesInvisible=[];
 
    var i=1;
-   for(var j=id*9; j < (id*9+9);j++){
+   for(var j=id*9+1; j < (id*9+10);j++){
     if(id==0 || id==1){
-     this.pieces[i]=new Piece(scene,idPlayer,j,1,true);
+     this.pieces[i]=new Piece(scene,idPlayer,j,PIECEX,true);
     }
      else if(id==2 || id==3){
-       this.pieces[i]=new Piece(scene,idPlayer,j,2,true);
+       this.pieces[i]=new Piece(scene,idPlayer,j,PIECEY,true);
      }
    i++;
   }
   var k=1;
-  for(var j=id*10; j < (id*10+10);j++){
+  for(var j=id*10+1; j < (id*10+11);j++){
+    console.log('ahahah',j);
+    if(j==9 || j==10 || j==19 || j==39)
+      this.piecesInvisible[k]=new Piece(scene,idPlayer,j,NO_PIECE,false);
     if(id==0 || id==1){
-     this.piecesInvisible[k]=new Piece(scene,idPlayer,j,1,false);
+     this.piecesInvisible[k]=new Piece(scene,idPlayer,j,PIECEX,false);
     }
      else if(id==2 || id==3){
-      this.piecesInvisible[k]=new Piece(scene,idPlayer,j,2,false);
+      this.piecesInvisible[k]=new Piece(scene,idPlayer,j,PIECEY,false);
      }
    k++;
   }
@@ -42,174 +45,135 @@ function Area(scene,idPlayer,id) {
 
  //coordenadas pecas
  if(id==0){
-  this.pieces[PIECE1_ID].x=1.5; this.pieces[PIECE1_ID].y=0; this.pieces[PIECE1_ID].z=9;
-  mat4.translate(this.pieces[PIECE1_ID].transformMatrix,this.pieces[PIECE1_ID].origin,[1.5,0,9]);
-  this.pieces[PIECE2_ID].x=1.5; this.pieces[PIECE2_ID].y=0; this.pieces[PIECE2_ID].z=13;
-  mat4.translate(this.pieces[PIECE2_ID].transformMatrix,this.pieces[PIECE2_ID].origin,[1.5,0,13]);
-  this.pieces[PIECE3_ID].x=1.5; this.pieces[PIECE3_ID].y=0; this.pieces[PIECE3_ID].z=17.3;
-  mat4.translate(this.pieces[PIECE3_ID].transformMatrix,this.pieces[PIECE3_ID].origin,[1.5,0,17.3]);
-  this.pieces[PIECE4_ID].x=1.5; this.pieces[PIECE4_ID].y=0; this.pieces[PIECE4_ID].z=22;
-  mat4.translate(this.pieces[PIECE4_ID].transformMatrix,this.pieces[PIECE4_ID].origin,[1.5,0,22]);
-  this.pieces[PIECE5_ID].x=5; this.pieces[PIECE5_ID].y=0; this.pieces[PIECE5_ID].z=11;
-  mat4.translate(this.pieces[PIECE5_ID].transformMatrix,this.pieces[PIECE5_ID].origin,[5,0,11]);
-  this.pieces[PIECE6_ID].x=5; this.pieces[PIECE6_ID].y=0; this.pieces[PIECE6_ID].z=15;
-  mat4.translate(this.pieces[PIECE6_ID].transformMatrix,this.pieces[PIECE6_ID].origin,[5,0,15]);
-  this.pieces[PIECE7_ID].x=5; this.pieces[PIECE7_ID].y=0; this.pieces[PIECE7_ID].z=19.8;
-  mat4.translate(this.pieces[PIECE7_ID].transformMatrix,this.pieces[PIECE7_ID].origin,[5,0,19.8]);
-  this.pieces[PIECE8_ID].x=8.7; this.pieces[PIECE8_ID].y=0; this.pieces[PIECE8_ID].z=13;
-  mat4.translate(this.pieces[PIECE8_ID].transformMatrix,this.pieces[PIECE8_ID].origin,[8.7,0,13]);
-  this.pieces[PIECE9_ID].x=8.7; this.pieces[PIECE9_ID].y=0; this.pieces[PIECE9_ID].z=8.6;
-  mat4.translate(this.pieces[PIECE9_ID].transformMatrix,this.pieces[PIECE9_ID].origin,[8.7,0,17.5]);
+    var piecesAux=[
+   {'x':1.5, 'y':0, 'z':9},
+   {'x':1.5, 'y':0, 'z':13},
+   {'x':1.5, 'y':0, 'z':17.3},
+   {'x':1.5, 'y':0, 'z':22},
+   {'x':5, 'y':0, 'z':11},
+   {'x':5, 'y':0, 'z':15},
+   {'x':5, 'y':0, 'z':19.8},
+   {'x':8.7, 'y':0, 'z':13},
+   {'x':8.7, 'y':0, 'z':17.5}
+ ];
 
+ var piecesInvisibleAux=[
+    {'x':1.5, 'y':0, 'z':9},
+    {'x':1.5, 'y':0, 'z':13},
+    {'x':1.5, 'y':0, 'z':17.3},
+    {'x':1.5, 'y':0, 'z':22},
+    {'x':5, 'y':0, 'z':11},
+    {'x':5, 'y':0, 'z':15},
+    {'x':5, 'y':0, 'z':19.8},
+    {'x':8.7, 'y':0, 'z':13},
+    {'x':8.7, 'y':0, 'z':17.5},
+    {'x':11.5, 'y':0, 'z':15}
+  ];
 
-
-  this.piecesInvisible[PIECE1_ID].x=1.5; this.piecesInvisible[PIECE1_ID].y=0; this.piecesInvisible[PIECE1_ID].z=9;
-  mat4.translate(this.piecesInvisible[PIECE1_ID].transformMatrix,this.piecesInvisible[PIECE1_ID].origin,[1.5,0,9]);
-  this.piecesInvisible[PIECE2_ID].x=1.5; this.piecesInvisible[PIECE2_ID].y=0; this.piecesInvisible[PIECE2_ID].z=13;
-  mat4.translate(this.piecesInvisible[PIECE2_ID].transformMatrix,this.piecesInvisible[PIECE2_ID].origin,[1.5,0,13]);
-  this.piecesInvisible[PIECE3_ID].x=1.5; this.piecesInvisible[PIECE3_ID].y=0; this.piecesInvisible[PIECE3_ID].z=17.3;
-  mat4.translate(this.piecesInvisible[PIECE3_ID].transformMatrix,this.piecesInvisible[PIECE3_ID].origin,[1.5,0,17.3]);
-  this.piecesInvisible[PIECE4_ID].x=1.5; this.piecesInvisible[PIECE4_ID].y=0; this.piecesInvisible[PIECE4_ID].z=22;
-  mat4.translate(this.piecesInvisible[PIECE4_ID].transformMatrix,this.piecesInvisible[PIECE4_ID].origin,[1.5,0,22]);
-  this.piecesInvisible[PIECE5_ID].x=5; this.piecesInvisible[PIECE5_ID].y=0; this.piecesInvisible[PIECE5_ID].z=11;
-  mat4.translate(this.piecesInvisible[PIECE5_ID].transformMatrix,this.piecesInvisible[PIECE5_ID].origin,[5,0,11]);
-  this.piecesInvisible[PIECE6_ID].x=5; this.piecesInvisible[PIECE6_ID].y=0; this.piecesInvisible[PIECE6_ID].z=15;
-  mat4.translate(this.piecesInvisible[PIECE6_ID].transformMatrix,this.piecesInvisible[PIECE6_ID].origin,[5,0,15]);
-  this.piecesInvisible[PIECE7_ID].x=5; this.piecesInvisible[PIECE7_ID].y=0; this.piecesInvisible[PIECE7_ID].z=19.8;
-  mat4.translate(this.piecesInvisible[PIECE7_ID].transformMatrix,this.piecesInvisible[PIECE7_ID].origin,[5,0,19.8]);
-  this.piecesInvisible[PIECE8_ID].x=8.7; this.piecesInvisible[PIECE8_ID].y=0; this.piecesInvisible[PIECE8_ID].z=13;
-  mat4.translate(this.piecesInvisible[PIECE8_ID].transformMatrix,this.piecesInvisible[PIECE8_ID].origin,[8.7,0,13]);
-  this.piecesInvisible[PIECE9_ID].x=8.7; this.piecesInvisible[PIECE9_ID].y=0; this.piecesInvisible[PIECE9_ID].z=8.6;
-  mat4.translate(this.piecesInvisible[PIECE9_ID].transformMatrix,this.piecesInvisible[PIECE9_ID].origin,[8.7,0,17.5]);
-  this.piecesInvisible[PIECE10_ID].x=5.8; this.piecesInvisible[PIECE10_ID].y=0; this.piecesInvisible[PIECE10_ID].z=7.6;
-  mat4.translate(this.piecesInvisible[PIECE10_ID].transformMatrix,this.piecesInvisible[PIECE10_ID].origin,[11.5,0,15]);
 }
 else if(id==1){
-  this.pieces[PIECE1_ID].x=8.3; this.pieces[PIECE1_ID].y=0; this.pieces[PIECE1_ID].z=28.6;
-  mat4.translate(this.pieces[PIECE1_ID].transformMatrix,this.pieces[PIECE1_ID].origin,[8.3,0,28.6]);
-  this.pieces[PIECE2_ID].x=12.7; this.pieces[PIECE2_ID].y=0; this.pieces[PIECE2_ID].z=28.6;
-  mat4.translate(this.pieces[PIECE2_ID].transformMatrix,this.pieces[PIECE2_ID].origin,[12.7,0,28.6]);
-  this.pieces[PIECE3_ID].x=17.2; this.pieces[PIECE3_ID].y=0; this.pieces[PIECE3_ID].z=28.6;
-  mat4.translate(this.pieces[PIECE3_ID].transformMatrix,this.pieces[PIECE3_ID].origin,[17.2,0,28.6]);
-  this.pieces[PIECE4_ID].x=21.5; this.pieces[PIECE4_ID].y=0; this.pieces[PIECE4_ID].z=28.6;
-  mat4.translate(this.pieces[PIECE4_ID].transformMatrix,this.pieces[PIECE4_ID].origin,[21.5,0,28.6]);
-  this.pieces[PIECE5_ID].x=10.5; this.pieces[PIECE5_ID].y=0; this.pieces[PIECE5_ID].z=25.5;
-  mat4.translate(this.pieces[PIECE5_ID].transformMatrix,this.pieces[PIECE5_ID].origin,[10.5,0,25.5]);
-  this.pieces[PIECE6_ID].x=15; this.pieces[PIECE6_ID].y=0; this.pieces[PIECE6_ID].z=25.5;
-  mat4.translate(this.pieces[PIECE6_ID].transformMatrix,this.pieces[PIECE6_ID].origin,[15,0,25.5]);
-  this.pieces[PIECE7_ID].x=19.5; this.pieces[PIECE7_ID].y=0; this.pieces[PIECE7_ID].z=25.5;
-  mat4.translate(this.pieces[PIECE7_ID].transformMatrix,this.pieces[PIECE7_ID].origin,[19.5,0,25.5]);
-  this.pieces[PIECE8_ID].x=12.7; this.pieces[PIECE8_ID].y=0; this.pieces[PIECE8_ID].z=22;
-  mat4.translate(this.pieces[PIECE8_ID].transformMatrix,this.pieces[PIECE8_ID].origin,[12.7,0,22]);
-  this.pieces[PIECE9_ID].x=17; this.pieces[PIECE9_ID].y=0; this.pieces[PIECE9_ID].z=22;
-  mat4.translate(this.pieces[PIECE9_ID].transformMatrix,this.pieces[PIECE9_ID].origin,[17,0,22]);
 
+  var piecesAux=[
+ {'x':8.3, 'y':0, 'z':28.6},
+ {'x':12.7, 'y':0, 'z':28.6},
+ {'x':17.2, 'y':0, 'z':28.6},
+ {'x':21.5, 'y':0, 'z':28.6},
+ {'x':10.5, 'y':0, 'z':25.5},
+ {'x':15, 'y':0, 'z':25.5},
+ {'x':19.5, 'y':0, 'z':25.5},
+ {'x':12.7, 'y':0, 'z':22},
+ {'x':17, 'y':0, 'z':22}
+];
 
-  this.piecesInvisible[PIECE1_ID].x=8.3; this.piecesInvisible[PIECE1_ID].y=0; this.piecesInvisible[PIECE1_ID].z=28.6;
-  mat4.translate(this.piecesInvisible[PIECE1_ID].transformMatrix,this.piecesInvisible[PIECE1_ID].origin,[8.3,0,28.6]);
-  this.piecesInvisible[PIECE2_ID].x=12.7; this.piecesInvisible[PIECE2_ID].y=0; this.piecesInvisible[PIECE2_ID].z=28.6;
-  mat4.translate(this.piecesInvisible[PIECE2_ID].transformMatrix,this.piecesInvisible[PIECE2_ID].origin,[12.7,0,28.6]);
-  this.piecesInvisible[PIECE3_ID].x=17.2; this.piecesInvisible[PIECE3_ID].y=0; this.piecesInvisible[PIECE3_ID].z=28.6;
-  mat4.translate(this.piecesInvisible[PIECE3_ID].transformMatrix,this.piecesInvisible[PIECE3_ID].origin,[17.2,0,28.6]);
-  this.piecesInvisible[PIECE4_ID].x=21.5; this.piecesInvisible[PIECE4_ID].y=0; this.piecesInvisible[PIECE4_ID].z=28.6;
-  mat4.translate(this.piecesInvisible[PIECE4_ID].transformMatrix,this.piecesInvisible[PIECE4_ID].origin,[21.5,0,28.6]);
-  this.piecesInvisible[PIECE5_ID].x=10.5; this.piecesInvisible[PIECE5_ID].y=0; this.piecesInvisible[PIECE5_ID].z=25.5;
-  mat4.translate(this.piecesInvisible[PIECE5_ID].transformMatrix,this.piecesInvisible[PIECE5_ID].origin,[10.5,0,25.5]);
-  this.piecesInvisible[PIECE6_ID].x=15; this.piecesInvisible[PIECE6_ID].y=0; this.piecesInvisible[PIECE6_ID].z=25.5;
-  mat4.translate(this.piecesInvisible[PIECE6_ID].transformMatrix,this.piecesInvisible[PIECE6_ID].origin,[15,0,25.5]);
-  this.piecesInvisible[PIECE7_ID].x=19.5; this.piecesInvisible[PIECE7_ID].y=0; this.piecesInvisible[PIECE7_ID].z=25.5;
-  mat4.translate(this.piecesInvisible[PIECE7_ID].transformMatrix,this.piecesInvisible[PIECE7_ID].origin,[19.5,0,25.5]);
-  this.piecesInvisible[PIECE8_ID].x=12.7; this.piecesInvisible[PIECE8_ID].y=0; this.piecesInvisible[PIECE8_ID].z=22;
-  mat4.translate(this.piecesInvisible[PIECE8_ID].transformMatrix,this.piecesInvisible[PIECE8_ID].origin,[12.7,0,22]);
-  this.piecesInvisible[PIECE9_ID].x=17; this.piecesInvisible[PIECE9_ID].y=0; this.piecesInvisible[PIECE9_ID].z=22;
-  mat4.translate(this.piecesInvisible[PIECE9_ID].transformMatrix,this.piecesInvisible[PIECE9_ID].origin,[17,0,22]);
-  this.piecesInvisible[PIECE10_ID].x=15; this.piecesInvisible[PIECE10_ID].y=0; this.piecesInvisible[PIECE10_ID].z=18.8;
-  mat4.translate(this.piecesInvisible[PIECE10_ID].transformMatrix,this.piecesInvisible[PIECE10_ID].origin,[15,0,18.8]);
+var piecesInvisibleAux=[
+  {'x':8.3, 'y':0, 'z':28.6},
+  {'x':12.7, 'y':0, 'z':28.6},
+  {'x':17.2, 'y':0, 'z':28.6},
+  {'x':21.5, 'y':0, 'z':28.6},
+  {'x':10.5, 'y':0, 'z':25.5},
+  {'x':15, 'y':0, 'z':25.5},
+  {'x':19.5, 'y':0, 'z':25.5},
+  {'x':12.7, 'y':0, 'z':22},
+  {'x':17, 'y':0, 'z':22},
+  {'x':15, 'y':0, 'z':18.8}
+];
+
 }
 
 else if(id==2){
-  this.pieces[PIECE1_ID].x=22; this.pieces[PIECE1_ID].y=0; this.pieces[PIECE1_ID].z=1.5;
-  mat4.translate(this.pieces[PIECE1_ID].transformMatrix,this.pieces[PIECE1_ID].origin,[22,0,1.5]);
-  this.pieces[PIECE2_ID].x=17.5; this.pieces[PIECE2_ID].y=0; this.pieces[PIECE2_ID].z=1.5;
-  mat4.translate(this.pieces[PIECE2_ID].transformMatrix,this.pieces[PIECE2_ID].origin,[17.5,0,1.5]);
-  this.pieces[PIECE3_ID].x=13.5; this.pieces[PIECE3_ID].y=0; this.pieces[PIECE3_ID].z=1.5;
-  mat4.translate(this.pieces[PIECE3_ID].transformMatrix,this.pieces[PIECE3_ID].origin,[13.5,0,1.5]);
-  this.pieces[PIECE4_ID].x=9; this.pieces[PIECE4_ID].y=0; this.pieces[PIECE4_ID].z=1.5;
-  mat4.translate(this.pieces[PIECE4_ID].transformMatrix,this.pieces[PIECE4_ID].origin,[9,0,1.5]);
-  this.pieces[PIECE5_ID].x=19.8; this.pieces[PIECE5_ID].y=0; this.pieces[PIECE5_ID].z=5.2;
-  mat4.translate(this.pieces[PIECE5_ID].transformMatrix,this.pieces[PIECE5_ID].origin,[19.8,0,5.2]);
-  this.pieces[PIECE6_ID].x=1.5; this.pieces[PIECE6_ID].y=0; this.pieces[PIECE6_ID].z=5.2;
-  mat4.translate(this.pieces[PIECE6_ID].transformMatrix,this.pieces[PIECE6_ID].origin,[15.5,0,5.2]);
-  this.pieces[PIECE7_ID].x=11.3; this.pieces[PIECE7_ID].y=0; this.pieces[PIECE7_ID].z=5.2;
-  mat4.translate(this.pieces[PIECE7_ID].transformMatrix,this.pieces[PIECE7_ID].origin,[11.3,0,5.2]);
-  this.pieces[PIECE8_ID].x=13.3; this.pieces[PIECE8_ID].y=0; this.pieces[PIECE8_ID].z=8;
-  mat4.translate(this.pieces[PIECE8_ID].transformMatrix,this.pieces[PIECE8_ID].origin,[13.3,0,8]);
-  this.pieces[PIECE9_ID].x=17.8; this.pieces[PIECE9_ID].y=0; this.pieces[PIECE9_ID].z=8;
-  mat4.translate(this.pieces[PIECE9_ID].transformMatrix,this.pieces[PIECE9_ID].origin,[17.8,0,8]);
 
+  var piecesAux=[
+ {'x':22, 'y':0, 'z':1.5},
+ {'x':17.5, 'y':0, 'z':1.5},
+ {'x':13.5, 'y':0, 'z':1.5},
+ {'x':9, 'y':0, 'z':1.5},
+ {'x':19.8, 'y':0, 'z':5.2},
+ {'x':15.5, 'y':0, 'z':5.2},
+ {'x':11.3, 'y':0, 'z':5.2},
+ {'x':13.3, 'y':0, 'z':8},
+ {'x':17.8, 'y':0, 'z':8}
+];
 
-  this.piecesInvisible[PIECE1_ID].x=22; this.piecesInvisible[PIECE1_ID].y=0; this.piecesInvisible[PIECE1_ID].z=1.5;
-  mat4.translate(this.piecesInvisible[PIECE1_ID].transformMatrix,this.piecesInvisible[PIECE1_ID].origin,[22,0,1.5]);
-  this.piecesInvisible[PIECE2_ID].x=17.5; this.piecesInvisible[PIECE2_ID].y=0; this.piecesInvisible[PIECE2_ID].z=1.5;
-  mat4.translate(this.piecesInvisible[PIECE2_ID].transformMatrix,this.piecesInvisible[PIECE2_ID].origin,[17.5,0,1.5]);
-  this.piecesInvisible[PIECE3_ID].x=13.5; this.piecesInvisible[PIECE3_ID].y=0; this.piecesInvisible[PIECE3_ID].z=1.5;
-  mat4.translate(this.piecesInvisible[PIECE3_ID].transformMatrix,this.piecesInvisible[PIECE3_ID].origin,[13.5,0,1.5]);
-  this.piecesInvisible[PIECE4_ID].x=9; this.piecesInvisible[PIECE4_ID].y=0; this.piecesInvisible[PIECE4_ID].z=1.5;
-  mat4.translate(this.piecesInvisible[PIECE4_ID].transformMatrix,this.piecesInvisible[PIECE4_ID].origin,[9,0,1.5]);
-  this.piecesInvisible[PIECE5_ID].x=19.8; this.piecesInvisible[PIECE5_ID].y=0; this.piecesInvisible[PIECE5_ID].z=5.2;
-  mat4.translate(this.piecesInvisible[PIECE5_ID].transformMatrix,this.piecesInvisible[PIECE5_ID].origin,[19.8,0,5.2]);
-  this.piecesInvisible[PIECE6_ID].x=1.5; this.piecesInvisible[PIECE6_ID].y=0; this.piecesInvisible[PIECE6_ID].z=5.2;
-  mat4.translate(this.piecesInvisible[PIECE6_ID].transformMatrix,this.piecesInvisible[PIECE6_ID].origin,[15.5,0,5.2]);
-  this.piecesInvisible[PIECE7_ID].x=11.3; this.piecesInvisible[PIECE7_ID].y=0; this.piecesInvisible[PIECE7_ID].z=5.2;
-  mat4.translate(this.piecesInvisible[PIECE7_ID].transformMatrix,this.piecesInvisible[PIECE7_ID].origin,[11.3,0,5.2]);
-  this.piecesInvisible[PIECE8_ID].x=13.3; this.piecesInvisible[PIECE8_ID].y=0; this.piecesInvisible[PIECE8_ID].z=8;
-  mat4.translate(this.piecesInvisible[PIECE8_ID].transformMatrix,this.piecesInvisible[PIECE8_ID].origin,[13.3,0,8]);
-  this.piecesInvisible[PIECE9_ID].x=17.8; this.piecesInvisible[PIECE9_ID].y=0; this.piecesInvisible[PIECE9_ID].z=8;
-  mat4.translate(this.piecesInvisible[PIECE9_ID].transformMatrix,this.piecesInvisible[PIECE9_ID].origin,[17.8,0,8]);
-  this.piecesInvisible[PIECE10_ID].x=15.5; this.piecesInvisible[PIECE10_ID].y=0; this.piecesInvisible[PIECE10_ID].z=11.5;
-  mat4.translate(this.piecesInvisible[PIECE10_ID].transformMatrix,this.piecesInvisible[PIECE10_ID].origin,[15.5,0,11.5]);
+var piecesInvisibleAux=[
+  {'x':22, 'y':0, 'z':1.5},
+  {'x':17.5, 'y':0, 'z':1.5},
+  {'x':13.5, 'y':0, 'z':1.5},
+  {'x':9, 'y':0, 'z':1.5},
+  {'x':19.8, 'y':0, 'z':5.2},
+  {'x':15.5, 'y':0, 'z':5.2},
+  {'x':11.3, 'y':0, 'z':5.2},
+  {'x':13.3, 'y':0, 'z':8},
+  {'x':17.8, 'y':0, 'z':8},
+  {'x':15.5, 'y':0, 'z':11.5}
+];
+
 }
 else if(id==3){
-  this.pieces[PIECE1_ID].x=28.6; this.pieces[PIECE1_ID].y=0; this.pieces[PIECE1_ID].z=21.5;
-  mat4.translate(this.pieces[PIECE1_ID].transformMatrix,this.pieces[PIECE1_ID].origin,[28.6,0,21.5]);
-  this.pieces[PIECE2_ID].x=28.6; this.pieces[PIECE2_ID].y=0; this.pieces[PIECE2_ID].z=17.5;
-  mat4.translate(this.pieces[PIECE2_ID].transformMatrix,this.pieces[PIECE2_ID].origin,[28.6,0,17.5]);
-  this.pieces[PIECE3_ID].x=28.6; this.pieces[PIECE3_ID].y=0; this.pieces[PIECE3_ID].z=13;
-  mat4.translate(this.pieces[PIECE3_ID].transformMatrix,this.pieces[PIECE3_ID].origin,[28.6,0,13]);
-  this.pieces[PIECE4_ID].x=28.6; this.pieces[PIECE4_ID].y=0; this.pieces[PIECE4_ID].z=9;
-  mat4.translate(this.pieces[PIECE4_ID].transformMatrix,this.pieces[PIECE4_ID].origin,[28.6,0,9]);
-  this.pieces[PIECE5_ID].x=25; this.pieces[PIECE5_ID].y=0; this.pieces[PIECE5_ID].z=10.8;
-  mat4.translate(this.pieces[PIECE5_ID].transformMatrix,this.pieces[PIECE5_ID].origin,[25,0,10.8]);
-  this.pieces[PIECE6_ID].x=25; this.pieces[PIECE6_ID].y=0; this.pieces[PIECE6_ID].z=15;
-  mat4.translate(this.pieces[PIECE6_ID].transformMatrix,this.pieces[PIECE6_ID].origin,[25,0,15]);
-  this.pieces[PIECE7_ID].x=25; this.pieces[PIECE7_ID].y=0; this.pieces[PIECE7_ID].z=19.8;
-  mat4.translate(this.pieces[PIECE7_ID].transformMatrix,this.pieces[PIECE7_ID].origin,[25,0,19.8]);
-  this.pieces[PIECE8_ID].x=21.5; this.pieces[PIECE8_ID].y=0; this.pieces[PIECE8_ID].z=13;
-  mat4.translate(this.pieces[PIECE8_ID].transformMatrix,this.pieces[PIECE8_ID].origin,[21.5,0,13]);
-  this.pieces[PIECE9_ID].x=21.5; this.pieces[PIECE9_ID].y=0; this.pieces[PIECE9_ID].z=17.5;
-  mat4.translate(this.pieces[PIECE9_ID].transformMatrix,this.pieces[PIECE9_ID].origin,[21.5,0,17.5]);
 
-  this.piecesInvisible[PIECE1_ID].x=28.6; this.piecesInvisible[PIECE1_ID].y=0; this.piecesInvisible[PIECE1_ID].z=21.5;
-  mat4.translate(this.piecesInvisible[PIECE1_ID].transformMatrix,this.piecesInvisible[PIECE1_ID].origin,[28.6,0,21.5]);
-  this.piecesInvisible[PIECE2_ID].x=28.6; this.piecesInvisible[PIECE2_ID].y=0; this.piecesInvisible[PIECE2_ID].z=17.5;
-  mat4.translate(this.piecesInvisible[PIECE2_ID].transformMatrix,this.piecesInvisible[PIECE2_ID].origin,[28.6,0,17.5]);
-  this.piecesInvisible[PIECE3_ID].x=28.6; this.piecesInvisible[PIECE3_ID].y=0; this.piecesInvisible[PIECE3_ID].z=13;
-  mat4.translate(this.piecesInvisible[PIECE3_ID].transformMatrix,this.piecesInvisible[PIECE3_ID].origin,[28.6,0,13]);
-  this.piecesInvisible[PIECE4_ID].x=28.6; this.piecesInvisible[PIECE4_ID].y=0; this.piecesInvisible[PIECE4_ID].z=9;
-  mat4.translate(this.piecesInvisible[PIECE4_ID].transformMatrix,this.piecesInvisible[PIECE4_ID].origin,[28.6,0,9]);
-  this.piecesInvisible[PIECE5_ID].x=25; this.piecesInvisible[PIECE5_ID].y=0; this.piecesInvisible[PIECE5_ID].z=10.8;
-  mat4.translate(this.piecesInvisible[PIECE5_ID].transformMatrix,this.piecesInvisible[PIECE5_ID].origin,[25,0,10.8]);
-  this.piecesInvisible[PIECE6_ID].x=25; this.piecesInvisible[PIECE6_ID].y=0; this.piecesInvisible[PIECE6_ID].z=15;
-  mat4.translate(this.piecesInvisible[PIECE6_ID].transformMatrix,this.piecesInvisible[PIECE6_ID].origin,[25,0,15]);
-  this.piecesInvisible[PIECE7_ID].x=25; this.piecesInvisible[PIECE7_ID].y=0; this.piecesInvisible[PIECE7_ID].z=19.8;
-  mat4.translate(this.piecesInvisible[PIECE7_ID].transformMatrix,this.piecesInvisible[PIECE7_ID].origin,[25,0,19.8]);
-  this.piecesInvisible[PIECE8_ID].x=21.5; this.piecesInvisible[PIECE8_ID].y=0; this.piecesInvisible[PIECE8_ID].z=13;
-  mat4.translate(this.piecesInvisible[PIECE8_ID].transformMatrix,this.piecesInvisible[PIECE8_ID].origin,[21.5,0,13]);
-  this.piecesInvisible[PIECE9_ID].x=21.5; this.piecesInvisible[PIECE9_ID].y=0; this.piecesInvisible[PIECE9_ID].z=17.5;
-  mat4.translate(this.piecesInvisible[PIECE9_ID].transformMatrix,this.piecesInvisible[PIECE9_ID].origin,[21.5,0,17.5]);
-  this.piecesInvisible[PIECE10_ID].x=18.5; this.piecesInvisible[PIECE10_ID].y=0; this.piecesInvisible[PIECE10_ID].z=15;
-  mat4.translate(this.piecesInvisible[PIECE10_ID].transformMatrix,this.piecesInvisible[PIECE10_ID].origin,[18.5,0,15]);
+  var piecesAux=[
+ {'x':28.6, 'y':0, 'z':21.5},
+ {'x':28.6, 'y':0, 'z':17.5},
+ {'x':28.6, 'y':0, 'z':13},
+ {'x':28.6, 'y':0, 'z':9},
+ {'x':25, 'y':0, 'z':10.8},
+ {'x':25, 'y':0, 'z':15},
+ {'x':25, 'y':0, 'z':19.8},
+ {'x':21.5, 'y':0, 'z':13},
+ {'x':21.5, 'y':0, 'z':17.5}
+];
+
+var piecesInvisibleAux=[
+  {'x':28.6, 'y':0, 'z':21.5},
+  {'x':28.6, 'y':0, 'z':17.5},
+  {'x':28.6, 'y':0, 'z':13},
+  {'x':28.6, 'y':0, 'z':9},
+  {'x':25, 'y':0, 'z':10.8},
+  {'x':25, 'y':0, 'z':15},
+  {'x':25, 'y':0, 'z':19.8},
+  {'x':21.5, 'y':0, 'z':13},
+  {'x':21.5, 'y':0, 'z':17.5},
+  {'x':18.5, 'y':0, 'z':15}
+];
 }
+
+ for(var i=0; i < piecesAux.length;i++){
+   this.pieces[i+1].x=piecesAux[i].x;
+   this.pieces[i+1].y=piecesAux[i].y;
+   this.pieces[i+1].z=piecesAux[i].z;
+ }
+
+  for(var i=0; i < piecesInvisibleAux.length;i++){
+     this.piecesInvisible[i+1].x=piecesInvisibleAux[i].x;
+     this.piecesInvisible[i+1].y=piecesInvisibleAux[i].y;
+    this.piecesInvisible[i+1].z=piecesInvisibleAux[i].z;
+   }
+
+   console.log('invisible',this.piecesInvisible[10]);
+ for(var i=1; i<= 9;i++){
+    mat4.translate(this.pieces[i].transformMatrix,this.pieces[i].origin,[this.pieces[i].x,this.pieces[i].y,this.pieces[i].z]);
+    mat4.translate(this.piecesInvisible[i].transformMatrix,this.piecesInvisible[i].origin,[this.piecesInvisible[i].x,this.piecesInvisible[i].y,this.piecesInvisible[i].z]);
+ }
+    mat4.translate(this.piecesInvisible[10].transformMatrix,this.piecesInvisible[10].origin,[this.piecesInvisible[10].x,this.piecesInvisible[10].y,this.piecesInvisible[10].z]);
 
 };
 
@@ -218,66 +182,28 @@ Area.prototype.constructor = Area;
 
 Area.prototype.display= function(){
 
+if(this.scene.pickMode){
+  for(var i=1; i <=9;i++){
   this.scene.pushMatrix();
   this.scene.scale(1,0.5,1);
-  this.pieces[PIECE1_ID].display();
-  this.piecesInvisible[PIECE1_ID].display();
+  this.pieces[i].display();
+  this.piecesInvisible[i].display();
   this.scene.popMatrix();
-
-
-  this.scene.pushMatrix();
-  this.scene.scale(1,0.5,1);
-  this.pieces[PIECE2_ID].display();
-  this.piecesInvisible[PIECE2_ID].display();
-  this.scene.popMatrix();
-
-  this.scene.pushMatrix();
-  this.scene.scale(1,0.5,1);
-  this.pieces[PIECE3_ID].display();
-  this.piecesInvisible[PIECE3_ID].display();
-  this.scene.popMatrix();
-
-  this.scene.pushMatrix();
-  this.scene.scale(1,0.5,1);
-  this.pieces[PIECE4_ID].display();
-  this.piecesInvisible[PIECE4_ID].display();
-  this.scene.popMatrix();
-
-  this.scene.pushMatrix();
-  this.scene.scale(1,0.5,1);
-  this.pieces[PIECE5_ID].display();
-  this.piecesInvisible[PIECE5_ID].display();
-  this.scene.popMatrix();
-
-  this.scene.pushMatrix();
-  this.scene.scale(1,0.5,1);
-  this.pieces[PIECE6_ID].display();
-  this.piecesInvisible[PIECE6_ID].display();
-  this.scene.popMatrix();
-
-  this.scene.pushMatrix();
-  this.scene.scale(1,0.5,1);
-  this.pieces[PIECE7_ID].display();
-  this.piecesInvisible[PIECE7_ID].display();
-  this.scene.popMatrix();
-
-  this.scene.pushMatrix();
-  this.scene.scale(1,0.5,1);
-  this.pieces[PIECE8_ID].display();
-  this.piecesInvisible[PIECE8_ID].display();
-  this.scene.popMatrix();
-
-  this.scene.pushMatrix();
-  this.scene.scale(1,0.5,1);
-  this.pieces[PIECE9_ID].display();
-  this.piecesInvisible[PIECE9_ID].display();
-  this.scene.popMatrix();
-
+  }
   this.scene.pushMatrix();
   this.scene.scale(1,0.5,1);
   this.piecesInvisible[PIECE10_ID].display();
   this.scene.popMatrix();
+}
 
+else{
+    for(var i=1; i <=9;i++){
+    this.scene.pushMatrix();
+    this.scene.scale(1,0.5,1);
+    this.pieces[i].display();
+    this.scene.popMatrix();
+    }
+}
 
 
 }
