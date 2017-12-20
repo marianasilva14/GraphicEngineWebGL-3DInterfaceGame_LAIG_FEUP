@@ -20,6 +20,7 @@ function Area(scene,idPlayer,id) {
 
    var i=1;
    for(var j=id*9+1; j < (id*9+10);j++){
+
     if(id==0 || id==1){
      this.pieces[i]=new Piece(scene,idPlayer,j,PIECEX,true);
     }
@@ -29,10 +30,7 @@ function Area(scene,idPlayer,id) {
    i++;
   }
   var k=1;
-  for(var j=id*10+1; j < (id*10+11);j++){
-    console.log('ahahah',j);
-    if(j==9 || j==10 || j==19 || j==39)
-      this.piecesInvisible[k]=new Piece(scene,idPlayer,j,NO_PIECE,false);
+  for(var j=id*9+1; j < (id*9+10);j++){
     if(id==0 || id==1){
      this.piecesInvisible[k]=new Piece(scene,idPlayer,j,PIECEX,false);
     }
@@ -41,6 +39,19 @@ function Area(scene,idPlayer,id) {
      }
    k++;
   }
+  var lastID;
+  if(id==0)
+    lastID=37;
+  else if(id==1){
+      lastID=38;
+    }
+  else if (id==2) {
+    lastID=39;
+  }
+  else if (id==3) {
+    lastID=40;
+  }
+  this.piecesInvisible[10]=new Piece(scene,idPlayer,lastID,NO_PIECE,false);
 
 
  //coordenadas pecas

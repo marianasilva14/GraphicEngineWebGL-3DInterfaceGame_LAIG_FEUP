@@ -75,44 +75,44 @@ set_level(Level):-
     transformToCoordinates(2,5,5).
     transformToCoordinates(3,4,9).
     transformToCoordinates(3,5,8).
-    transformToCoordinates(4,5,10).
+    transformToCoordinates(4,5,37).
 
 %AREA 1
-    transformToCoordinates(5,1,11).
-    transformToCoordinates(5,2,15).
-    transformToCoordinates(5,3,18).
-    transformToCoordinates(5,4,20).
-    transformToCoordinates(6,1,12).
-    transformToCoordinates(6,2,16).
-    transformToCoordinates(6,3,19).
-    transformToCoordinates(7,1,13).
-    transformToCoordinates(7,2,17).
-    transformToCoordinates(8,1,14).
+    transformToCoordinates(5,1,10).
+    transformToCoordinates(5,2,14).
+    transformToCoordinates(5,3,17).
+    transformToCoordinates(5,4,38).
+    transformToCoordinates(6,1,11).
+    transformToCoordinates(6,2,15).
+    transformToCoordinates(6,3,18).
+    transformToCoordinates(7,1,12).
+    transformToCoordinates(7,2,16).
+    transformToCoordinates(8,1,13).
 
 %AREA 2
 
-    transformToCoordinates(2,9,24).
-    transformToCoordinates(3,8,27).
-    transformToCoordinates(3,9,23).
-    transformToCoordinates(4,7,28).
-    transformToCoordinates(4,8,26).
-    transformToCoordinates(4,9,22).
-    transformToCoordinates(5,7,29).
-    transformToCoordinates(5,8,25).
-    transformToCoordinates(5,9,29).
-    transformToCoordinates(5,6,30).
+    transformToCoordinates(2,9,22).
+    transformToCoordinates(3,8,25).
+    transformToCoordinates(3,9,21).
+    transformToCoordinates(4,7,26).
+    transformToCoordinates(4,8,24).
+    transformToCoordinates(4,9,20).
+    transformToCoordinates(5,7,27).
+    transformToCoordinates(5,8,23).
+    transformToCoordinates(5,9,19).
+    transformToCoordinates(5,6,39).
 
 %AREA 3
     transformToCoordinates(6,5,40).
-    transformToCoordinates(7,5,39).
-    transformToCoordinates(7,6,38).
-    transformToCoordinates(8,5,37).
-    transformToCoordinates(8,6,36).
-    transformToCoordinates(8,7,35).
-    transformToCoordinates(9,5,31).
-    transformToCoordinates(9,6,32).
-    transformToCoordinates(9,7,33).
-    transformToCoordinates(9,8,34).
+    transformToCoordinates(7,5,36).
+    transformToCoordinates(7,6,35).
+    transformToCoordinates(8,5,34).
+    transformToCoordinates(8,6,33).
+    transformToCoordinates(8,7,32).
+    transformToCoordinates(9,5,28).
+    transformToCoordinates(9,6,29).
+    transformToCoordinates(9,7,30).
+    transformToCoordinates(9,8,31).
 
 
 

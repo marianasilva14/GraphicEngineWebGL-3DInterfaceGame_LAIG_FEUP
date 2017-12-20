@@ -44,9 +44,9 @@ Piece.prototype.display= function(){
 this.scene.pushMatrix();
   if(!this.visible){
     this.scene.registerForPick(this.pickingId,this);
-  this.scene.multMatrix(this.transformMatrix);
+    this.scene.multMatrix(this.transformMatrix);
     this.piece.display();
-        this.scene.clearPickRegistration();
+    this.scene.clearPickRegistration();
   }
   else{
     this.appearance.apply();

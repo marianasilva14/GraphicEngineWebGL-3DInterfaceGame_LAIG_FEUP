@@ -95,6 +95,7 @@ CampoBello.prototype.chooseDestiny=function(){
 
 CampoBello.prototype.areaPiece=function(idPiece) {
   for(var i=0; i< this.areas.length;i++){
+    console.log('areas',this.areas);
     for(var j=1; j < this.areas[i].pieces.length;j++){
       if(this.areas[i].pieces[j].pickingId==idPiece){
         return i;
@@ -130,6 +131,8 @@ CampoBello.prototype.createPieceAnimation=function(){
   for(var k=0; k < 4;k++){
     cpointsOrigin[0][k]=new Array();
   }
+  console.log('pieceOrigin',pieceOrigin);
+  console.log('pieceDestiny',pieceDestiny);
   cpointsOrigin[0][0][0]=pieceOrigin.x;
   cpointsOrigin[0][0][1]=pieceOrigin.y;
   cpointsOrigin[0][0][2]=pieceOrigin.z;
@@ -142,6 +145,8 @@ CampoBello.prototype.createPieceAnimation=function(){
   cpointsOrigin[0][3][0]=pieceDestiny.x;
   cpointsOrigin[0][3][1]=pieceDestiny.y;
   cpointsOrigin[0][3][2]=pieceDestiny.z;
+
+
 
   this.scene.graph.animations['3'].setControlPoints(cpointsOrigin);
   pieceOrigin.animations.push('3');
@@ -176,8 +181,8 @@ CampoBello.prototype.createPieceAnimation=function(){
   this.scene.graph.animations['1'].setControlPoints(cpointsDestiny);
   pieceDestiny.animations.push('1');
 
-  this.scene.selectObjectDestiny==-1;
-  this.scene.selectObjectOrigin==-1;
+  this.scene.selectObjectDestiny==0;
+  this.scene.selectObjectOrigin==0;
 }
 
 CampoBello.prototype.choosePieceToRemove=function(){
