@@ -66,21 +66,3 @@ LinearAnimation.prototype.update = function(delta_time){
 
 
 };
-
-
-LinearAnimation.prototype.setControlPoints=function(cpoints){
-  this.controlPoints=cpoints;
-  this.time=[];
-  this.time[0]=0;
-  this.totalTime =0;
-  this.actualControlPoint=0;
-  this.distanceAcu=0;
-  this.lastTime=-1;
-  
-    for (var i = 1; i < cpoints[0].length; i++) {
-
-      this.distance.push(Math.sqrt(Math.pow((cpoints[0][i][0] - cpoints[0][i-1][0]),2) + Math.pow((cpoints[0][i][1] - cpoints[0][i-1][1]),2) + Math.pow((cpoints[0][i][2] - cpoints[0][i-1][2]),2)));
-      this.totalTime += this.distance[i-1]/this.speed;
-    }
-
-}

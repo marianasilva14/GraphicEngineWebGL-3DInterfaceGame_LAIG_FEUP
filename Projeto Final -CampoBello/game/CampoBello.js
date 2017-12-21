@@ -125,7 +125,6 @@ for(var i=0; i < this.areas.length;i++){
       console.log('pecaa',this.areas[i].pieces[j].getPickingID());
     console.log('pecaa',this.areas[i].pieces[j]);
       if(this.areas[i].pieces[j].getPickingID()==pickingId){
-
         var piece=this.areas[i].pieces[j];
         return piece;
       }
@@ -165,10 +164,10 @@ CampoBello.prototype.createPieceAnimation=function(){
   cpointsOrigin[0][0][1]=pieceOrigin.y;
   cpointsOrigin[0][0][2]=pieceOrigin.z;
   cpointsOrigin[0][1][0]=pieceOrigin.x+1;
-  cpointsOrigin[0][1][1]=4;
+  cpointsOrigin[0][1][1]=43;
   cpointsOrigin[0][1][2]=pieceOrigin.z+1;
   cpointsOrigin[0][2][0]=pieceOrigin.x+1.5;
-  cpointsOrigin[0][2][1]=4;
+  cpointsOrigin[0][2][1]=43;
   cpointsOrigin[0][2][2]=pieceOrigin.z+1.5;
   cpointsOrigin[0][3][0]=pieceDestiny.x;
   cpointsOrigin[0][3][1]=pieceDestiny.y;
@@ -179,12 +178,8 @@ console.log('shsh',pieceDestiny);
 
   var animation = new BezierAnimation(this.scene,3,cpointsOrigin,4);
   pieceOrigin.animation=animation;
-    pieceOrigin.animationFinished=false;
-    console.log('passei',pieceOrigin);
- //this.scene.graph.animations['3'].setControlPoints(cpointsOrigin);
-//  pieceOrigin.animations.pop('3');
-//  pieceOrigin.animations.push('3');
-
+  pieceOrigin.animationFinished=false;
+  console.log('passei',pieceOrigin);
 
   var cpointsDestiny=new Array();
   cpointsDestiny[0]=new Array(4);
@@ -194,15 +189,15 @@ console.log('shsh',pieceDestiny);
 
 
   if(this.scene.selectObjectOrigin <= 18){
-    var x=(4-pieceDestiny.x)/3;
-    var y=(0-pieceDestiny.y)/3;
-    var z=(30-pieceDestiny.z)/3;
+    var x=(18-pieceDestiny.x)/3;
+    var y=(43-pieceDestiny.y)/3;
+    var z=(60-pieceDestiny.z)/3;
 
 }
 else {
-  var x=(28-pieceDestiny.x)/3;
-  var y=(0-pieceDestiny.y)/3;
-  var z=(0-pieceDestiny.z)/3;
+  var x=(40-pieceDestiny.x)/3;
+  var y=(43-pieceDestiny.y)/3;
+  var z=(35-pieceDestiny.z)/3;
 
 }
 
@@ -211,20 +206,21 @@ cpointsDestiny[0][0][1]=pieceDestiny.y;
 cpointsDestiny[0][0][2]=pieceDestiny.z;
 
 cpointsDestiny[0][1][0]=pieceDestiny.x+x;
-cpointsDestiny[0][1][1]=3;
+cpointsDestiny[0][1][1]=pieceDestiny.y+(2*y);
 cpointsDestiny[0][1][2]=pieceDestiny.z+z;
 
 cpointsDestiny[0][2][0]=pieceDestiny.x+(2*x);
-cpointsDestiny[0][2][1]=3;
+cpointsDestiny[0][2][1]=pieceDestiny.y+(2*y);
 cpointsDestiny[0][2][2]=pieceDestiny.z+(2*z);;
 
 cpointsDestiny[0][3][0]=pieceDestiny.x+(3*x);
-cpointsDestiny[0][3][1]=0;
+cpointsDestiny[0][3][1]=pieceDestiny.y+(3*y);
 cpointsDestiny[0][3][2]=pieceDestiny.x+(3*z);
 
 if(pieceDestiny.getPickingID()<37){
-  this.scene.graph.animations['1'].setControlPoints(cpointsDestiny);
-  pieceDestiny.animations.push('1');
+  var animation = new LinearAnimation(this.scene,3,cpointsDestiny,4);
+  pieceDestiny.animation=animation;
+  pieceDestiny.animationFinished=false;
 }
 
   this.scene.selectObjectDestiny=0;

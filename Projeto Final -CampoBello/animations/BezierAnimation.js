@@ -65,29 +65,3 @@ BezierAnimation.prototype.update= function(delta_time){
       mat4.translate(this.matrix,this.matrix,calculateQ);
       mat4.rotate(this.matrix,this.matrix,angle,[0,1,0]);
 }
-
-BezierAnimation.prototype.setControlPoints=function(cpoints){
-  this.controlPoints=cpoints;
-
-  this.pointP1=cpoints[0][0];
-  this.pointP2=cpoints[0][1];
-  this.pointP3=cpoints[0][2];
-  this.pointP4=cpoints[0][3];
-
-  this.pointP12=[(this.pointP2[0]+this.pointP1[0])/2,(this.pointP2[1]+this.pointP1[1])/2,(this.pointP2[2]+this.pointP1[2])/2];
-  this.pointP23=[(this.pointP3[0]+this.pointP2[0])/2,(this.pointP3[1]+this.pointP2[1])/2,(this.pointP3[2]+this.pointP2[2])/2];
-  this.pointP34=[(this.pointP4[0]+this.pointP3[0])/2,(this.pointP4[1]+this.pointP3[1])/2,(this.pointP4[2]+this.pointP3[2])/2];
-  this.pointP123=[(this.pointP12[0]+this.pointP23[0])/2,(this.pointP12[1]+this.pointP23[1])/2,(this.pointP12[2]+this.pointP23[2])/2];
-  this.pointP234=[(this.pointP23[0]+this.pointP34[0])/2,(this.pointP23[1]+this.pointP34[1])/2,(this.pointP23[2]+this.pointP34[2])/2];
-
-
-  this.distanceP1P12 = Math.sqrt(Math.pow((this.pointP1[0] - this.pointP12[0]),2) + Math.pow((this.pointP1[1] - this.pointP12[1]),2) + Math.pow((this.pointP1[2] - this.pointP12[2]),2));
-  this.distanceP12P123= Math.sqrt(Math.pow((this.pointP12[0] - this.pointP123[0]),2) + Math.pow((this.pointP12[1] - this.pointP123[1]),2) + Math.pow((this.pointP12[2] - this.pointP123[2]),2));
-  this.distanceP123P234= Math.sqrt(Math.pow((this.pointP123[0] - this.pointP234[0]),2) + Math.pow((this.pointP123[1] - this.pointP234[1]),2) + Math.pow((this.pointP123[2] - this.pointP234[2]),2));
-  this.distanceP234P34= Math.sqrt(Math.pow((this.pointP234[0] - this.pointP34[0]),2) + Math.pow((this.pointP234[1] - this.pointP34[1]),2) + Math.pow((this.pointP234[2] - this.pointP34[2]),2));
-  this.distanceP34P4= Math.sqrt(Math.pow((this.pointP34[0] - this.pointP4[0]),2) + Math.pow((this.pointP34[1] - this.pointP4[1]),2) + Math.pow((this.pointP34[2] - this.pointP4[2]),2));
-
-  this.distance=this.distanceP1P12+this.distanceP12P123+this.distanceP123P234+this.distanceP234P34+this.distanceP34P4;
-  this.time[0] = this.distance/this.speed;
-  this.totalTime = this.time[0];
-}
