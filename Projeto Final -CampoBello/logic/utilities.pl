@@ -156,6 +156,11 @@ set_level(Level):-
     transformPiece(35,'pieceY').
     transformPiece(36,'pieceY').
 
+    transformPiece(37,'noPiece').
+    transformPiece(38,'noPiece').
+    transformPiece(39,'noPiece').
+    transformPiece(40,'noPiece').
+    
   boardToNumbers([], []).
   boardToNumbers([List | R], [NumberList | Numbers]):-
   boardToNumbersLine(List, NumberList),

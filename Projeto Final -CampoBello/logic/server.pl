@@ -123,9 +123,8 @@ parse_input(validateGame(Board,Source,Destiny,AreaNumber),BoardOut):-
 	transformToCoordinates(RowSource,ColSource,Source),
 	transformToCoordinates(RowDestiny,ColDestiny,Destiny),
 	validateMove(Area,ColSource,RowSource,ColDestiny,RowDestiny,TmpBoard),
-	getPiece(TmpBoard, RowDestiny, ColDestiny, NewPiece),
 	setPiece(TmpBoard,RowSource,ColSource,'noPiece',TmpBoard2),
-	setPiece(TmpBoard2,RowDestiny,ColDestiny,NewPiece,TmpBoard3),
+	setPiece(TmpBoard2,RowDestiny,ColDestiny,Piece,TmpBoard3),
 	printFinalBoard(TmpBoard3),
 	boardToNumbers(TmpBoard3,BoardOut).
 
@@ -134,14 +133,14 @@ parse_input(removePiece(Board,Piece,Player),BoardOut):-
 	transformToCoordinates(Row,Col,Piece),
 	checkIfCanRemoveX(Board, Col, Row),
 	setPiece(Board,Row,Col,'noPiece',BoardOut),
-	printFinalBoard(TmpBoard3).
+	printFinalBoard(BoardOut).
 
 parse_input(removePiece(Board,Piece,Player),BoardOut):-
 	Player==2,
 	transformToCoordinates(Row,Col,Piece),
 	checkIfCanRemoveY(Board, Col, Row),
 	setPiece(Board,Row,Col,'noPiece',BoardOut),
-	printFinalBoard(TmpBoard3).
+	printFinalBoard(BoardOut).
 
 %invalid move
 parse_input(validateGame(Board,Source,Destiny,AreaNumber),[]).

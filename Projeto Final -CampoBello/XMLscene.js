@@ -210,9 +210,7 @@ for(node in this.graph.nodes){
 //if(this.CampoBello.currentState==this.CampoBello.state.UPDATE_ANIMATION){
 for(var j=0; j < this.CampoBello.areas.length;j++){
   for(var i=1;i < this.CampoBello.areas[j].pieces.length;i++){
-  if(this.CampoBello.areas[j].pieces[i].animations.length!=0){
     this.CampoBello.areas[j].pieces[i].updateAnimation(current_time);
-  }
   }
 }
 //}
@@ -233,24 +231,28 @@ XMLscene.prototype.logPicking = function ()
 				{
 					var customId = this.pickResults[i][1];
 					console.log("Picked object: " + obj + ", with pick id " + customId);
+                  console.log('state',this.CampoBello.currentState);
           switch (this.CampoBello.currentState) {
             case this.CampoBello.state.CHOOSE_ORIGIN:
             if(this.CampoBello.currentPlayer==PLAYER1_ID){
-              if(this.CampoBello.piecesPlayer1.indexOf(customId)!=0){
+              console.log('aquiiii');
+              if(this.CampoBello.piecesPlayer1.indexOf(customId)!=-1 || this.CampoBello.noPieces.indexOf(customId)!=-1){
                 this.selectObjectOrigin=customId;
-                this.CampoBello.chooseOrigin();
+                this.CampoBello.currentState=this.CampoBello.state.CHOOSE_DESTINY;
               }
+              console.log('agaiao');
             }
             else{
-              if(this.CampoBello.piecesPlayer2.indexOf(customId)!=0){
+              if(this.CampoBello.piecesPlayer2.indexOf(customId)!=-1 || this.CampoBello.noPieces.indexOf(customId)!=-1){
                 this.selectObjectOrigin=customId;
-                this.CampoBello.chooseOrigin();
+                this.CampoBello.currentState=this.CampoBello.state.CHOOSE_DESTINY;
               }
             }
               break;
             case this.CampoBello.state.CHOOSE_DESTINY:
             this.selectObjectDestiny=customId;
             this.CampoBello.chooseDestiny();
+                console.log('agaiao');
             break;
             default:
 

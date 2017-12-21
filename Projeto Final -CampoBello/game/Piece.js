@@ -11,10 +11,9 @@ function Piece(scene,playerID,pickingId,typeOfPiece,visible) {
   this.x;
   this.y;
   this.z;
-  this.animations = [];
+  this.animation;
   this.visible=visible;
-  this.animationIndex=0;
-  this.animationFinished = false;
+  this.animationFinished = true;
   this.initial_time = 0;
   this.delta_time = 0;
   this.typeOfPiece=typeOfPiece;
@@ -54,6 +53,7 @@ this.scene.pushMatrix();
       this.updateTransformMatrix();
 
     }
+
     this.scene.multMatrix(this.transformMatrix);
     this.piece.display();
   }
@@ -66,7 +66,8 @@ Piece.prototype.setTypeOfPiece=function(newType){
 
 Piece.prototype.updateAnimation =function(current_time){
 
-    var currentAnimation =this.scene.graph.animations[this.animations[this.animationIndex]];
+if(this.animation==null)
+return;
 
     var current_time2 = current_time/1000;
 
@@ -75,26 +76,40 @@ Piece.prototype.updateAnimation =function(current_time){
     else
       this.delta_time=current_time2-this.initial_time;
 
-    if(this.delta_time >= currentAnimation.totalTime)
+    if(this.delta_time >= this.animation.totalTime)
       this.animationFinished = true;
     else {
-      currentAnimation.update(this.delta_time);
+      this.animation.update(this.delta_time);
     }
 
 }
+Piece.prototype.getPickingID=function(){
+  console.log('get',this.pickingId);
+  return this.pickingId;
+}
+
+Piece.prototype.setPickingID=function(pickingId){
+  this.pickingId=pickingId;
+    console.log('set',this.pickingId);
+}
+
 
 Piece.prototype.updateTransformMatrix = function(){
-
-
-    var animation = this.scene.graph.animations[this.animations[this.animationIndex]];
-
-    if(animation != null){
-      animation.update(this.delta_time);
+console.log('aquiiiiiiiii',this.animation);
+    if(this.animation != null){
+      this.animation.update(this.delta_time);
+      console.log('matrix',this.transformMatrix);
+      console.log('animation',this.animation);
       //return animation.matrix;
-      mat4.multiply(this.transformMatrix, this.origin, animation.matrix);
+      mat4.multiply(this.transformMatrix, this.origin, this.animation.matrix);
       return;
     }
-    //if(this.animationFinished)
+    if(this.animationFinished){
+      this.animation=null;
+      this.animationFinished=true;
+      this.initial_time=0;
+      this.delta_time=-1;
+    }
     //return animation.matrix;
 
     return mat4.create();
