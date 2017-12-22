@@ -37,6 +37,7 @@ function CampoBello(scene) {
     INITIAL_STATE: 1,
     CHOOSE_ORIGIN:2,
     VALID_MOVEMENT:3,
+    REMOVE_PIECE:7,
     CHOOSE_DESTINY:4,
     UPDATE_ANIMATION:5,
     END_GAME:6
@@ -202,7 +203,7 @@ cpointsDestiny[0][1][2]=pieceDestiny.z+z;
 
 cpointsDestiny[0][2][0]=pieceDestiny.x+(2*x);
 cpointsDestiny[0][2][1]=pieceDestiny.y+(2*y);
-cpointsDestiny[0][2][2]=pieceDestiny.z+(2*z);;
+cpointsDestiny[0][2][2]=pieceDestiny.z+(2*z);
 
 cpointsDestiny[0][3][0]=pieceDestiny.x+(3*x);
 cpointsDestiny[0][3][1]=pieceDestiny.y+(3*y);
@@ -220,7 +221,7 @@ if(pieceDestiny.getPickingID()<37){
 
 CampoBello.prototype.choosePieceToRemove=function(){
   var this_t=this;
-
+  console.log('entrei');
   getPrologRequest(
     "removePiece("+JSON.stringify(this_t.board)+","+
     JSON.stringify(this_t.scene.selectObjectOrigin)+","+
@@ -257,12 +258,6 @@ CampoBello.prototype.validateMove=function(){
           if(this_t.numberOfLoops!=3){
           this_t.numberOfLoops++;
 
-
-        pieceOrigin.x=pieceDestiny.x;
-        pieceOrigin.y=pieceDestiny.y;
-        pieceOrigin.z=pieceDestiny.z;
-        pieceOrigin.setPickingID(pieceDestiny.getPickingID());
-
           }
           else{
             this_t.numberOfLoops=0;
@@ -273,7 +268,7 @@ CampoBello.prototype.validateMove=function(){
           }
         }
         else if(pieceDestiny.typeOfPiece!=pieceOrigin.typeOfPiece){
-          this_t.choosePieceToRemove();
+          this.currentState=this.state.REMOVE_PIECE;
           if(this_t.currentPlayer==PLAYER1_ID)
             this_t.currentPlayer=PLAYER2_ID;
           else
@@ -286,6 +281,10 @@ CampoBello.prototype.validateMove=function(){
             this_t.currentPlayer=PLAYER1_ID;
         }
 
+        pieceOrigin.x=pieceDestiny.x;
+        pieceOrigin.y=pieceDestiny.y;
+        pieceOrigin.z=pieceDestiny.z;
+        pieceOrigin.setPickingID(pieceDestiny.getPickingID());
 
       }
 
@@ -318,6 +317,9 @@ CampoBello.prototype.validateMove=function(){
       case this.state.VALID_MOVEMENT:
       this.validateMove();
       break;
+      case this.state.REMOVE_PIECE:
+      this.choosePieceToRemove();
+        break;
       case this.state.END_GAME:
       break;
       default:

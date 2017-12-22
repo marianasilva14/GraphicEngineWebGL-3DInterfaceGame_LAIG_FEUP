@@ -19,8 +19,14 @@ function XMLscene(interface) {
     this.objectsSelectableID = 0;
     this.wireframe=false;
     this.scaleFactor=50.0;
-    this.selectObjectOrigin=-1;
-    this.selectObjectDestiny=-1;
+    this.selectObjectOrigin=0;
+    this.selectObjectDestiny=0;
+    this.pieceToRemove=0;
+    this.level=0;
+    this.modeGame=0;
+    this.startGame=0;
+    this.continueGame=0;
+    this.undo=0;
 
     this.cam;
 
@@ -135,6 +141,9 @@ XMLscene.prototype.onGraphLoaded = function()
     // Adds lights group.
     this.interface.addLightsGroup(this.graph.lights);
     this.interface.dropDown();
+    this.interface.levelDifficulty();
+    this.interface.modeGame();
+    //this.interface.options();
 
 }
 
@@ -235,16 +244,13 @@ XMLscene.prototype.logPicking = function ()
 				{
 					var customId = this.pickResults[i][1];
 					console.log("Picked object: " + obj + ", with pick id " + customId);
-                  console.log('state',this.CampoBello.currentState);
           switch (this.CampoBello.currentState) {
             case this.CampoBello.state.CHOOSE_ORIGIN:
             if(this.CampoBello.currentPlayer==PLAYER1_ID){
-              console.log('aquiiii');
               if(this.CampoBello.piecesPlayer1.indexOf(customId)!=-1 || this.CampoBello.noPieces.indexOf(customId)!=-1){
                 this.selectObjectOrigin=customId;
                 this.CampoBello.currentState=this.CampoBello.state.CHOOSE_DESTINY;
               }
-              console.log('agaiao');
             }
             else{
               if(this.CampoBello.piecesPlayer2.indexOf(customId)!=-1 || this.CampoBello.noPieces.indexOf(customId)!=-1){
@@ -256,8 +262,10 @@ XMLscene.prototype.logPicking = function ()
             case this.CampoBello.state.CHOOSE_DESTINY:
             this.selectObjectDestiny=customId;
             this.CampoBello.chooseDestiny();
-                console.log('agaiao');
             break;
+            case this.CampoBello.state.REMOVE_PIECE:
+            this.pieceToRemove=customId;
+            this.CampoBello.choosePieceToRemove();
             default:
 
           }
@@ -267,4 +275,35 @@ XMLscene.prototype.logPicking = function ()
 			this.pickResults.splice(0,this.pickResults.length);
 		}
 	}
+}
+
+/**
+* Starts a game
+*/
+XMLscene.prototype.startGame = function() {
+  this.CampoBello.currentState=this.CampoBello.state.INITIAL_STATE;
+};
+
+/**
+* Continues a game
+*/
+XMLscene.prototype.continueGame = function() {
+/*  if(this.game.gameMode == XMLscene.gameMode.MOVIE){
+    this.game = this.oldGame;
+  }*/
+}
+
+/**
+* Undos a play
+*/
+XMLscene.prototype.undo = function() {
+  /*  if(this.game.player == 1){
+      var button = new Button(this, this.reader, 1, 2);
+      this.game.pickingHandler(button);
+    }
+    else if(this.game.player == 2){
+      var button = new Button(this, this.reader, 2, 2);
+      this.game.pickingHandler(button);
+    }*/
+
 }

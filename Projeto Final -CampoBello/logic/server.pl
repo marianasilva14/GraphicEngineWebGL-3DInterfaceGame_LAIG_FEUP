@@ -161,6 +161,8 @@ parse_input(removePiece(Board,Piece,Player),BoardOut):-
 	setPiece(Board,Row,Col,'noPiece',BoardOut),
 	printFinalBoard(BoardOut).
 
+parse_input(removePiece(Board,Piece,Player),[]).
+
 %invalid move
 parse_input(validateGame(Board,Source,Destiny,AreaNumber),[]).
 
