@@ -79,12 +79,7 @@
     </TEXTURE>
 
     <TEXTURE id="parede">
-      <file path="images/parede.jpeg" />
-      <amplif_factor s="2" t="2" />
-    </TEXTURE>
-
-    <TEXTURE id="chao">
-      <file path="images/chao.jpg" />
+      <file path="images/parede.jpg" />
       <amplif_factor s="2" t="2" />
     </TEXTURE>
 
@@ -168,9 +163,9 @@
     <!-- The floor -->
     <NODE id="chao">
       <MATERIAL id="null" />
-      <TEXTURE id="chao" />
+      <TEXTURE id="madeira" />
 
-      <SCALE sx="3.2" sy="3.2" sz="3.2" />
+      <SCALE sx="2.9" sy="3.2" sz="3.1" />
       <TRANSLATION x="0" y="0" z="10" />
       <ROTATION axis="x" angle="-90" />
 
@@ -184,9 +179,9 @@
 
     <NODE id="paredes">
       <MATERIAL id="null" />
-      <TEXTURE id="cor_jogador2" />
+      <TEXTURE id="parede" />
 
-      <SCALE sx="3.2" sy="1.5" sz="3.2" />
+      <SCALE sx="2.9" sy="1.5" sz="3.1" />
 
       <DESCENDANTS>
         <NODEREF id="parede1" />
@@ -222,7 +217,7 @@
       <MATERIAL id="null" />
       <TEXTURE id="madeira" />
 
-      <SCALE sx="0.2" sy="1" sz="32" />
+      <SCALE sx="0.2" sy="1" sz="31" />
       <TRANSLATION x="0.5" y="0.5" z="0.5" />
 
       <DESCENDANTS>
@@ -235,7 +230,7 @@
       <MATERIAL id="null" />
       <TEXTURE id="madeira" />
 
-      <SCALE sx="32" sy="1" sz="0.2" />
+      <SCALE sx="29" sy="1" sz="0.2" />
       <TRANSLATION x="0.5" y="0.5" z="0.5" />
 
       <DESCENDANTS>

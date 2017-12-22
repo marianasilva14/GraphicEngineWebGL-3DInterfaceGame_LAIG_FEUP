@@ -94,10 +94,10 @@ set_level(Level):-
     transformToCoordinates(2,9,22).
     transformToCoordinates(3,8,25).
     transformToCoordinates(3,9,21).
-    transformToCoordinates(4,7,26).
+    transformToCoordinates(4,7,27).
     transformToCoordinates(4,8,24).
     transformToCoordinates(4,9,20).
-    transformToCoordinates(5,7,27).
+    transformToCoordinates(5,7,26).
     transformToCoordinates(5,8,23).
     transformToCoordinates(5,9,19).
     transformToCoordinates(5,6,39).
@@ -114,6 +114,8 @@ set_level(Level):-
     transformToCoordinates(9,7,30).
     transformToCoordinates(9,8,31).
 
+
+:-dynamic transformPiece/2.
 
 
 %PIECEX
@@ -160,7 +162,7 @@ set_level(Level):-
     transformPiece(38,'noPiece').
     transformPiece(39,'noPiece').
     transformPiece(40,'noPiece').
-    
+
   boardToNumbers([], []).
   boardToNumbers([List | R], [NumberList | Numbers]):-
   boardToNumbersLine(List, NumberList),

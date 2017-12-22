@@ -119,12 +119,31 @@ parse_input(initialBoard,Board):-
 parse_input(validateGame(Board,Source,Destiny,AreaNumber),BoardOut):-
 	boardToNumbers(TmpBoard,Board),
 	transformPiece(Source,Piece),
+	transformPiece(Destiny,PieceDestiny),
 	transformArea(Area,AreaNumber),
 	transformToCoordinates(RowSource,ColSource,Source),
 	transformToCoordinates(RowDestiny,ColDestiny,Destiny),
 	validateMove(Area,ColSource,RowSource,ColDestiny,RowDestiny,TmpBoard),
 	setPiece(TmpBoard,RowSource,ColSource,'noPiece',TmpBoard2),
 	setPiece(TmpBoard2,RowDestiny,ColDestiny,Piece,TmpBoard3),
+	PieceDestiny=='noPiece',
+	retract(transformPiece(Destiny,PieceDestiny)),
+	asserta(transformPiece(Destiny,Piece)),
+	write('passei'),
+	printFinalBoard(TmpBoard3),
+	boardToNumbers(TmpBoard3,BoardOut).
+
+parse_input(validateGame(Board,Source,Destiny,AreaNumber),BoardOut):-
+	boardToNumbers(TmpBoard,Board),
+	transformPiece(Source,Piece),
+	transformPiece(Destiny,PieceDestiny),
+	transformArea(Area,AreaNumber),
+	transformToCoordinates(RowSource,ColSource,Source),
+	transformToCoordinates(RowDestiny,ColDestiny,Destiny),
+	validateMove(Area,ColSource,RowSource,ColDestiny,RowDestiny,TmpBoard),
+	setPiece(TmpBoard,RowSource,ColSource,'noPiece',TmpBoard2),
+	setPiece(TmpBoard2,RowDestiny,ColDestiny,Piece,TmpBoard3),
+	PieceDestiny\='noPiece',
 	printFinalBoard(TmpBoard3),
 	boardToNumbers(TmpBoard3,BoardOut).
 

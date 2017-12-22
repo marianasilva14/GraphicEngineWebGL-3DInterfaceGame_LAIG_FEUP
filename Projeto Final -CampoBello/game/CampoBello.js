@@ -86,7 +86,6 @@ CampoBello.prototype.getInitialBoard=function(){
 }
 
 CampoBello.prototype.chooseDestiny=function(){
-  console.log('aqui no chooseDestiny');
   if(this.scene.selectObjectDestiny!=0){
     this.currentState=this.state.VALID_MOVEMENT;
     this.game();
@@ -118,12 +117,8 @@ CampoBello.prototype.areaPiece_invisible=function(idPiece) {
 CampoBello.prototype.pieceChoosen=function(pickingId){
 
 for(var i=0; i < this.areas.length;i++){
-  console.log('areas',this.areas[i]);
-    for(var j=1; j<= this.areas[i].pieces.length;j++){
-       console.log('pickingId'+pickingId);
-       console.log('pecaa',this.areas[i].pieces[j]);
-      console.log('pecaa',this.areas[i].pieces[j].getPickingID());
-    console.log('pecaa',this.areas[i].pieces[j]);
+  console.log(this.areas[i]);
+    for(var j=1; j< this.areas[i].pieces.length;j++){
       if(this.areas[i].pieces[j].getPickingID()==pickingId){
         var piece=this.areas[i].pieces[j];
         return piece;
@@ -145,7 +140,6 @@ CampoBello.prototype.pieceChoosen_invisible=function(pickingId){
 CampoBello.prototype.createPieceAnimation=function(){
   this.currentState=this.state.UPDATE_ANIMATION;
   var pieceOrigin= this.pieceChoosen(this.scene.selectObjectOrigin);
-  console.log('id',pieceOrigin,this.scene.selectObjectOrigin);
 
   if(this.scene.selectObjectDestiny >=37){
     var pieceDestiny=this.pieceChoosen_invisible(this.scene.selectObjectDestiny);
@@ -159,7 +153,8 @@ CampoBello.prototype.createPieceAnimation=function(){
   for(var k=0; k < 4;k++){
     cpointsOrigin[0][k]=new Array();
   }
-
+console.log('pieceOrigin',pieceOrigin.x,pieceOrigin.y,pieceOrigin.z);
+console.log('pieceDestiny',pieceDestiny.x,pieceDestiny.y,pieceDestiny.z);
   cpointsOrigin[0][0][0]=pieceOrigin.x;
   cpointsOrigin[0][0][1]=pieceOrigin.y;
   cpointsOrigin[0][0][2]=pieceOrigin.z;
@@ -173,13 +168,9 @@ CampoBello.prototype.createPieceAnimation=function(){
   cpointsOrigin[0][3][1]=pieceDestiny.y;
   cpointsOrigin[0][3][2]=pieceDestiny.z;
 
-console.log('controlpoint',cpointsOrigin);
-console.log('shsh',pieceDestiny);
-
-  var animation = new BezierAnimation(this.scene,3,cpointsOrigin,4);
+  var animation = new BezierAnimation(this.scene,3,cpointsOrigin,6);
   pieceOrigin.animation=animation;
   pieceOrigin.animationFinished=false;
-  console.log('passei',pieceOrigin);
 
   var cpointsDestiny=new Array();
   cpointsDestiny[0]=new Array(4);
@@ -195,9 +186,9 @@ console.log('shsh',pieceDestiny);
 
 }
 else {
-  var x=(40-pieceDestiny.x)/3;
+  var x=(35-pieceDestiny.x)/3;
   var y=(43-pieceDestiny.y)/3;
-  var z=(35-pieceDestiny.z)/3;
+  var z=(15-pieceDestiny.z)/3;
 
 }
 
@@ -218,7 +209,7 @@ cpointsDestiny[0][3][1]=pieceDestiny.y+(3*y);
 cpointsDestiny[0][3][2]=pieceDestiny.x+(3*z);
 
 if(pieceDestiny.getPickingID()<37){
-  var animation = new LinearAnimation(this.scene,3,cpointsDestiny,4);
+  var animation = new LinearAnimation(this.scene,3,cpointsDestiny,6);
   pieceDestiny.animation=animation;
   pieceDestiny.animationFinished=false;
 }
@@ -239,7 +230,7 @@ CampoBello.prototype.choosePieceToRemove=function(){
 }
 
 CampoBello.prototype.validateMove=function(){
-  console.log('aquiiiii');
+
   var this_t=this;
   var areaOriginPiece=this.areaPiece(this.scene.selectObjectOrigin);
   var pieceOrigin_invisible= this.pieceChoosen_invisible(this.scene.selectObjectOrigin);
@@ -257,27 +248,20 @@ CampoBello.prototype.validateMove=function(){
     JSON.stringify(this_t.scene.selectObjectDestiny)+","+
     JSON.stringify(areaOriginPiece)+")",
     function(data){
-      //console.log("Request successful. Reply: " + data.target.response);
       var info=JSON.parse(data.target.response);
-
       if(info.length!=0){
         this_t.createPieceAnimation();
-        console.log('sai');
         this_t.board=info;
 
         if(pieceDestiny.typeOfPiece==NO_PIECE){
           if(this_t.numberOfLoops!=3){
           this_t.numberOfLoops++;
 
-console.log('ATUALIZAR ',pieceOrigin,pieceOrigin.getPickingID());
-        //
-          pieceOrigin.x=pieceDestiny.x;
-          pieceOrigin.y=pieceDestiny.y;
-          pieceOrigin.z=pieceDestiny.z;
-          pieceOrigin.setPickingID(pieceDestiny.getPickingID());
-          console.log('ATUALIZAR DEPOIS',pieceOrigin,pieceOrigin.getPickingID());
 
-          console.log('pepepepe',pieceOrigin);
+        pieceOrigin.x=pieceDestiny.x;
+        pieceOrigin.y=pieceDestiny.y;
+        pieceOrigin.z=pieceDestiny.z;
+        pieceOrigin.setPickingID(pieceDestiny.getPickingID());
 
           }
           else{
@@ -318,8 +302,6 @@ console.log('ATUALIZAR ',pieceOrigin,pieceOrigin.getPickingID());
       }
 
       this_t.currentState=this_t.state.CHOOSE_ORIGIN;
-
-      //this_t.game();
 
     });
   }

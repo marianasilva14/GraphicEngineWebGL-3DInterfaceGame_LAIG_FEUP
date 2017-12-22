@@ -84,23 +84,17 @@ return;
 
 }
 Piece.prototype.getPickingID=function(){
-  console.log('get',this.pickingId);
   return this.pickingId;
 }
 
 Piece.prototype.setPickingID=function(pickingId){
   this.pickingId=pickingId;
-    console.log('set',this.pickingId);
 }
 
 
 Piece.prototype.updateTransformMatrix = function(){
-console.log('aquiiiiiiiii',this.animation);
     if(this.animation != null){
       this.animation.update(this.delta_time);
-      console.log('matrix',this.transformMatrix);
-      console.log('animation',this.animation);
-      //return animation.matrix;
       mat4.multiply(this.transformMatrix, this.origin, this.animation.matrix);
       return;
     }
@@ -110,7 +104,6 @@ console.log('aquiiiiiiiii',this.animation);
       this.initial_time=0;
       this.delta_time=-1;
     }
-    //return animation.matrix;
 
     return mat4.create();
 
