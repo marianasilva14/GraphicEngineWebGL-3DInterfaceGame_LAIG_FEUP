@@ -161,24 +161,6 @@
 
     </NODE>
 
-
-
-    <NODE id="board">
-      <MATERIAL id="null" />
-      <TEXTURE id="board" />
-
-      <SCALE sx="1.65" sy="1.65" sz="1.65" />
-      <TRANSLATION x="4.3" y="4.6" z="15.2" />
-      <ROTATION axis="x" angle="-90" />
-      <ROTATION axis="z" angle="20" />
-
-      <DESCENDANTS>
-        <LEAF  type="rectangle" args="0 10 10 0" />
-      </DESCENDANTS>
-
-    </NODE>
-
-
     <NODE id="leg">
       <MATERIAL id="null" />
       <TEXTURE id="wood" />

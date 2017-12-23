@@ -23,10 +23,8 @@ function XMLscene(interface) {
     this.level=0;
     this.modeGame=0;
     this.startGame=0;
-    this.game=0;
     this.continueGame=0;
     this.undo=0;
-    this.scenarioNumber;
 
     this.cam;
 
@@ -39,29 +37,18 @@ XMLscene.prototype.constructor = XMLscene;
 /**
 * Sets First Scenario - Casino
 */
-XMLscene.prototype.setScenario1 = function() {
-    this.scenario = new Casino(this);
+XMLscene.prototype.setScenarioGamingRoom = function() {
+    this.scenario = new GamingRoom(this);
     this.scenarioNumber=1;
+
 }
 
 /**
 * Sets second Scenario - Room
 */
-XMLscene.prototype.setScenario2 = function() {
-    this.scenario = new Room(this);
+XMLscene.prototype.setScenarioGamingHouse = function() {
+    this.scenario = new GamingHouse(this);
     this.scenarioNumber=2;
-}
-
-/**
-* Sets third Scenario - Room
-*/
-XMLscene.prototype.setScenario3 = function() {
-    this.scenario = new Room(this);
-    this.game.player1.setPawnMaterial();
-    this.game.player2.setPawnMaterial();
-    this.game.player1.setWallsMaterial();
-    this.game.player2.setWallsMaterial();
-    this.game.setStartPositionMaterial();
 }
 
 
@@ -74,14 +61,14 @@ XMLscene.gameMode = {
 * Calls the blockade game player vs player mode
 */
 XMLscene.prototype.setPlayerVsPlayer = function() {
-    this.game = new CampoBello(this, XMLscene.gameMode.PLAYER_VS_PLAYER);
+    this.CampoBello = new CampoBello(this, XMLscene.gameMode.PLAYER_VS_PLAYER);
 }
 
 /**
 * Calls the blockade game player vs bot mode
 */
 XMLscene.prototype.setPcVsPc = function() {
-    this.game = new CampoBello(this,  XMLscene.gameMode.PC_VS_PC);
+    this.CampoBello = new CampoBello(this,  XMLscene.gameMode.PC_VS_PC);
 }
 
 /**
@@ -114,6 +101,7 @@ XMLscene.prototype.init = function(application) {
 
   	this.updateScaleFactor(0);
     this.scenario = new GamingRoom(this);
+    this.scenarioNumber=1;
 
     this.piece1AppearanceScenario1 = new CGFappearance(this);
 	  this.piece1AppearanceScenario1.loadTexture("scenes/images/yellow.png");
@@ -199,6 +187,7 @@ XMLscene.prototype.onGraphLoaded = function()
     this.interface.addLightsGroup(this.graph.lights);
     this.interface.levelDifficulty();
     this.interface.modeGame();
+    this.interface.scenarios();
     //this.interface.options();
 
 }
@@ -337,17 +326,17 @@ XMLscene.prototype.logPicking = function ()
 * Starts a game
 */
 XMLscene.prototype.startGame = function() {
-    //this.game = new Blockade(this, this.graph,XMLscene.gameMode.PLAYER_VS_PLAYER);
-  //  this.game.currentState = this.game.state.INITIALIZE_BOARD;
-  this.game.getInitialBoard(1);
+    //this.CampoBello = new Blockade(this, this.graph,XMLscene.gameMode.PLAYER_VS_PLAYER);
+  //  this.CampoBello.currentState = this.CampoBello.state.INITIALIZE_BOARD;
+  this.CampoBello.getInitialBoard(1);
 };
 
 /**
 * Continues a game
 */
 XMLscene.prototype.continueGame = function() {
-  if(this.game.gameMode == XMLscene.gameMode.MOVIE){
-    this.game = this.oldGame;
+  if(this.CampoBello.gameMode == XMLscene.gameMode.MOVIE){
+    this.CampoBello = this.oldGame;
   }
 }
 /**
@@ -361,8 +350,8 @@ XMLscene.prototype.startGame = function() {
 * Continues a game
 */
 XMLscene.prototype.continueGame = function() {
-/*  if(this.game.gameMode == XMLscene.gameMode.MOVIE){
-    this.game = this.oldGame;
+/*  if(this.CampoBello.gameMode == XMLscene.gameMode.MOVIE){
+    this.CampoBello = this.oldGame;
   }*/
 }
 
@@ -370,13 +359,13 @@ XMLscene.prototype.continueGame = function() {
 * Undos a play
 */
 XMLscene.prototype.undo = function() {
-  /*  if(this.game.player == 1){
+  /*  if(this.CampoBello.player == 1){
       var button = new Button(this, this.reader, 1, 2);
-      this.game.pickingHandler(button);
+      this.CampoBello.pickingHandler(button);
     }
-    else if(this.game.player == 2){
+    else if(this.CampoBello.player == 2){
       var button = new Button(this, this.reader, 2, 2);
-      this.game.pickingHandler(button);
+      this.CampoBello.pickingHandler(button);
     }*/
 
 }

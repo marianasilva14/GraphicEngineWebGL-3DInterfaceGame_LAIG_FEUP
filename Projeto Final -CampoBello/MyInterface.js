@@ -54,6 +54,25 @@ this.gui.add(this.scene, 'level', {
 
 }
 
+MyInterface.prototype.scenarios = function(){
+
+  var group = this.gui.addFolder("Scenario");
+  group.open();
+
+  let scenarioGamingHouse = {
+      setScenarioGamingHouse: this.scene.setScenarioGamingHouse.bind(this.scene)
+  };
+
+  let scenarioGamingRoom = {
+      setScenarioGamingRoom: this.scene.setScenarioGamingRoom.bind(this.scene)
+  };
+
+  group.add(scenarioGamingHouse, 'setScenarioGamingHouse').name('Gaming House');
+  group.add(scenarioGamingRoom, 'setScenarioGamingRoom').name('Gaming Room');
+
+  group.close();
+}
+
 MyInterface.prototype.modeGame = function(){
 
   var group = this.gui.addFolder("Mode Game");

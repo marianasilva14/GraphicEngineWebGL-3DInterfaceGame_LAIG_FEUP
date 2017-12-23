@@ -3,6 +3,10 @@ function GamingHouse(scene){
   this.reader = this.scene.reader;
   this.graph = this.scene.graph;
 
+  this.board= new MyRectangle(this.scene,0,10,10,0);
+  this.boardAppearence=new CGFappearance(this.scene);
+  this.boardAppearence.loadTexture("../scenes/images/board.png");
+
   this.wallpapper=[];
   this.floor= new MyRectangle(this.scene,0,10,10,0);
   this.wallpapper[0]= new MyRectangle(this.scene,0,10,10,0);
@@ -26,6 +30,15 @@ function GamingHouse(scene){
 }
 
 GamingHouse.prototype.display=function(){
+  this.scene.pushMatrix();
+  this.scene.scale(1.65,1.65,1.65);
+  this.scene.translate(4.3,4.6,15.2);
+  this.scene.rotate(-90*Math.PI/180,1,0,0);
+  this.scene.rotate(20*Math.PI/180,0,0,1);
+  this.boardAppearence.apply();
+  this.board.display();
+  this.scene.popMatrix();
+
   this.scene.pushMatrix();
   this.scene.scale(2.9,3.2,3.1);
   this.scene.translate(0,0,10);
