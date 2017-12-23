@@ -1300,7 +1300,6 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
     else if (nodeName == "NODE") {
       // Retrieves node ID.
       var nodeID = this.reader.getString(children[i], 'id');
-      var selectable = this.reader.getString(children[i], 'selectable',false);
       if (nodeID == null )
       return "failed to retrieve node ID";
       // Checks if ID is valid.
@@ -1311,11 +1310,6 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
       // Creates node.
       this.nodes[nodeID] = new MyGraphNode(this,nodeID);
-      if(selectable != null){
-        this.nodes[nodeID].selectable = selectable;
-        this.scene.objectsSelectable.push(nodeID);
-        this.scene.objectsSelectableNames[nodeID]=this.scene.objectsSelectable.length-1;
-      }
 
       // Gathers child nodes.
       var nodeSpecs = children[i].children;
@@ -1614,10 +1608,6 @@ MySceneGraph.prototype.nodesRecursive = function(node) {
     this.scene.multMatrix(node.getMatrix());
   }
 
-  if(node.nodeID == this.scene.objectsSelectable[this.scene.objectsSelectableID]){
-     this.scene.setActiveShader(this.scene.shader);
-    }
-
   for (var i = 0; i < node.children.length; i++) {
     this.nodesRecursive(this.nodes[node.children[i]]);
   }
@@ -1628,9 +1618,7 @@ MySceneGraph.prototype.nodesRecursive = function(node) {
   }
   this.scene.popMatrix();
 
-  if(node.nodeID == this.scene.objectsSelectable[this.scene.objectsSelectableID]){
-     this.scene.setActiveShader(this.scene.defaultShader);
-   }
+
 
   this.tex_stack.pop();
   this.mat_stack.pop();

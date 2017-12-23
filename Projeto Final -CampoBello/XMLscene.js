@@ -14,11 +14,7 @@ function XMLscene(interface) {
 
     this.texture = null;
     this.appearance = null;
-    this.selectedExampleShader=0;
     this.objects=0;
-    this.objectsSelectable = [];
-    this.objectsSelectableNames = {'Nothing': null};
-    this.objectsSelectableID = 0;
     this.wireframe=false;
     this.scaleFactor=50.0;
     this.selectObjectOrigin=0;
@@ -30,6 +26,7 @@ function XMLscene(interface) {
     this.game=0;
     this.continueGame=0;
     this.undo=0;
+    this.scenarioNumber;
 
     this.cam;
 
@@ -44,11 +41,7 @@ XMLscene.prototype.constructor = XMLscene;
 */
 XMLscene.prototype.setScenario1 = function() {
     this.scenario = new Casino(this);
-    this.game.player1.setPawnMaterial();
-    this.game.player2.setPawnMaterial();
-    this.game.player1.setWallsMaterial();
-    this.game.player2.setWallsMaterial();
-    this.game.setStartPositionMaterial();
+    this.scenarioNumber=1;
 }
 
 /**
@@ -56,11 +49,7 @@ XMLscene.prototype.setScenario1 = function() {
 */
 XMLscene.prototype.setScenario2 = function() {
     this.scenario = new Room(this);
-    this.game.player1.setPawnMaterial();
-    this.game.player2.setPawnMaterial();
-    this.game.player1.setWallsMaterial();
-    this.game.player2.setWallsMaterial();
-    this.game.setStartPositionMaterial();
+    this.scenarioNumber=2;
 }
 
 /**
@@ -126,11 +115,17 @@ XMLscene.prototype.init = function(application) {
   	this.updateScaleFactor(0);
     this.scenario = new GamingRoom(this);
 
-    this.piece1Appearance = new CGFappearance(this);
-	  this.piece1Appearance.loadTexture("scenes/images/yellow.png");
+    this.piece1AppearanceScenario1 = new CGFappearance(this);
+	  this.piece1AppearanceScenario1.loadTexture("scenes/images/yellow.png");
 
-    this.piece2Appearance = new CGFappearance(this);
-	  this.piece2Appearance.loadTexture("scenes/images/red.png");
+    this.piece2AppearanceScenario1 = new CGFappearance(this);
+	  this.piece2AppearanceScenario1.loadTexture("scenes/images/red.png");
+
+    this.piece1AppearanceScenario2 = new CGFappearance(this);
+	  this.piece1AppearanceScenario2.loadTexture("scenes/images/blue.png");
+
+    this.piece2AppearanceScenario2 = new CGFappearance(this);
+	  this.piece2AppearanceScenario2.loadTexture("scenes/images/greenBoard.png");
 
     this.CampoBello= new CampoBello(this,XMLscene.gameMode.PLAYER_VS_PLAYER);
 
@@ -202,7 +197,6 @@ XMLscene.prototype.onGraphLoaded = function()
 
     // Adds lights group.
     this.interface.addLightsGroup(this.graph.lights);
-    this.interface.dropDown();
     this.interface.levelDifficulty();
     this.interface.modeGame();
     //this.interface.options();

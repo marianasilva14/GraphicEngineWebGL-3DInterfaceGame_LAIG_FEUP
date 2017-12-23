@@ -128,9 +128,7 @@
         <NODEREF id="footer2" />
         <NODEREF id="chair" />
         <NODEREF id="chair2" />
-        <NODEREF id="board" />
         <NODEREF id="leg"/>
-
 
       </DESCENDANTS>
 

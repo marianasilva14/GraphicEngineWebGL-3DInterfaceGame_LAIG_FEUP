@@ -24,13 +24,21 @@ function Piece(scene,playerID,pickingId,typeOfPiece,visible) {
   this.origin = mat4.create();
   mat4.identity(this.origin);
 
-
+if(this.scene.scenarioNumber==1){
   if(typeOfPiece==1)
-    this.appearance=this.scene.piece1Appearance;
+    this.appearance=this.scene.piece1AppearanceScenario1;
 
   else if(typeOfPiece==2)
-    this.appearance=this.scene.piece2Appearance;
+    this.appearance=this.scene.piece2AppearanceScenario1;
 
+}
+else{
+  if(typeOfPiece==1)
+    this.appearance=this.scene.piece1AppearanceScenario2;
+
+  else if(typeOfPiece==2)
+    this.appearance=this.scene.piece2AppearanceScenario2;
+}
 
   this.piece = new MySphere(scene,1,20,20);
 };
