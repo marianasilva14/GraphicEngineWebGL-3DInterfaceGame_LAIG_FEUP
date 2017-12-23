@@ -2,6 +2,7 @@
 :-use_module(library(lists)).
 :-use_module(library(codesio)).
 :- include('campoBello.pl').
+:- include('serverHandlers.pl').
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%                                        Server                                                   %%%%
@@ -108,63 +109,6 @@ parse_input(handshake, handshake).
 parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(quit, goodbye).
 
-parse_input(initialBoard,Board):-
-	set_player('playerX'),
-	set_mode_game(1),
-	initialBoard(TmpBoard),
-	boardToNumbers(TmpBoard,Board).
-
-%valid move
-
-parse_input(validateGame(Board,Source,Destiny,AreaNumber),BoardOut):-
-	boardToNumbers(TmpBoard,Board),
-	transformPiece(Source,Piece),
-	transformPiece(Destiny,PieceDestiny),
-	transformArea(Area,AreaNumber),
-	transformToCoordinates(RowSource,ColSource,Source),
-	transformToCoordinates(RowDestiny,ColDestiny,Destiny),
-	validateMove(Area,ColSource,RowSource,ColDestiny,RowDestiny,TmpBoard),
-	setPiece(TmpBoard,RowSource,ColSource,'noPiece',TmpBoard2),
-	setPiece(TmpBoard2,RowDestiny,ColDestiny,Piece,TmpBoard3),
-	PieceDestiny=='noPiece',
-	retract(transformPiece(Destiny,PieceDestiny)),
-	asserta(transformPiece(Destiny,Piece)),
-	write('passei'),
-	printFinalBoard(TmpBoard3),
-	boardToNumbers(TmpBoard3,BoardOut).
-
-parse_input(validateGame(Board,Source,Destiny,AreaNumber),BoardOut):-
-	boardToNumbers(TmpBoard,Board),
-	transformPiece(Source,Piece),
-	transformPiece(Destiny,PieceDestiny),
-	transformArea(Area,AreaNumber),
-	transformToCoordinates(RowSource,ColSource,Source),
-	transformToCoordinates(RowDestiny,ColDestiny,Destiny),
-	validateMove(Area,ColSource,RowSource,ColDestiny,RowDestiny,TmpBoard),
-	setPiece(TmpBoard,RowSource,ColSource,'noPiece',TmpBoard2),
-	setPiece(TmpBoard2,RowDestiny,ColDestiny,Piece,TmpBoard3),
-	PieceDestiny\='noPiece',
-	printFinalBoard(TmpBoard3),
-	boardToNumbers(TmpBoard3,BoardOut).
-
-parse_input(removePiece(Board,Piece,Player),BoardOut):-
-	Player==1,
-	transformToCoordinates(Row,Col,Piece),
-	checkIfCanRemoveX(Board, Col, Row),
-	setPiece(Board,Row,Col,'noPiece',BoardOut),
-	printFinalBoard(BoardOut).
-
-parse_input(removePiece(Board,Piece,Player),BoardOut):-
-	Player==2,
-	transformToCoordinates(Row,Col,Piece),
-	checkIfCanRemoveY(Board, Col, Row),
-	setPiece(Board,Row,Col,'noPiece',BoardOut),
-	printFinalBoard(BoardOut).
-
-parse_input(removePiece(Board,Piece,Player),[]).
-
-%invalid move
-parse_input(validateGame(Board,Source,Destiny,AreaNumber),[]).
 
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).

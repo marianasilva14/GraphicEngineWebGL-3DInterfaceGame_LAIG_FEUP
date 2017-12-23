@@ -14,10 +14,11 @@ const PIECEX=1;
 const PIECEY=2;
 const NO_PIECE=3;
 
-function CampoBello(scene) {
+function CampoBello(scene,gameMode) {
   CGFobject.call(this,scene);
 
   this.scene=scene;
+  this.gameMode=gameMode;
 
   this.board= new Array(9);
   this.piecesPlayer1=[1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,17,18];
@@ -37,10 +38,11 @@ function CampoBello(scene) {
     INITIAL_STATE: 1,
     CHOOSE_ORIGIN:2,
     VALID_MOVEMENT:3,
-    REMOVE_PIECE:7,
-    CHOOSE_DESTINY:4,
-    UPDATE_ANIMATION:5,
-    END_GAME:6
+    MOVEMENT_PC:4,
+    REMOVE_PIECE:5,
+    CHOOSE_DESTINY:6,
+    UPDATE_ANIMATION:7,
+    END_GAME:8
   };
 
   this.currentState=this.state.INITIAL_STATE;
@@ -79,11 +81,8 @@ CampoBello.prototype.getInitialBoard=function(){
   getPrologRequest('initialBoard',function(data){
 
     this_t.board=JSON.parse(data.target.response);
-
+    console.log('aqui no initialBoard', this_t.board);
   });
-
-  this.currentState=this.state.CHOOSE_ORIGIN;
-  this.game();
 }
 
 CampoBello.prototype.chooseDestiny=function(){
@@ -230,9 +229,23 @@ CampoBello.prototype.choosePieceToRemove=function(){
     });
 }
 
+CampoBello.prototype.movementPC=function(){
+    var this_t=this;
+    console.log('movementPC',this.board);
+    getPrologRequest(
+      "pcMove("+JSON.stringify(this_t.board)+","+
+      JSON.stringify(this_t.currentPlayer)+")",
+      function(data){
+        var info=JSON.parse(data.target.response);
+
+        console.log(info);
+      });
+
+}
 CampoBello.prototype.validateMove=function(){
 
   var this_t=this;
+  console.log('validateMove', this.board);
   var areaOriginPiece=this.areaPiece(this.scene.selectObjectOrigin);
   var pieceOrigin_invisible= this.pieceChoosen_invisible(this.scene.selectObjectOrigin);
   var pieceOrigin= this.pieceChoosen(this.scene.selectObjectOrigin);
@@ -305,23 +318,37 @@ CampoBello.prototype.validateMove=function(){
     });
   }
 
-  CampoBello.prototype.game = function(){
-    switch (this.currentState) {
-      case this.state.INITIAL_STATE:
-      this.getInitialBoard();
-      break;
-      case this.state.CHOOSE_ORIGIN:
-      break;
-      case this.state.CHOOSE_DESTINY:
-      break;
-      case this.state.VALID_MOVEMENT:
-      this.validateMove();
-      break;
-      case this.state.REMOVE_PIECE:
-      this.choosePieceToRemove();
-        break;
-      case this.state.END_GAME:
-      break;
-      default:
-    }
+CampoBello.prototype.game = function(){
+  switch (this.currentState) {
+    case this.state.INITIAL_STATE:
+    if(this.gameMode==XMLscene.gameMode.PLAYER_VS_PLAYER){
+    this.getInitialBoard();
+        console.log('aquiiii2' ,this.board);
+    this.currentState=this.state.CHOOSE_ORIGIN;
+    this.game();
   }
+    else if(this.gameMode==XMLscene.gameMode.PC_VS_PC){
+    this.getInitialBoard();
+    console.log('aquiiii' ,this.board);
+    this.currentState=this.state.MOVEMENT_PC;
+    this.game();
+  }
+    break;
+    case this.state.CHOOSE_ORIGIN:
+    break;
+    case this.state.CHOOSE_DESTINY:
+    break;
+    case this.state.VALID_MOVEMENT:
+    this.validateMove();
+    break;
+    case this.state.MOVEMENT_PC:
+    this.movementPC();
+    break;
+    case this.state.REMOVE_PIECE:
+    this.choosePieceToRemove();
+      break;
+    case this.state.END_GAME:
+    break;
+    default:
+  }
+}

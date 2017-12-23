@@ -22,7 +22,7 @@ MyInterface.prototype.init = function(application) {
     // init GUI. For more information on the methods, check:
     //  http://workshop.chromeexperiments.com/examples/gui
         this.gui = new dat.GUI();
-    return true;
+        return true;
 };
 
 /**
@@ -65,19 +65,28 @@ this.gui.add(this.scene, 'level', {
 
 MyInterface.prototype.modeGame = function(){
 
-this.gui.add(this.scene, 'modeGame', {
-  'PC vs PC':0,
-  'Human vs Human':1,
-  'Human vs PC':2,
-}).name('Choose game mode');
+  var group = this.gui.addFolder("Mode Game");
+  group.open();
 
+  let playerVsPlayer = {
+      setPlayerVsPlayer: this.scene.setPlayerVsPlayer.bind(this.scene)
+  };
+
+  let PcVsPc = {
+      setPcVsPc: this.scene.setPcVsPc.bind(this.scene)
+  };
+
+  group.add(playerVsPlayer, 'setPlayerVsPlayer').name('Player vs Player');
+  group.add(PcVsPc, 'setPcVsPc').name('Pc Vs Pc');
+
+  group.close();
 }
 
 MyInterface.prototype.options = function() {
 
     var group = this.gui.addFolder("Options");
     group.open();
-
+/*
     let menu = {
       startGame: this.scene.startGame.bind(this.scene)
     };
@@ -89,10 +98,12 @@ MyInterface.prototype.options = function() {
     let undo = {
         undo: this.scene.undo.bind(this.scene)
     };
+*/
 
-    group.add(menu, 'startGame').name('Start Game');
-    group.add(continueGame, 'continueGame').name('Continue Game');
-    group.add(undo, 'undo').name('Undo');
+
+    //group.add(menu, 'startGame').name('Start Game');
+    //group.add(continueGame, 'continueGame').name('Continue Game');
+    //group.add(undo, 'undo').name('Undo');
     // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
     // e.g. this.option1=true; this.option2=false;
 

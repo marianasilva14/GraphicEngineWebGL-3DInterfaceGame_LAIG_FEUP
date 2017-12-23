@@ -163,6 +163,56 @@ set_level(Level):-
     transformPiece(39,'noPiece').
     transformPiece(40,'noPiece').
 
+
+%AREA 0
+    areaOfPiece(1,2,'areaX1').
+    areaOfPiece(1,3,'areaX1').
+    areaOfPiece(1,4,'areaX1').
+    areaOfPiece(1,5,'areaX1').
+    areaOfPiece(2,3,'areaX1').
+    areaOfPiece(2,4,'areaX1').
+    areaOfPiece(2,5,'areaX1').
+    areaOfPiece(3,4,'areaX1').
+    areaOfPiece(3,5,'areaX1').
+    areaOfPiece(4,5,'areaX1').
+
+%AREA 1
+    areaOfPiece(5,1,'areaX2').
+    areaOfPiece(5,2,'areaX2').
+    areaOfPiece(5,3,'areaX2').
+    areaOfPiece(5,4,'areaX2').
+    areaOfPiece(6,1,'areaX2').
+    areaOfPiece(6,2,'areaX2').
+    areaOfPiece(6,3,'areaX2').
+    areaOfPiece(7,1,'areaX2').
+    areaOfPiece(7,2,'areaX2').
+    areaOfPiece(8,1,'areaX2').
+
+%AREA 2
+
+    areaOfPiece(2,9,'areaY1').
+    areaOfPiece(3,8,'areaY1').
+    areaOfPiece(3,9,'areaY1').
+    areaOfPiece(4,7,'areaY1').
+    areaOfPiece(4,8,'areaY1').
+    areaOfPiece(4,9,'areaY1').
+    areaOfPiece(5,7,'areaY1').
+    areaOfPiece(5,8,'areaY1').
+    areaOfPiece(5,9,'areaY1').
+    areaOfPiece(5,6,'areaY1').
+
+%AREA 3
+    areaOfPiece(6,5,'areaY2').
+    areaOfPiece(7,5,'areaY2').
+    areaOfPiece(7,6,'areaY2').
+    areaOfPiece(8,5,'areaY2').
+    areaOfPiece(8,6,'areaY2').
+    areaOfPiece(8,7,'areaY2').
+    areaOfPiece(9,5,'areaY2').
+    areaOfPiece(9,6,'areaY2').
+    areaOfPiece(9,7,'areaY2').
+    areaOfPiece(9,8,'areaY2').
+
   boardToNumbers([], []).
   boardToNumbers([List | R], [NumberList | Numbers]):-
   boardToNumbersLine(List, NumberList),

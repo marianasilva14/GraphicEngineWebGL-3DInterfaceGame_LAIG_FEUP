@@ -4,6 +4,8 @@ var DEGREE_TO_RAD = Math.PI / 180;
  * XMLscene class, representing the scene that is to be rendered.
  * @constructor
  */
+
+
 function XMLscene(interface) {
     CGFscene.call(this);
 
@@ -25,6 +27,7 @@ function XMLscene(interface) {
     this.level=0;
     this.modeGame=0;
     this.startGame=0;
+    this.game=0;
     this.continueGame=0;
     this.undo=0;
 
@@ -34,6 +37,63 @@ function XMLscene(interface) {
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
 XMLscene.prototype.constructor = XMLscene;
+
+
+/**
+* Sets First Scenario - Casino
+*/
+XMLscene.prototype.setScenario1 = function() {
+    this.scenario = new Casino(this);
+    this.game.player1.setPawnMaterial();
+    this.game.player2.setPawnMaterial();
+    this.game.player1.setWallsMaterial();
+    this.game.player2.setWallsMaterial();
+    this.game.setStartPositionMaterial();
+}
+
+/**
+* Sets second Scenario - Room
+*/
+XMLscene.prototype.setScenario2 = function() {
+    this.scenario = new Room(this);
+    this.game.player1.setPawnMaterial();
+    this.game.player2.setPawnMaterial();
+    this.game.player1.setWallsMaterial();
+    this.game.player2.setWallsMaterial();
+    this.game.setStartPositionMaterial();
+}
+
+/**
+* Sets third Scenario - Room
+*/
+XMLscene.prototype.setScenario3 = function() {
+    this.scenario = new Room(this);
+    this.game.player1.setPawnMaterial();
+    this.game.player2.setPawnMaterial();
+    this.game.player1.setWallsMaterial();
+    this.game.player2.setWallsMaterial();
+    this.game.setStartPositionMaterial();
+}
+
+
+XMLscene.gameMode = {
+   PLAYER_VS_PLAYER: 0,
+   PC_VS_PC:1
+};
+
+/**
+* Calls the blockade game player vs player mode
+*/
+XMLscene.prototype.setPlayerVsPlayer = function() {
+    this.game = new CampoBello(this, XMLscene.gameMode.PLAYER_VS_PLAYER);
+}
+
+/**
+* Calls the blockade game player vs bot mode
+*/
+XMLscene.prototype.setPcVsPc = function() {
+    this.game = new CampoBello(this,  XMLscene.gameMode.PC_VS_PC);
+}
 
 /**
  * Initializes the scene, setting some WebGL defaults, initializing the camera and the axis.
@@ -64,13 +124,15 @@ XMLscene.prototype.init = function(application) {
 
 
   	this.updateScaleFactor(0);
+    this.scenario = new GamingRoom(this);
 
     this.piece1Appearance = new CGFappearance(this);
-	  this.piece1Appearance.loadTexture("scenes/images/amarelo.png");
+	  this.piece1Appearance.loadTexture("scenes/images/yellow.png");
 
     this.piece2Appearance = new CGFappearance(this);
-	  this.piece2Appearance.loadTexture("scenes/images/vermelho.png");
-    this.CampoBello= new CampoBello(this);
+	  this.piece2Appearance.loadTexture("scenes/images/red.png");
+
+    this.CampoBello= new CampoBello(this,XMLscene.gameMode.PLAYER_VS_PLAYER);
 
 }
 
@@ -204,6 +266,7 @@ XMLscene.prototype.display = function() {
 	}
 
   this.CampoBello.display();
+  this.scenario.display();
 
 
 }
@@ -276,7 +339,23 @@ XMLscene.prototype.logPicking = function ()
 		}
 	}
 }
+/**
+* Starts a game
+*/
+XMLscene.prototype.startGame = function() {
+    //this.game = new Blockade(this, this.graph,XMLscene.gameMode.PLAYER_VS_PLAYER);
+  //  this.game.currentState = this.game.state.INITIALIZE_BOARD;
+  this.game.getInitialBoard(1);
+};
 
+/**
+* Continues a game
+*/
+XMLscene.prototype.continueGame = function() {
+  if(this.game.gameMode == XMLscene.gameMode.MOVIE){
+    this.game = this.oldGame;
+  }
+}
 /**
 * Starts a game
 */

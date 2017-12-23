@@ -58,33 +58,13 @@
   <!-- Textures -->
   <TEXTURES>
 
-    <TEXTURE id="tabuleiro">
-      <file path="images/tabuleiro.png" />
+    <TEXTURE id="board">
+      <file path="images/board.png" />
       <amplif_factor s="2" t="2" />
     </TEXTURE>
 
-    <TEXTURE id="cor_jogador1">
-      <file path="images/amarelo.png" />
-      <amplif_factor s="2" t="2" />
-    </TEXTURE>
-
-    <TEXTURE id="cor_jogador2">
-      <file path="images/vermelho.png" />
-      <amplif_factor s="2" t="2" />
-    </TEXTURE>
-
-    <TEXTURE id="madeira">
-      <file path="images/madeira.jpg" />
-      <amplif_factor s="2" t="2" />
-    </TEXTURE>
-
-    <TEXTURE id="parede">
-      <file path="images/parede.jpg" />
-      <amplif_factor s="2" t="2" />
-    </TEXTURE>
-
-    <TEXTURE id="verde">
-      <file path="images/verde.png" />
+    <TEXTURE id="wood">
+      <file path="images/wood.jpg" />
       <amplif_factor s="2" t="2" />
     </TEXTURE>
 
@@ -143,16 +123,13 @@
 
       <DESCENDANTS>
 
-        <!-- <NODEREF id="luzes" /> -->
-        <NODEREF id="chao" />
-        <NODEREF id="paredes" />
-        <NODEREF id="rodape" />
-        <NODEREF id="rodape2" />
-        <NODEREF id="cadeira" />
-        <NODEREF id="cadeira2" />
-        <NODEREF id="tabuleiro" />
-        <NODEREF id="tampo_mesa" />
-        <NODEREF id="mesa" />
+
+        <NODEREF id="footer" />
+        <NODEREF id="footer2" />
+        <NODEREF id="chair" />
+        <NODEREF id="chair2" />
+        <NODEREF id="board" />
+        <NODEREF id="leg"/>
 
 
       </DESCENDANTS>
@@ -160,90 +137,37 @@
     </NODE>
 
 
-    <!-- The floor -->
-    <NODE id="chao">
+    <NODE id="footer">
       <MATERIAL id="null" />
-      <TEXTURE id="madeira" />
-
-      <SCALE sx="2.9" sy="3.2" sz="3.1" />
-      <TRANSLATION x="0" y="0" z="10" />
-      <ROTATION axis="x" angle="-90" />
-
-
-      <DESCENDANTS>
-        <LEAF  type="rectangle" args="0 10 10 0" />
-      </DESCENDANTS>
-
-
-    </NODE>
-
-    <NODE id="paredes">
-      <MATERIAL id="null" />
-      <TEXTURE id="parede" />
-
-      <SCALE sx="2.9" sy="1.5" sz="3.1" />
-
-      <DESCENDANTS>
-        <NODEREF id="parede1" />
-        <NODEREF id="parede2" />
-      </DESCENDANTS>
-    </NODE>
-
-    <NODE id="parede1">
-      <MATERIAL id="null" />
-      <TEXTURE id="null" />
-
-      <DESCENDANTS>
-        <LEAF  type="rectangle" args="0 10 10 0" />
-      </DESCENDANTS>
-
-    </NODE>
-
-    <NODE id="parede2">
-      <MATERIAL id="null" />
-      <TEXTURE id="null" />
-
-
-      <TRANSLATION x="0" y="0" z="10" />
-      <ROTATION axis="y" angle="90" />
-
-      <DESCENDANTS>
-        <LEAF  type="rectangle" args="0 10 10 0" />
-      </DESCENDANTS>
-
-    </NODE>
-
-    <NODE id="rodape">
-      <MATERIAL id="null" />
-      <TEXTURE id="madeira" />
+      <TEXTURE id="wood" />
 
       <SCALE sx="0.2" sy="1" sz="31" />
       <TRANSLATION x="0.5" y="0.5" z="0.5" />
 
       <DESCENDANTS>
-        <NODEREF id="cubo"/>
+        <NODEREF id="cube"/>
       </DESCENDANTS>
 
     </NODE>
 
-    <NODE id="rodape2">
+    <NODE id="footer2">
       <MATERIAL id="null" />
-      <TEXTURE id="madeira" />
+      <TEXTURE id="wood" />
 
       <SCALE sx="29" sy="1" sz="0.2" />
       <TRANSLATION x="0.5" y="0.5" z="0.5" />
 
       <DESCENDANTS>
-        <NODEREF id="cubo"/>
+        <NODEREF id="cube"/>
       </DESCENDANTS>
 
     </NODE>
 
 
 
-    <NODE id="tabuleiro">
+    <NODE id="board">
       <MATERIAL id="null" />
-      <TEXTURE id="tabuleiro" />
+      <TEXTURE id="board" />
 
       <SCALE sx="1.65" sy="1.65" sz="1.65" />
       <TRANSLATION x="4.3" y="4.6" z="15.2" />
@@ -257,52 +181,9 @@
     </NODE>
 
 
-    <NODE id="mesa">
+    <NODE id="leg">
       <MATERIAL id="null" />
-      <TEXTURE id="madeira" />
-
-
-      <DESCENDANTS>
-        <NODEREF id="tampo"/>
-        <NODEREF id="perna"/>
-      </DESCENDANTS>
-
-    </NODE>
-
-    <NODE id="tampo">
-      <MATERIAL id="null" />
-      <TEXTURE id="madeira" />
-
-      <SCALE sx="12" sy="0.1" sz="12" />
-      <TRANSLATION x="1" y="70" z="1.2" />
-      <ROTATION axis="x" angle="-90" />
-
-
-      <DESCENDANTS>
-        <LEAF  type="cylinder" args="4 1 1 70 70 1 1" />
-      </DESCENDANTS>
-
-    </NODE>
-
-
-        <NODE id="tampo_mesa">
-          <MATERIAL id="null" />
-          <TEXTURE id="verde" />
-
-          <SCALE sx="12" sy="0.1" sz="12" />
-          <TRANSLATION x="1" y="70.5" z="1.2" />
-          <ROTATION axis="x" angle="-90" />
-
-
-          <DESCENDANTS>
-            <LEAF  type="cylinder" args="4 1 1 70 70 1 1" />
-          </DESCENDANTS>
-
-        </NODE>
-
-    <NODE id="perna">
-      <MATERIAL id="null" />
-      <TEXTURE id="madeira" />
+      <TEXTURE id="wood" />
 
       <SCALE sx="2" sy="1.8" sz="2.3" />
       <TRANSLATION x="5.8" y="0" z="6.2" />
@@ -315,23 +196,23 @@
 
     </NODE>
 
-    <NODE id="cubo">
+    <NODE id="cube">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
         <DESCENDANTS>
-          <NODEREF id="faceCubo1" />
-          <NODEREF id="faceCubo2" />
-          <NODEREF id="faceCubo3" />
-          <NODEREF id="faceCubo4" />
-          <NODEREF id="faceCubo5" />
-          <NODEREF id="faceCubo6" />
+          <NODEREF id="facecube1" />
+          <NODEREF id="facecube2" />
+          <NODEREF id="facecube3" />
+          <NODEREF id="facecube4" />
+          <NODEREF id="facecube5" />
+          <NODEREF id="facecube6" />
         </DESCENDANTS>
 
       </NODE>
 
       <!-- A cube face -->
-      <NODE id="faceCubo1">
+      <NODE id="facecube1">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
@@ -344,7 +225,7 @@
       </NODE>
 
       <!-- Another cube face -->
-      <NODE id="faceCubo2">
+      <NODE id="facecube2">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
@@ -358,7 +239,7 @@
       </NODE>
 
       <!-- Another cube face -->
-      <NODE id="faceCubo3">
+      <NODE id="facecube3">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
@@ -372,7 +253,7 @@
       </NODE>
 
       <!-- Another cube face -->
-      <NODE id="faceCubo4">
+      <NODE id="facecube4">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
@@ -386,7 +267,7 @@
       </NODE>
 
       <!-- Another cube face -->
-      <NODE id="faceCubo5">
+      <NODE id="facecube5">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
@@ -400,7 +281,7 @@
       </NODE>
 
       <!-- Another cube face -->
-      <NODE id="faceCubo6">
+      <NODE id="facecube6">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
@@ -413,9 +294,9 @@
 
       </NODE>
 
-  <NODE id="cadeira">
+  <NODE id="chair">
     <MATERIAL id="null" />
-    <TEXTURE id="madeira" />
+    <TEXTURE id="wood" />
 
 
     <SCALE sx="1.5" sy="1.5" sz="1.5" />
@@ -424,14 +305,14 @@
     <ROTATION axis="y" angle="10" />
 
     <DESCENDANTS>
-      <NODEREF  id="cadeira_quatro_pernas" />
+      <NODEREF  id="chair_four_legs" />
     </DESCENDANTS>
 
   </NODE>
 
-  <NODE id="cadeira2">
+  <NODE id="chair2">
     <MATERIAL id="null" />
-    <TEXTURE id="madeira" />
+    <TEXTURE id="wood" />
 
 
     <SCALE sx="1.5" sy="1.5" sz="1.5" />
@@ -439,27 +320,27 @@
     <ROTATION axis="y" angle="200" />
 
     <DESCENDANTS>
-      <NODEREF  id="cadeira_quatro_pernas" />
+      <NODEREF  id="chair_four_legs" />
     </DESCENDANTS>
 
   </NODE>
 
-  <NODE id="cadeira_quatro_pernas">
+  <NODE id="chair_four_legs">
     <MATERIAL id="null" />
     <TEXTURE id="null" />
 
     <DESCENDANTS>
-      <NODEREF id="tampo_cadeira" />
-      <NODEREF id="assento_costas" />
-      <NODEREF id="perna1_cadeira" />
-      <NODEREF id="perna2_cadeira" />
-      <NODEREF id="perna3_cadeira" />
-      <NODEREF id="perna4_cadeira" />
+      <NODEREF id="seat_cover" />
+      <NODEREF id="back_seat" />
+      <NODEREF id="leg1_chair" />
+      <NODEREF id="leg2_chair" />
+      <NODEREF id="leg3_chair" />
+      <NODEREF id="leg4_chair" />
     </DESCENDANTS>
 
   </NODE>
 
-  <NODE id="tampo_cadeira">
+  <NODE id="seat_cover">
     <MATERIAL id="null" />
     <TEXTURE id="null" />
 
@@ -467,12 +348,12 @@
     <TRANSLATION x="0" y="3" z="0" />
 
     <DESCENDANTS>
-      <NODEREF id="cubo" />
+      <NODEREF id="cube" />
     </DESCENDANTS>
 
   </NODE>
 
-  <NODE id="assento_costas">
+  <NODE id="back_seat">
     <MATERIAL id="null" />
     <TEXTURE id="null" />
 
@@ -480,55 +361,55 @@
     <SCALE sx="3" sy="0.2" sz="3" />
     <TRANSLATION x="1.4" y="7" z="0" />
     <DESCENDANTS>
-      <NODEREF id="cubo" />
+      <NODEREF id="cube" />
     </DESCENDANTS>
 
   </NODE>
 
-  <NODE id="perna1_cadeira">
+  <NODE id="leg1_chair">
     <MATERIAL id="null" />
     <TEXTURE id="null" />
 
     <SCALE sx="0.5" sy="2.3" sz="0.5" />
     <TRANSLATION x="2.5" y="0.5" z="2.5" />
     <DESCENDANTS>
-      <NODEREF id="cubo" />
+      <NODEREF id="cube" />
     </DESCENDANTS>
 
   </NODE>
 
-  <NODE id="perna2_cadeira">
+  <NODE id="leg2_chair">
     <MATERIAL id="null" />
     <TEXTURE id="null" />
 
     <SCALE sx="0.5" sy="2.3" sz="0.5" />
     <TRANSLATION x="-2.5" y="0.5" z="-2.5" />
     <DESCENDANTS>
-      <NODEREF id="cubo" />
+      <NODEREF id="cube" />
     </DESCENDANTS>
 
   </NODE>
 
-  <NODE id="perna3_cadeira">
+  <NODE id="leg3_chair">
     <MATERIAL id="null" />
     <TEXTURE id="null" />
 
     <SCALE sx="0.5" sy="2.3" sz="0.5" />
     <TRANSLATION x="-2.5" y="0.5" z="2.5" />
     <DESCENDANTS>
-      <NODEREF id="cubo" />
+      <NODEREF id="cube" />
     </DESCENDANTS>
 
   </NODE>
 
-  <NODE id="perna4_cadeira">
+  <NODE id="leg4_chair">
     <MATERIAL id="null" />
     <TEXTURE id="null" />
 
     <SCALE sx="0.5" sy="2.3" sz="0.5" />
     <TRANSLATION x="2.5" y="0.5" z="-2.5" />
     <DESCENDANTS>
-      <NODEREF id="cubo" />
+      <NODEREF id="cube" />
     </DESCENDANTS>
 
   </NODE>
