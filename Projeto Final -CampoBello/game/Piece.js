@@ -17,7 +17,6 @@ function Piece(scene,playerID,pickingId,typeOfPiece,visible) {
   this.initial_time = 0;
   this.delta_time = 0;
   this.typeOfPiece=typeOfPiece;
-  this.pieceAppearence;
 
   this.transformMatrix = mat4.create();
   mat4.identity(this.transformMatrix);
@@ -25,7 +24,7 @@ function Piece(scene,playerID,pickingId,typeOfPiece,visible) {
   this.origin = mat4.create();
   mat4.identity(this.origin);
 
-if(this.pieceAppearence==1){
+if(this.scene.scenarioNumber==1){
   if(typeOfPiece==1)
     this.appearance=this.scene.piece1AppearanceScenario1;
 
@@ -73,9 +72,6 @@ Piece.prototype.setTypeOfPiece=function(newType){
   this.typeOfPiece=newType;
 }
 
-Piece.prototype.setPieceAppearence = function (pieceAppearence) {
-  this.pieceAppearence=pieceAppearence;
-};
 
 Piece.prototype.updateAnimation =function(current_time){
 
