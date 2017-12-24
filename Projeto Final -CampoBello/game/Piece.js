@@ -24,7 +24,7 @@ function Piece(scene,playerID,pickingId,typeOfPiece,visible) {
   this.origin = mat4.create();
   mat4.identity(this.origin);
 
-if(this.scene.scenarioNumber==1){
+if(this.scene.scenarioNumber==2){
   if(typeOfPiece==1)
     this.appearance=this.scene.piece1AppearanceScenario1;
 
@@ -72,6 +72,23 @@ Piece.prototype.setTypeOfPiece=function(newType){
   this.typeOfPiece=newType;
 }
 
+Piece.prototype.setAppearence=function(){
+  if(this.scene.scenarioNumber==2){
+    if(this.typeOfPiece==1)
+      this.appearance=this.scene.piece1AppearanceScenario1;
+
+    else if(this.typeOfPiece==2)
+      this.appearance=this.scene.piece2AppearanceScenario1;
+
+  }
+  else{
+    if(this.typeOfPiece==1)
+      this.appearance=this.scene.piece1AppearanceScenario2;
+
+    else if(this.typeOfPiece==2)
+      this.appearance=this.scene.piece2AppearanceScenario2;
+  }
+}
 
 Piece.prototype.updateAnimation =function(current_time){
 

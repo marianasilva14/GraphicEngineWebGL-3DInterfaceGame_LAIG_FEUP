@@ -7,10 +7,10 @@ function GamingHouse(scene){
   this.boardAppearence=new CGFappearance(this.scene);
   this.boardAppearence.loadTexture("../scenes/images/board.png");
 
-  this.wallpapper=[];
+  this.wallpaper=[];
   this.floor= new MyRectangle(this.scene,0,10,10,0);
-  this.wallpapper[0]= new MyRectangle(this.scene,0,10,10,0);
-  this.wallpapper[1]=  new MyRectangle(this.scene,0,10,10,0);
+  this.wallpaper[0]= new MyRectangle(this.scene,0,10,10,0);
+  this.wallpaper[1]=  new MyRectangle(this.scene,0,10,10,0);
   this.tableCover= new MyCylinder(this.scene,4,1,1,70,70,1,1);
   this.tableCoverGreen= new MyCylinder(this.scene,4,1,1,70,70,1,1);
   this.tableLeg= new MyCylinder(this.scene,4,2,1,70,70,1,1);
@@ -18,8 +18,8 @@ function GamingHouse(scene){
   this.floorAppearence= new CGFappearance(this.scene);
   this.floorAppearence.loadTexture("../scenes/images/wood.jpg");
 
-  this.wallpapperAppearence= new CGFappearance(this.scene);
-  this.wallpapperAppearence.loadTexture("../scenes/images/wallpaper.jpg");
+  this.wallpaperAppearence= new CGFappearance(this.scene);
+  this.wallpaperAppearence.loadTexture("../scenes/images/wallpaper.jpg");
 
   this.tableCoverAppearence= new CGFappearance(this.scene);
   this.tableCoverAppearence.loadTexture("../scenes/images/wood.jpg");
@@ -49,16 +49,16 @@ GamingHouse.prototype.display=function(){
 
   this.scene.pushMatrix();
   this.scene.scale(2.9,1.5,3.1);
-  this.wallpapperAppearence.apply();
-  this.wallpapper[0].display();
+  this.wallpaperAppearence.apply();
+  this.wallpaper[0].display();
   this.scene.popMatrix();
 
   this.scene.pushMatrix();
   this.scene.scale(2.9,1.5,3.1);
   this.scene.translate(0,0,10);
   this.scene.rotate(90*Math.PI/180,0,1,0);
-  this.wallpapperAppearence.apply();
-  this.wallpapper[1].display();
+  this.wallpaperAppearence.apply();
+  this.wallpaper[1].display();
   this.scene.popMatrix();
 
   this.scene.pushMatrix();

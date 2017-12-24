@@ -40,6 +40,11 @@ XMLscene.prototype.constructor = XMLscene;
 XMLscene.prototype.setScenarioGamingRoom = function() {
     this.scenario = new GamingRoom(this);
     this.scenarioNumber=1;
+    for(var i=0; i<this.CampoBello.areas.length;i++){
+      for(var j=1; j < this.CampoBello.areas[i].pieces.length;j++){
+        this.CampoBello.areas[i].pieces[j].setAppearence();
+      }
+    }
 
 }
 
@@ -49,6 +54,11 @@ XMLscene.prototype.setScenarioGamingRoom = function() {
 XMLscene.prototype.setScenarioGamingHouse = function() {
     this.scenario = new GamingHouse(this);
     this.scenarioNumber=2;
+    for(var i=0; i<this.CampoBello.areas.length;i++){
+      for(var j=1; j < this.CampoBello.areas[i].pieces.length;j++){
+        this.CampoBello.areas[i].pieces[j].setAppearence();
+      }
+    }
 }
 
 
