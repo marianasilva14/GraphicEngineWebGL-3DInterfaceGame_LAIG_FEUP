@@ -35,7 +35,7 @@ XMLscene.prototype.constructor = XMLscene;
 
 
 /**
-* Sets First Scenario - Casino
+* Sets First Scenario - GamingRoom
 */
 XMLscene.prototype.setScenarioGamingRoom = function() {
     this.scenario = new GamingRoom(this);
@@ -49,11 +49,24 @@ XMLscene.prototype.setScenarioGamingRoom = function() {
 }
 
 /**
-* Sets second Scenario - Room
+* Sets second Scenario - GamingHouse
 */
 XMLscene.prototype.setScenarioGamingHouse = function() {
     this.scenario = new GamingHouse(this);
     this.scenarioNumber=2;
+    for(var i=0; i<this.CampoBello.areas.length;i++){
+      for(var j=1; j < this.CampoBello.areas[i].pieces.length;j++){
+        this.CampoBello.areas[i].pieces[j].setAppearence();
+      }
+    }
+}
+
+/**
+* Sets second Scenario - GamingKidsRoom
+*/
+XMLscene.prototype.setScenarioGamingKidsRoom = function() {
+    this.scenario = new GamingKidsRoom(this);
+    this.scenarioNumber=3;
     for(var i=0; i<this.CampoBello.areas.length;i++){
       for(var j=1; j < this.CampoBello.areas[i].pieces.length;j++){
         this.CampoBello.areas[i].pieces[j].setAppearence();
@@ -124,6 +137,12 @@ XMLscene.prototype.init = function(application) {
 
     this.piece2AppearanceScenario2 = new CGFappearance(this);
 	  this.piece2AppearanceScenario2.loadTexture("scenes/images/greenBoard.png");
+
+    this.piece1AppearanceScenario3 = new CGFappearance(this);
+    this.piece1AppearanceScenario3.loadTexture("scenes/images/blue.png");
+
+    this.piece2AppearanceScenario3 = new CGFappearance(this);
+    this.piece2AppearanceScenario3.loadTexture("scenes/images/red.png");
 
     this.CampoBello= new CampoBello(this,XMLscene.gameMode.PLAYER_VS_PLAYER);
 

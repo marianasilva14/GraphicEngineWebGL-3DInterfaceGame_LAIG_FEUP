@@ -67,8 +67,13 @@ MyInterface.prototype.scenarios = function(){
       setScenarioGamingRoom: this.scene.setScenarioGamingRoom.bind(this.scene)
   };
 
+  let scenarioGamingKidsRoom = {
+      setScenarioGamingKidsRoom: this.scene.setScenarioGamingKidsRoom.bind(this.scene)
+  };
+
   group.add(scenarioGamingHouse, 'setScenarioGamingHouse').name('Gaming House');
   group.add(scenarioGamingRoom, 'setScenarioGamingRoom').name('Gaming Room');
+  group.add(scenarioGamingKidsRoom, 'setScenarioGamingKidsRoom').name('Kids Room');
 
   group.close();
 }
