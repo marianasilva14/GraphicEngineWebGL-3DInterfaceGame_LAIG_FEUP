@@ -45,7 +45,6 @@ XMLscene.prototype.setScenarioGamingRoom = function() {
         this.CampoBello.areas[i].pieces[j].setAppearence();
       }
     }
-
 }
 
 /**
@@ -87,21 +86,6 @@ XMLscene.prototype.startGame = function() {
 * Continues a game
 */
 XMLscene.prototype.continueGame = function() {
-  if(this.CampoBello.gameMode == XMLscene.gameMode.MOVIE){
-    this.CampoBello = this.oldGame;
-  }
-}
-/**
-* Starts a game
-*/
-XMLscene.prototype.startGame = function() {
-  this.CampoBello.currentState=this.CampoBello.state.INITIAL_STATE;
-};
-
-/**
-* Continues a game
-*/
-XMLscene.prototype.continueGame = function() {
 /*  if(this.CampoBello.gameMode == XMLscene.gameMode.MOVIE){
     this.CampoBello = this.oldGame;
   }*/
@@ -111,18 +95,13 @@ XMLscene.prototype.continueGame = function() {
 * Undos a play
 */
 XMLscene.prototype.undoMove = function() {
-   /*if(this.CampoBello.player == 1){
-      var button = new Button(this, this.reader, 1, 2);
-      this.CampoBello.pickingHandler(button);
-    }
-    else if(this.CampoBello.player == 2){
-      var button = new Button(this, this.reader, 2, 2);
-      this.CampoBello.pickingHandler(button);
-    }*/
+  let infoToReturn= this.CampoBello.infoPlay.length-1;
+  let piecesUndo= this.CampoBello.infoPlay[infoToReturn];
+  console.log('piecesUndo',piecesUndo);
+  this.CampoBello.undoMove(piecesUndo);
+  this.CampoBello.infoPlay.pop();
 
-console.log('aqui');
 }
-
 
 XMLscene.gameMode = {
    PLAYER_VS_PLAYER: 0,
@@ -134,6 +113,7 @@ XMLscene.gameMode = {
 */
 XMLscene.prototype.setPlayerVsPlayer = function() {
     this.CampoBello = new CampoBello(this, XMLscene.gameMode.PLAYER_VS_PLAYER);
+        console.log('estado',this.CampoBello.currentState);
 }
 
 /**
@@ -141,6 +121,7 @@ XMLscene.prototype.setPlayerVsPlayer = function() {
 */
 XMLscene.prototype.setPcVsPc = function() {
     this.CampoBello = new CampoBello(this,  XMLscene.gameMode.PC_VS_PC);
+    console.log('estado2',this.CampoBello.currentState);
 }
 
 /**

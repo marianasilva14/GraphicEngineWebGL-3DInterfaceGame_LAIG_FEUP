@@ -196,13 +196,13 @@ Area.prototype.display= function(){
 if(this.scene.pickMode){
   for(var i=1; i <=9;i++){
   this.scene.pushMatrix();
-this.scene.scale(0.5,0.2,0.5);
+  this.scene.scale(0.5,0.2,0.5);
   this.pieces[i].display();
   this.piecesInvisible[i].display();
   this.scene.popMatrix();
   }
   this.scene.pushMatrix();
-this.scene.scale(0.5,0.2,0.5);
+  this.scene.scale(0.5,0.2,0.5);
   this.piecesInvisible[PIECE10_ID].display();
   this.scene.popMatrix();
 }

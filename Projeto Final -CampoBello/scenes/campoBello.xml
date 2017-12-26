@@ -129,6 +129,7 @@
         <NODEREF id="chair" />
         <NODEREF id="chair2" />
         <NODEREF id="leg"/>
+        <NODEREF id="marker"/>
 
       </DESCENDANTS>
 
@@ -393,6 +394,91 @@
     </DESCENDANTS>
 
   </NODE>
+
+  <NODE id="marker">
+   <MATERIAL id="null" />
+   <TEXTURE id="wood" />
+
+    <ROTATION axis="y" angle="70"/>
+   <SCALE sx="2.5" sy="3" sz="1" />
+   <TRANSLATION x="-3.4" y="2.5" z="7" />
+
+
+   <DESCENDANTS>
+     <NODEREF id="rectangularFace" />
+     <NODEREF id="rectangularFace2" />
+     <NODEREF id="rectangularFace3" />
+     <NODEREF id="triangularFace" />
+     <NODEREF id="triangularFace2" />
+   </DESCENDANTS>
+
+ </NODE>
+
+ <NODE id="rectangularFace">
+   <MATERIAL id="null" />
+   <TEXTURE id="null" />
+
+   <TRANSLATION x="-1" y="0" z="1" />
+   <ROTATION axis="x" angle="-45" />
+
+   <DESCENDANTS>
+     <LEAF  type="rectangle" args="0 1.4142 2 0" />
+   </DESCENDANTS>
+
+ </NODE>
+
+ <NODE id="rectangularFace2">
+   <MATERIAL id="null" />
+   <TEXTURE id="null" />
+
+   <TRANSLATION x="-1" y="1" z="0" />
+   <ROTATION axis="x" angle="-135" />
+
+   <DESCENDANTS>
+     <LEAF  type="rectangle" args="0 1.4142 2 0" />
+   </DESCENDANTS>
+
+ </NODE>
+
+ <NODE id="rectangularFace3">
+   <MATERIAL id="null" />
+   <TEXTURE id="null" />
+
+   <TRANSLATION x="-1" y="0" z="-1" />
+   <ROTATION axis="x" angle="90" />
+
+   <DESCENDANTS>
+     <LEAF  type="rectangle" args="0 2 2 0" />
+   </DESCENDANTS>
+
+ </NODE>
+
+ <NODE id="triangularFace">
+   <MATERIAL id="null" />
+   <TEXTURE id="null" />
+
+   <TRANSLATION x="1" y="0" z="1" />
+   <ROTATION axis="y" angle="90" />
+
+   <DESCENDANTS>
+     <LEAF  type="triangle" args="0 0 0 2 0 0 1 1 0" />
+   </DESCENDANTS>
+
+ </NODE>
+
+ <NODE id="triangularFace2">
+   <MATERIAL id="null" />
+   <TEXTURE id="null" />
+
+   <TRANSLATION x="-1" y="0" z="-1" />
+   <ROTATION axis="y" angle="-90" />
+
+   <DESCENDANTS>
+     <LEAF  type="triangle" args="0 0 0 2 0 0 1 1 0" />
+   </DESCENDANTS>
+
+ </NODE>
+
 
 
   </NODES>
