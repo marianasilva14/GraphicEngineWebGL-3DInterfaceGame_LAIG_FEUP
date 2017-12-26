@@ -74,6 +74,55 @@ XMLscene.prototype.setScenarioGamingKidsRoom = function() {
     }
 }
 
+/**
+* Starts a game
+*/
+XMLscene.prototype.startGame = function() {
+    //this.CampoBello = new Blockade(this, this.graph,XMLscene.gameMode.PLAYER_VS_PLAYER);
+  //  this.CampoBello.currentState = this.CampoBello.state.INITIALIZE_BOARD;
+  this.CampoBello.getInitialBoard(1);
+};
+
+/**
+* Continues a game
+*/
+XMLscene.prototype.continueGame = function() {
+  if(this.CampoBello.gameMode == XMLscene.gameMode.MOVIE){
+    this.CampoBello = this.oldGame;
+  }
+}
+/**
+* Starts a game
+*/
+XMLscene.prototype.startGame = function() {
+  this.CampoBello.currentState=this.CampoBello.state.INITIAL_STATE;
+};
+
+/**
+* Continues a game
+*/
+XMLscene.prototype.continueGame = function() {
+/*  if(this.CampoBello.gameMode == XMLscene.gameMode.MOVIE){
+    this.CampoBello = this.oldGame;
+  }*/
+}
+
+/**
+* Undos a play
+*/
+XMLscene.prototype.undoMove = function() {
+   /*if(this.CampoBello.player == 1){
+      var button = new Button(this, this.reader, 1, 2);
+      this.CampoBello.pickingHandler(button);
+    }
+    else if(this.CampoBello.player == 2){
+      var button = new Button(this, this.reader, 2, 2);
+      this.CampoBello.pickingHandler(button);
+    }*/
+
+console.log('aqui');
+}
+
 
 XMLscene.gameMode = {
    PLAYER_VS_PLAYER: 0,
@@ -217,7 +266,7 @@ XMLscene.prototype.onGraphLoaded = function()
     this.interface.levelDifficulty();
     this.interface.modeGame();
     this.interface.scenarios();
-    //this.interface.options();
+    this.interface.menuOptions();
 
 }
 
@@ -350,51 +399,4 @@ XMLscene.prototype.logPicking = function ()
 			this.pickResults.splice(0,this.pickResults.length);
 		}
 	}
-}
-/**
-* Starts a game
-*/
-XMLscene.prototype.startGame = function() {
-    //this.CampoBello = new Blockade(this, this.graph,XMLscene.gameMode.PLAYER_VS_PLAYER);
-  //  this.CampoBello.currentState = this.CampoBello.state.INITIALIZE_BOARD;
-  this.CampoBello.getInitialBoard(1);
-};
-
-/**
-* Continues a game
-*/
-XMLscene.prototype.continueGame = function() {
-  if(this.CampoBello.gameMode == XMLscene.gameMode.MOVIE){
-    this.CampoBello = this.oldGame;
-  }
-}
-/**
-* Starts a game
-*/
-XMLscene.prototype.startGame = function() {
-  this.CampoBello.currentState=this.CampoBello.state.INITIAL_STATE;
-};
-
-/**
-* Continues a game
-*/
-XMLscene.prototype.continueGame = function() {
-/*  if(this.CampoBello.gameMode == XMLscene.gameMode.MOVIE){
-    this.CampoBello = this.oldGame;
-  }*/
-}
-
-/**
-* Undos a play
-*/
-XMLscene.prototype.undo = function() {
-  /*  if(this.CampoBello.player == 1){
-      var button = new Button(this, this.reader, 1, 2);
-      this.CampoBello.pickingHandler(button);
-    }
-    else if(this.CampoBello.player == 2){
-      var button = new Button(this, this.reader, 2, 2);
-      this.CampoBello.pickingHandler(button);
-    }*/
-
 }

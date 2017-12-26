@@ -97,28 +97,27 @@ MyInterface.prototype.modeGame = function(){
   group.close();
 }
 
-MyInterface.prototype.options = function() {
+MyInterface.prototype.menuOptions = function(){
 
     var group = this.gui.addFolder("Options");
     group.open();
-/*
-    let menu = {
+
+    /*let menu = {
       startGame: this.scene.startGame.bind(this.scene)
     };
 
     let continueGame = {
       continueGame: this.scene.continueGame.bind(this.scene)
-    };
+    };*/
 
     let undo = {
-        undo: this.scene.undo.bind(this.scene)
+        undoMove: this.scene.undoMove.bind(this.scene)
     };
-*/
 
 
     //group.add(menu, 'startGame').name('Start Game');
     //group.add(continueGame, 'continueGame').name('Continue Game');
-    //group.add(undo, 'undo').name('Undo');
+    group.add(undo, 'undoMove').name('Undo');
     // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
     // e.g. this.option1=true; this.option2=false;
 
