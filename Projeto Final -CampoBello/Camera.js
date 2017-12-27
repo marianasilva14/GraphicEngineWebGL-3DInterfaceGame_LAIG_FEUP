@@ -24,10 +24,20 @@ function Camera(camera, speed, finalPoint){
   console.log('this.distance', this.distance);
 }
 
-Camera.prototype = Object.create(Camera.prototype);
-Camera.prototype.constructor = Object;
+//Camera.prototype = Object.create(Camera.prototype);
+Camera.prototype.constructor = Camera;
 
+Camera.prototype.setFinalPoint=function(finalPoint){
+  this.finalPoint=finalPoint;
+  this.distance[0] = this.finalPoint[0]-this.startPoint[0];
+  this.distance[1] = this.finalPoint[1]-this.startPoint[1];
+  this.distance[2] = this.finalPoint[2]-this.startPoint[2];
 
+  this.lengthDistance = Math.sqrt((Math.pow(this.distance[0], 2)) + (Math.pow(this.distance[1], 2)) +
+  (Math.pow(this.distance[2], 2)));
+
+  this.totalTime = this.lengthDistance/this.speed;
+}
 Camera.prototype.moveToFinalPoint = function (finalPoint) {
   this.camera.setPosition(finalPoint);
 };
@@ -65,7 +75,10 @@ Camera.prototype.update = function (current_time) {
 
     if(this.deltaTime >= this.totalTime){
       this.animationCameraFinished = true;
-      console.log("ENTROU NO IF!!!")
+      this.totalTime=0;
+      this.initialTime=0;
+      this.deltaTime=0;
+
     }
 
   }

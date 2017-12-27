@@ -8,7 +8,6 @@ function Piece(scene,playerID,pickingId,typeOfPiece,visible) {
   this.pickingId=pickingId;
   this.scene=scene;
   this.appearance;
-  this.coordinates=[];
   this.x;
   this.y;
   this.z;

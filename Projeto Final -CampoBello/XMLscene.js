@@ -25,8 +25,9 @@ function XMLscene(interface) {
     this.startGame=0;
     this.continueGame=0;
     this.undo=0;
+    this.CampoBello;
 
-    this.cam;
+    this.animcam;
 
 }
 
@@ -130,8 +131,6 @@ XMLscene.prototype.setPcVsPc = function() {
 XMLscene.prototype.init = function(application) {
     CGFscene.prototype.init.call(this, application);
 
-    this.initCameras();
-
     this.enableTextures(true);
 
     this.gl.clearDepth(100.0);
@@ -175,7 +174,7 @@ XMLscene.prototype.init = function(application) {
     this.piece2AppearanceScenario3.loadTexture("scenes/images/red.png");
 
     this.CampoBello= new CampoBello(this,XMLscene.gameMode.PLAYER_VS_PLAYER);
-
+    this.initCameras();
 }
 
 XMLscene.prototype.updateScaleFactor=function(current_time)
@@ -220,9 +219,15 @@ XMLscene.prototype.initLights = function() {
  * Initializes the scene cameras.
  */
 XMLscene.prototype.initCameras = function() {
-    this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(15, 15, 15),vec3.fromValues(0, 0, 0));
-    this.cam=new Camera(this.camera);
+  this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(15, 15, 15),vec3.fromValues(0, 0, 0));
+  this.baseanimcam = new CGFcamera(0.4,0.1,500,vec3.fromValues(15, 15, 15),vec3.fromValues(0, 0, 0));
+    //this.cam=new Camera(this.camera, 10, vec3.fromValues(5, 10, 14));
+      this.animcam=new Camera(this.baseanimcam, 10, vec3.fromValues(5, 10, 14));
+
+//   this.cam=new Camera(this.camera, 10, vec3.fromValues(12, 11.5, 7));
+
 }
+
 
 /* Handler called when the graph is finally loaded.
  * As loading is asynchronous, this may be called already after the application has started the run loop
@@ -268,7 +273,8 @@ XMLscene.prototype.display = function() {
     this.loadIdentity();
 
     // Apply transformations corresponding to the camera position relative to the origin
-    this.applyViewMatrix();
+    this.multMatrix(this.animcam.camera.getViewMatrix());
+
 
     this.pushMatrix();
 
@@ -333,8 +339,9 @@ for(var j=0; j < this.CampoBello.areas.length;j++){
 }
 //}
 
-this.updateScaleFactor(current_time);
 
+this.updateScaleFactor(current_time);
+this.animcam.update(current_time);
 
 }
 
@@ -351,6 +358,7 @@ XMLscene.prototype.logPicking = function ()
 					console.log("Picked object: " + obj + ", with pick id " + customId);
           switch (this.CampoBello.currentState) {
             case this.CampoBello.state.CHOOSE_ORIGIN:
+            if(this.selectObjectOrigin==0 && this.selectObjectDestiny==0){
             if(this.CampoBello.currentPlayer==PLAYER1_ID){
               if(this.CampoBello.piecesPlayer1.indexOf(customId)!=-1 || this.CampoBello.noPieces.indexOf(customId)!=-1){
                 this.selectObjectOrigin=customId;
@@ -363,6 +371,7 @@ XMLscene.prototype.logPicking = function ()
                 this.CampoBello.currentState=this.CampoBello.state.CHOOSE_DESTINY;
               }
             }
+            }
               break;
             case this.CampoBello.state.CHOOSE_DESTINY:
             this.selectObjectDestiny=customId;
@@ -371,6 +380,8 @@ XMLscene.prototype.logPicking = function ()
             case this.CampoBello.state.REMOVE_PIECE:
             this.pieceToRemove=customId;
             this.CampoBello.choosePieceToRemove();
+            case this.CampoBello.state.OTHER_MOVE:
+            this.CampoBello.actualDestiny=customId;
             default:
 
           }
