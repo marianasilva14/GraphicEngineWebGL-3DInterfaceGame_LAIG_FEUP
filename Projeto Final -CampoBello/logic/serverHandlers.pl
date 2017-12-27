@@ -1,3 +1,10 @@
+:-use_module(library(sockets)).
+:-use_module(library(lists)).
+:-use_module(library(codesio)).
+:-use_module(library(random)).
+:-use_module(library(system)).
+:- include('campoBello.pl').
+
 parse_input(initialBoard,Board):-
 	set_player('playerX'),
 	set_mode_game(1),
@@ -62,7 +69,7 @@ parse_input(validateGame(Board,Source,Destiny,AreaNumber),[]).
 parse_input(pcMove(Board,Player),[BoardOut,PieceDestinyAux,PieceSourceAux]):-
 	boardToNumbers(TmpBoard,Board),
   Player==1,
-  listOfPiecesThatHasPossibleMoveX(FinalList,Board),
+  listOfPiecesThatHasPossibleMoveX(FinalList,TmpBoard),
   length(FinalList,LengthOfList),
   random(0,LengthOfList,Index),
   nth0(Index,FinalList,RowSource-ColSource),
@@ -70,8 +77,8 @@ parse_input(pcMove(Board,Player),[BoardOut,PieceDestinyAux,PieceSourceAux]):-
   areaOfPiece(RowSource,ColSource,Area),
   listOfValidDestinyMove(List,RowSource,ColSource,Area,TmpBoard),
   length(List,LengthOfList2),
-  random(0,LengthOfList2,Index),
-  nth0(Index,List,RowDestiny-ColDestiny),
+  random(0,LengthOfList2,Index2),
+  nth0(Index2,List,RowDestiny-ColDestiny),
   validateMovePC(Area,ColSource,RowSource,ColDestiny,RowDestiny,TmpBoard),
   setPiece(TmpBoard,RowSource,ColSource,'noPiece',TmpBoard2),
 	setPiece(TmpBoard2,RowDestiny,ColDestiny,Piece,TmpBoard3),
@@ -97,8 +104,8 @@ parse_input(pcMove(Board,Player),[BoardOut,PieceDestinyAux,PieceSourceAux]):-
   areaOfPiece(RowSource,ColSource,Area),
   listOfValidDestinyMove(List,RowSource,ColSource,Area,TmpBoard),
   length(List,LengthOfList2),
-  random(0,LengthOfList2,Index),
-  nth0(Index,List,RowDestiny-ColDestiny),
+  random(0,LengthOfList2,Index2),
+  nth0(Index2,List,RowDestiny-ColDestiny),
   validateMovePC(Area,ColSource,RowSource,ColDestiny,RowDestiny,TmpBoard),
   setPiece(TmpBoard,RowSource,ColSource,'noPiece',TmpBoard2),
 	setPiece(TmpBoard2,RowDestiny,ColDestiny,Piece,TmpBoard3),
@@ -107,6 +114,7 @@ parse_input(pcMove(Board,Player),[BoardOut,PieceDestinyAux,PieceSourceAux]):-
   transformPiece(PieceDestinyAux,PieceDestiny),
   transformPiece(PieceSourceAux,PieceSource),
 	PieceDestiny\='noPiece',
+	write('chegou aqui'),
 	printFinalBoard(TmpBoard3),
 	boardToNumbers(TmpBoard3,BoardOut).
 
@@ -122,8 +130,8 @@ parse_input(pcMove(Board,Player),[BoardOut,PieceDestinyAux,PieceSourceAux]):-
   areaOfPiece(RowSource,ColSource,Area),
   listOfValidDestinyMove(List,RowSource,ColSource,Area,TmpBoard),
   length(List,LengthOfList2),
-  random(0,LengthOfList2,Index),
-  nth0(Index,List,RowDestiny-ColDestiny),
+  random(0,LengthOfList2,Index2),
+  nth0(Index2,List,RowDestiny-ColDestiny),
   validateMovePC(Area,ColSource,RowSource,ColDestiny,RowDestiny,TmpBoard),
   setPiece(TmpBoard,RowSource,ColSource,'noPiece',TmpBoard2),
 	setPiece(TmpBoard2,RowDestiny,ColDestiny,Piece,TmpBoard3),
@@ -148,8 +156,8 @@ parse_input(pcMove(Board,Player),[BoardOut,PieceDestinyAux,PieceSourceAux]):-
   areaOfPiece(RowSource,ColSource,Area),
   listOfValidDestinyMove(List,RowSource,ColSource,Area,TmpBoard),
   length(List,LengthOfList2),
-  random(0,LengthOfList2,Index),
-  nth0(Index,List,RowDestiny-ColDestiny),
+  random(0,LengthOfList2,Index2),
+  nth0(Index2,List,RowDestiny-ColDestiny),
   validateMovePC(Area,ColSource,RowSource,ColDestiny,RowDestiny,TmpBoard),
   setPiece(TmpBoard,RowSource,ColSource,'noPiece',TmpBoard2),
 	setPiece(TmpBoard2,RowDestiny,ColDestiny,Piece,TmpBoard3),

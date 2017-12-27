@@ -17,6 +17,7 @@ function Piece(scene,playerID,pickingId,typeOfPiece,visible) {
   this.initial_time = 0;
   this.delta_time = 0;
   this.typeOfPiece=typeOfPiece;
+  this.positionOnBoard=pickingId-100;
 
   this.transformMatrix = mat4.create();
   mat4.identity(this.transformMatrix);

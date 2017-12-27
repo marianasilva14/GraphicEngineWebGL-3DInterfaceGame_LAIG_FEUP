@@ -22,10 +22,10 @@ function Area(scene,idPlayer,id) {
    for(var j=id*9+1; j < (id*9+10);j++){
 
     if(id==0 || id==1){
-     this.pieces[i]=new Piece(scene,idPlayer,j,PIECEX,true);
+     this.pieces[i]=new Piece(scene,idPlayer,j+100,PIECEX,true);
     }
      else if(id==2 || id==3){
-       this.pieces[i]=new Piece(scene,idPlayer,j,PIECEY,true);
+       this.pieces[i]=new Piece(scene,idPlayer,j+100,PIECEY,true);
      }
    i++;
   }
