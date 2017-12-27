@@ -182,86 +182,100 @@ CampoBello.prototype.pieceChoosen_invisible=function(pickingId){
 }
 
 CampoBello.prototype.createPieceAnimation=function(pieceOrigin,pieceDestiny,coordinates){
-  console.log('pieces',pieceOrigin,pieceDestiny);
+
   var cpointsOrigin=new Array();
   cpointsOrigin[0]=new Array(4);
   for(var k=0; k < 4;k++){
     cpointsOrigin[0][k]=new Array();
   }
-  var x=(pieceDestiny.x-pieceOrigin.x)/2;
-  var y=(pieceDestiny.y-pieceOrigin.y)/2;
-  var z=(pieceDestiny.z-pieceOrigin.z)/2;
+console.log('PECAS',pieceOrigin,pieceDestiny);
+  var coordinates_origin= pieceOrigin.coordinates[pieceOrigin.coordinates.length-1][0];
+  var coordinates_destiny= pieceDestiny.coordinates[pieceDestiny.coordinates.length-1][0];
+  console.log('pieces',coordinates_origin,coordinates_destiny);
+  var x=(coordinates_destiny.x-coordinates_origin.x)/2;
+  var y=(coordinates_destiny.y-coordinates_origin.y)/2;
+  var z=(coordinates_destiny.z-coordinates_origin.z)/2;
 
 
-  cpointsOrigin[0][0][0]=pieceOrigin.x;
-  cpointsOrigin[0][0][1]=pieceOrigin.y;
-  cpointsOrigin[0][0][2]=pieceOrigin.z;
-  cpointsOrigin[0][1][0]=pieceOrigin.x+x;
+  cpointsOrigin[0][0][0]=coordinates_origin.x;
+  cpointsOrigin[0][0][1]=coordinates_origin.y;
+  cpointsOrigin[0][0][2]=coordinates_origin.z;
+  cpointsOrigin[0][1][0]=coordinates_origin.x+x;
   cpointsOrigin[0][1][1]=43;
-  cpointsOrigin[0][1][2]=pieceOrigin.z+z;
-  cpointsOrigin[0][2][0]=pieceOrigin.x+(2*x);
+  cpointsOrigin[0][1][2]=coordinates_origin.z+z;
+  cpointsOrigin[0][2][0]=coordinates_origin.x+(2*x);
   cpointsOrigin[0][2][1]=43;
-  cpointsOrigin[0][2][2]=pieceOrigin.z+(2*z);
-  cpointsOrigin[0][3][0]=pieceDestiny.x;
-  cpointsOrigin[0][3][1]=pieceDestiny.y;
-  cpointsOrigin[0][3][2]=pieceDestiny.z;
+  cpointsOrigin[0][2][2]=coordinates_origin.z+(2*z);
+  cpointsOrigin[0][3][0]=coordinates_destiny.x;
+  cpointsOrigin[0][3][1]=coordinates_destiny.y;
+  cpointsOrigin[0][3][2]=coordinates_destiny.z;
 
   var animation = new BezierAnimation(this.scene,3,cpointsOrigin,6);
   pieceOrigin.animation=animation;
   pieceOrigin.animationFinished=false;
-
+/*
   var cpointsDestiny=new Array();
   cpointsDestiny[0]=new Array(4);
   for(var k=0; k < 4;k++){
     cpointsDestiny[0][k]=new Array();
   }
 
-    console.log('coordinates2',coordinates);
-
-    var x2=(coordinates[0].x-pieceDestiny.x)/2;
-    var y2=(coordinates[0].y-pieceDestiny.y)/2;
-    var z2=(coordinates[0].z-pieceDestiny.z)/2;
+    var x2=(coordinates[2].x-coordinates_destiny.x)/2;
+    var y2=(coordinates[2].y-coordinates_destiny.y)/2;
+    var z2=(coordinates[2].z-coordinates_destiny.z)/2;
 
       console.log('xyz',x2,y2,z2);
-/*
-    cpointsDestiny[0][0][0]=pieceDestiny.x;
-    cpointsDestiny[0][0][1]=pieceDestiny.y;
-    cpointsDestiny[0][0][2]=pieceDestiny.z;
 
-    cpointsDestiny[0][1][0]=pieceDestiny.x+x2;
-    cpointsDestiny[0][1][1]=pieceDestiny.y+(2*y2);
-    cpointsDestiny[0][1][2]=pieceDestiny.z+z2;
+    cpointsDestiny[0][0][0]=coordinates_destiny.x;
+    cpointsDestiny[0][0][1]=coordinates_destiny.y;
+    cpointsDestiny[0][0][2]=coordinates_destiny.z;
 
-    cpointsDestiny[0][2][0]=pieceDestiny.x+(2*x2);
-    cpointsDestiny[0][2][1]=pieceDestiny.y+(2*y2);
-    cpointsDestiny[0][2][2]=pieceDestiny.z+(2*z2);
+    cpointsDestiny[0][1][0]=coordinates_destiny.x+x2;
+    cpointsDestiny[0][1][1]=coordinates_destiny.y+(2*y2);
+    cpointsDestiny[0][1][2]=coordinates_destiny.z+z2;
 
-    cpointsDestiny[0][3][0]=coordinates[0].x;
-    cpointsDestiny[0][3][1]=coordinates[0].y;
-    cpointsDestiny[0][3][2]=coordinates[0].z;
+    cpointsDestiny[0][2][0]=coordinates_destiny.x+(2*x2);
+    cpointsDestiny[0][2][1]=coordinates_destiny.y+(2*y2);
+    cpointsDestiny[0][2][2]=coordinates_destiny.z+(2*z2);
 
-*/
-    let originCoordinates=[
-      {'x':pieceOrigin.x,'y':pieceOrigin.y,'z':pieceOrigin.z}
-    ];
-    pieceOrigin.x=pieceDestiny.x;
-    pieceOrigin.y=pieceDestiny.y;
-    pieceOrigin.z=pieceDestiny.z;
-
-    pieceDestiny.x=originCoordinates[0].x;
-    pieceDestiny.y=originCoordinates[0].y;
-    pieceDestiny.z=originCoordinates[0].z;
+    cpointsDestiny[0][3][0]=coordinates[2].x;
+    cpointsDestiny[0][3][1]=coordinates[2].y;
+    cpointsDestiny[0][3][2]=coordinates[2].z;
 
     console.log('pieces22',pieceOrigin,pieceDestiny);
-/*
+
     if(pieceDestiny.getPickingID()<37){
       var animation = new LinearAnimation(this.scene,3,cpointsDestiny,6);
       pieceDestiny.animation=animation;
       pieceDestiny.animationFinished=false;
-    }
-*/
+    }*/
+
     console.log('cheguei aqui');
 
+}
+
+CampoBello.prototype.pushCoordinates=function(pieceOrigin,pieceDestiny,coordinates){
+
+  var addCoordinates_origin=[
+    {'x':pieceDestiny.x,
+    'y':pieceDestiny.y,
+    'z':pieceDestiny.z}];
+  pieceOrigin.coordinates.push(addCoordinates_origin);
+
+  var addCoordinates_destiny=[
+    {'x':coordinates.x,
+    'y':coordinates.y,
+    'z':coordinates.z}];
+  pieceDestiny.coordinates.push(addCoordinates_destiny);
+
+
+  pieceOrigin.x=pieceOrigin.coordinates[pieceOrigin.coordinates.length-1][0].x;
+  pieceOrigin.y=pieceOrigin.coordinates[pieceOrigin.coordinates.length-1][0].y;
+  pieceOrigin.z=pieceOrigin.coordinates[pieceOrigin.coordinates.length-1][0].z;
+  console.log('log',pieceOrigin);
+  pieceDestiny.x=pieceDestiny.coordinates[pieceDestiny.coordinates.length-1][0].x;
+  pieceDestiny.y=pieceDestiny.coordinates[pieceDestiny.coordinates.length-1][0].y;
+  pieceDestiny.z=pieceDestiny.coordinates[pieceDestiny.coordinates.length-1][0].z;
 }
 
 CampoBello.prototype.choosePieceToRemove=function(){
@@ -297,17 +311,49 @@ CampoBello.prototype.undoMove= function(piecesUndo){
     console.log('AREAS2',this.pieceChoosen(piecesUndo[0].pickingIdDestiny));
     var pieceOrigin= this.pieceChoosen(piecesUndo[0].pickingIdOrigin);
     var pieceDestiny= this.pieceChoosen(piecesUndo[0].pickingIdDestiny);
+
+    console.log('PECINHAS',pieceOrigin,pieceDestiny);
+    var destinyCoordinates=pieceDestiny.coordinates[pieceDestiny.coordinates.length-1][0];
+    var lastDestinyCoordinates=pieceDestiny.coordinates[pieceDestiny.coordinates.length-2][0];
+
     var coordinates=[
-      {'x':pieceDestiny.x,
-       'y':pieceDestiny.y,
-       'z':pieceDestiny.z}
+      {'x':pieceOrigin.x,
+      'y':pieceOrigin.y,
+      'z':pieceOrigin.z},
+      {'x':destinyCoordinates.x,
+      'y':destinyCoordinates.y,
+      'z':destinyCoordinates.z},
+      {'x':lastDestinyCoordinates.x,
+       'y':lastDestinyCoordinates.y,
+       'z':lastDestinyCoordinates.z}
      ];
+
+   var coordinatesDestiny=pieceDestiny.coordinates[pieceDestiny.coordinates.length-2][0];
+      console.log('coordinatesDestiny',coordinatesDestiny);
      console.log('arguments',pieceDestiny,pieceOrigin,coordinates);
     this.createPieceAnimation(pieceDestiny,pieceOrigin,coordinates);
+    this.popCoordinates(pieceDestiny,pieceOrigin,coordinatesDestiny);
 
-    pieceOrigin.setPickingID(piecesUndo[0].pickingIdDestiny);
-    pieceDestiny.setPickingID(piecesUndo[0].pickingIdOrigin);
 
+}
+
+CampoBello.prototype.popCoordinates=function(pieceDestiny,pieceOrigin,coordinatesDestiny){
+
+  pieceOrigin.coordinates.pop();
+  pieceDestiny.coordinates.pop();
+
+  pieceOrigin.x=pieceOrigin.coordinates[pieceOrigin.coordinates.length-1][0].x;
+  pieceOrigin.y=pieceOrigin.coordinates[pieceOrigin.coordinates.length-1][0].y;
+  pieceOrigin.z=pieceOrigin.coordinates[pieceOrigin.coordinates.length-1][0].z;
+
+  pieceDestiny.x=pieceDestiny.coordinates[pieceDestiny.coordinates.length-1][0].x;
+  pieceDestiny.y=pieceDestiny.coordinates[pieceDestiny.coordinates.length-1][0].y;
+  pieceDestiny.z=pieceDestiny.coordinates[pieceDestiny.coordinates.length-1][0].z;
+
+  let origin= pieceOrigin.getPickingID();
+  pieceOrigin.setPickingID(pieceDestiny.getPickingID());
+  pieceDestiny.setPickingID(origin);
+  console.log('pieceOrigin',pieceOrigin,pieceDestiny);
 }
 CampoBello.prototype.validateMove=function(origin, destiny){
 
@@ -330,6 +376,12 @@ CampoBello.prototype.validateMove=function(origin, destiny){
       if(info.length!=0){
         if(this_t.currentPlayer==PLAYER1_ID){
         var coordinates=[
+          {'x':origin.x,
+          'y':origin.y,
+          'z':origin.z},
+          {'x':destiny.x,
+          'y':destiny.y,
+          'z':destiny.z},
           {'x':this_t.gridAreaPlayer1[this_t.actualGridAreaP1].x,
           'y':this_t.gridAreaPlayer1[this_t.actualGridAreaP1].y,
           'z':this_t.gridAreaPlayer1[this_t.actualGridAreaP1].z}
@@ -338,6 +390,12 @@ CampoBello.prototype.validateMove=function(origin, destiny){
         }
         else {
           var coordinates=[
+            {'x':origin.x,
+            'y':origin.y,
+            'z':origin.z},
+            {'x':destiny.x,
+            'y':destiny.y,
+            'z':destiny.z},
             {'x':this_t.gridAreaPlayer2[this_t.actualGridAreaP2].x,
             'y':this_t.gridAreaPlayer2[this_t.actualGridAreaP2].y,
             'z':this_t.gridAreaPlayer2[this_t.actualGridAreaP2].z}
@@ -345,7 +403,13 @@ CampoBello.prototype.validateMove=function(origin, destiny){
           this_t.actualGridAreaP2++;
           }
         console.log('coordinates',coordinates);
+
         this_t.createPieceAnimation(origin,destiny,coordinates);
+        this_t.pushCoordinates(origin,destiny,coordinates[2]);
+        let pieceOrigin= origin.getPickingID();
+        origin.setPickingID(destiny.getPickingID());
+        destiny.setPickingID(pieceOrigin);
+
 
         this_t.board=info;
 
@@ -379,9 +443,7 @@ CampoBello.prototype.validateMove=function(origin, destiny){
         console.log('origin',origin);
 
 
-        let pieceOrigin= origin.getPickingID();
-        origin.setPickingID(destiny.getPickingID());
-        destiny.setPickingID(pieceOrigin);
+
 
         var addToMatrix=[
           {'pickingIdOrigin':origin.getPickingID(),

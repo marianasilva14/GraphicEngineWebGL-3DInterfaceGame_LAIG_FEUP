@@ -171,6 +171,11 @@ var piecesInvisibleAux=[
    this.pieces[i+1].x=piecesAux[i].x;
    this.pieces[i+1].y=piecesAux[i].y;
    this.pieces[i+1].z=piecesAux[i].z;
+   var addCoordinates=[
+     {'x':piecesAux[i].x,
+     'y':piecesAux[i].y,
+     'z':piecesAux[i].z}];
+   this.pieces[i+1].coordinates.push(addCoordinates);
  }
 
   for(var i=0; i < piecesInvisibleAux.length;i++){
