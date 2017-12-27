@@ -26,6 +26,7 @@ function XMLscene(interface) {
     this.continueGame=0;
     this.undo=0;
     this.CampoBello;
+    this.newCamera = false;
 
     this.animcam;
 
@@ -125,6 +126,14 @@ XMLscene.prototype.setPcVsPc = function() {
     console.log('estado2',this.CampoBello.currentState);
 }
 
+XMLscene.prototype.setCameraDefault = function() {
+  this.newCamera = false;
+}
+
+XMLscene.prototype.setNewCamera = function() {
+  this.newCamera = true;
+}
+
 /**
  * Initializes the scene, setting some WebGL defaults, initializing the camera and the axis.
  */
@@ -222,7 +231,7 @@ XMLscene.prototype.initCameras = function() {
   this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(15, 15, 15),vec3.fromValues(0, 0, 0));
   this.baseanimcam = new CGFcamera(0.4,0.1,500,vec3.fromValues(15, 15, 15),vec3.fromValues(0, 0, 0));
     //this.cam=new Camera(this.camera, 10, vec3.fromValues(5, 10, 14));
-      this.animcam=new Camera(this.baseanimcam, 10, vec3.fromValues(5, 10, 14));
+      this.animcam=new Camera(this.baseanimcam, 8, vec3.fromValues(5, 10, 14));
 
 //   this.cam=new Camera(this.camera, 10, vec3.fromValues(12, 11.5, 7));
 
@@ -253,6 +262,7 @@ XMLscene.prototype.onGraphLoaded = function()
     this.interface.modeGame();
     this.interface.scenarios();
     this.interface.menuOptions();
+    this.interface.chooseCamera();
 
 }
 
@@ -273,8 +283,13 @@ XMLscene.prototype.display = function() {
     this.loadIdentity();
 
     // Apply transformations corresponding to the camera position relative to the origin
-    this.multMatrix(this.animcam.camera.getViewMatrix());
-
+    //this.multMatrix(this.animcam.camera.getViewMatrix());
+    if (!this.newCamera) {
+      this.multMatrix(this.camera.getViewMatrix());
+    }
+    else{
+      this.multMatrix(this.animcam.camera.getViewMatrix());
+    }
 
     this.pushMatrix();
 

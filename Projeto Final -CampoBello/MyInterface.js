@@ -45,6 +45,24 @@ MyInterface.prototype.addLightsGroup = function(lights) {
     group.close();
 }
 
+MyInterface.prototype.chooseCamera = function(){
+  var group = this.gui.addFolder("Choose Camera");
+  group.open();
+
+  let defaultCamera = {
+      setCameraDefault: this.scene.setCameraDefault.bind(this.scene)
+  };
+
+  let newCamera = {
+      setNewCamera: this.scene.setNewCamera.bind(this.scene)
+  };
+
+  group.add(defaultCamera, 'setCameraDefault').name('Camera Default');
+  group.add(newCamera, 'setNewCamera').name('Camera');
+
+  group.close();
+}
+
 MyInterface.prototype.levelDifficulty = function(){
 
 this.gui.add(this.scene, 'level', {
