@@ -68,6 +68,56 @@
       <amplif_factor s="2" t="2" />
     </TEXTURE>
 
+    <TEXTURE id="zero">
+      <file path="images/0.png" />
+      <amplif_factor s="2" t="2" />
+    </TEXTURE>
+
+    <TEXTURE id="one">
+      <file path="images/1.png" />
+      <amplif_factor s="2" t="2" />
+    </TEXTURE>
+
+    <TEXTURE id="two">
+      <file path="images/2.png" />
+      <amplif_factor s="2" t="2" />
+    </TEXTURE>
+
+    <TEXTURE id="three">
+      <file path="images/3.png" />
+      <amplif_factor s="2" t="2" />
+    </TEXTURE>
+
+    <TEXTURE id="four">
+      <file path="images/4.png" />
+      <amplif_factor s="2" t="2" />
+    </TEXTURE>
+
+    <TEXTURE id="five">
+      <file path="images/5.png" />
+      <amplif_factor s="2" t="2" />
+    </TEXTURE>
+
+    <TEXTURE id="six">
+      <file path="images/6.png" />
+      <amplif_factor s="2" t="2" />
+    </TEXTURE>
+
+    <TEXTURE id="seven">
+      <file path="images/7.png" />
+      <amplif_factor s="2" t="2" />
+    </TEXTURE>
+
+    <TEXTURE id="eight">
+      <file path="images/8.png" />
+      <amplif_factor s="2" t="2" />
+    </TEXTURE>
+
+    <TEXTURE id="nine">
+      <file path="images/9.png" />
+      <amplif_factor s="2" t="2" />
+    </TEXTURE>
+
   </TEXTURES>
 
   <MATERIALS>
@@ -130,6 +180,7 @@
         <NODEREF id="chair2" />
         <NODEREF id="leg"/>
         <NODEREF id="marker"/>
+        <NODEREF id="timer"/>
 
       </DESCENDANTS>
 
@@ -475,6 +526,20 @@
 
    <DESCENDANTS>
      <LEAF  type="triangle" args="0 0 0 2 0 0 1 1 0" />
+   </DESCENDANTS>
+
+ </NODE>
+
+ <NODE id="timer">
+   <MATERIAL id="null" />
+   <TEXTURE id="null" />
+
+  <ROTATION axis="y" angle="70"/>
+  <SCALE sx="1" sy="1" sz="1" />
+  <TRANSLATION x="-8.5" y="8.5" z="8" />
+
+   <DESCENDANTS>
+     <LEAF  type="rectangle" args="0 2 2 0" />
    </DESCENDANTS>
 
  </NODE>

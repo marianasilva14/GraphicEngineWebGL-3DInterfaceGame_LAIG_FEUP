@@ -27,7 +27,7 @@ function XMLscene(interface) {
     this.undo=0;
     this.CampoBello;
     this.newCamera = false;
-
+    this.timer;
     this.animcam;
 
 }
@@ -134,6 +134,36 @@ XMLscene.prototype.setNewCamera = function() {
   this.newCamera = true;
 }
 
+/* Handler called when the graph is finally loaded.
+ * As loading is asynchronous, this may be called already after the application has started the run loop
+ */
+XMLscene.prototype.onGraphLoaded = function()
+{
+    this.camera.near = this.graph.near;
+    this.camera.far = this.graph.far;
+    this.axis = new CGFaxis(this,this.graph.referenceLength);
+
+    this.setGlobalAmbientLight(this.graph.ambientIllumination[0], this.graph.ambientIllumination[1],
+    this.graph.ambientIllumination[2], this.graph.ambientIllumination[3]);
+
+    this.gl.clearColor(this.graph.background[0], this.graph.background[1], this.graph.background[2], this.graph.background[3]);
+
+    this.initLights();
+
+    this.setUpdatePeriod(1000/60);
+
+    // Adds lights group.
+    this.interface.addLightsGroup(this.graph.lights);
+    this.interface.levelDifficulty();
+    this.interface.modeGame();
+    this.interface.scenarios();
+    this.interface.menuOptions();
+    this.interface.chooseCamera();
+
+  console.log("no campo bello", this.graph.nodes.timer);
+  this.timer = new Timer(this);
+}
+
 /**
  * Initializes the scene, setting some WebGL defaults, initializing the camera and the axis.
  */
@@ -183,6 +213,9 @@ XMLscene.prototype.init = function(application) {
     this.piece2AppearanceScenario3.loadTexture("scenes/images/red.png");
 
     this.CampoBello= new CampoBello(this,XMLscene.gameMode.PLAYER_VS_PLAYER);
+
+
+
     this.initCameras();
 }
 
@@ -237,34 +270,6 @@ XMLscene.prototype.initCameras = function() {
 
 }
 
-
-/* Handler called when the graph is finally loaded.
- * As loading is asynchronous, this may be called already after the application has started the run loop
- */
-XMLscene.prototype.onGraphLoaded = function()
-{
-    this.camera.near = this.graph.near;
-    this.camera.far = this.graph.far;
-    this.axis = new CGFaxis(this,this.graph.referenceLength);
-
-    this.setGlobalAmbientLight(this.graph.ambientIllumination[0], this.graph.ambientIllumination[1],
-    this.graph.ambientIllumination[2], this.graph.ambientIllumination[3]);
-
-    this.gl.clearColor(this.graph.background[0], this.graph.background[1], this.graph.background[2], this.graph.background[3]);
-
-    this.initLights();
-
-    this.setUpdatePeriod(1000/60);
-
-    // Adds lights group.
-    this.interface.addLightsGroup(this.graph.lights);
-    this.interface.levelDifficulty();
-    this.interface.modeGame();
-    this.interface.scenarios();
-    this.interface.menuOptions();
-    this.interface.chooseCamera();
-
-}
 
 /**
  * Displays the scene.
@@ -357,6 +362,7 @@ for(var j=0; j < this.CampoBello.areas.length;j++){
 
 this.updateScaleFactor(current_time);
 this.animcam.update(current_time);
+this.timer.update(current_time);
 
 }
 
