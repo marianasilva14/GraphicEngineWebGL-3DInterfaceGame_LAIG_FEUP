@@ -41,6 +41,10 @@ function GamingHouse(scene){
   this.cigarette[i] =new MyCylinder(this.scene,2,0.15,0.15,70,70,1,1);
   this.cigaretteAppearence=new CGFappearance(this.scene);
   this.cigaretteAppearence.loadTexture("../scenes/images/cigarette.jpg");
+
+  this.casinoNight= new MyRectangle(this.scene,0,10,10,0);
+  this.casinoNightAppearence=new CGFappearance(this.scene);
+  this.casinoNightAppearence.loadTexture("../scenes/images/casinoNight.png");
 }
 
 GamingHouse.prototype.display=function(){
@@ -121,6 +125,14 @@ GamingHouse.prototype.display=function(){
   this.scene.rotate(-300*Math.PI/180,0,1,0);
   this.cigaretteAppearence.apply();
   this.cigarette[1].display();
+  this.scene.popMatrix();
+
+  this.scene.pushMatrix();
+  this.scene.scale(1,1,1);
+  this.scene.translate(0.01,5,30);
+  this.scene.rotate(90*Math.PI/180,0,1,0);
+  this.casinoNightAppearence.apply();
+  this.casinoNight.display();
   this.scene.popMatrix();
 
 }
