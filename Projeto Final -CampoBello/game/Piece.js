@@ -141,9 +141,9 @@ Piece.prototype.updateTransformMatrix = function(){
     }
     if(this.animationFinished){
       this.animation=null;
-      this.animationFinished=true;
+      this.animationFinished=false;
       this.initial_time=0;
-      this.delta_time=-1;
+      this.delta_time=0;
     }
 
     return mat4.create();

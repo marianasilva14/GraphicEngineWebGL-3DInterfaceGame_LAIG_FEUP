@@ -22,9 +22,11 @@ Timer.prototype.constructor = Timer;
 * @param secs Seconds passed to be processed in hours/minuts/seconds format
 */
 
-Timer.prototype.getTime = function(nameTexture){
+Timer.prototype.getTime = function(nameTextureUnits, nameTextureDozens){
 
-this.scene.graph.nodes.timerUnits.textureID = nameTexture;
+this.scene.graph.nodes.timerUnits.textureID = nameTextureUnits;
+this.scene.graph.nodes.timerDozens.textureID = nameTextureDozens;
+
 
 }
 
@@ -39,29 +41,22 @@ Timer.prototype.update = function(current_time){
 
 		var res = Math.floor(this.deltaTime);
 		var res2 = (res/10);
-		var res3 = (res2%1);
-		this.resFinal = Math.floor(Math.round(res3*10));
+		var res3 = Math.floor(res2);
+		var res4 = (res2%1);
 
-		if(this.resFinal == 0)
-			this.getTime("zero");
-		else if(this.resFinal == 1)
-			this.getTime("one");
-		else if(this.resFinal == 2)
-			this.getTime("two");
-		else if(this.resFinal == 3)
-			this.getTime("three");
-		else if(this.resFinal == 4)
-			this.getTime("four");
-		else if(this.resFinal == 5)
-			this.getTime("five");
-		else if(this.resFinal == 6)
-			this.getTime("six");
-		else if(this.resFinal == 7)
-			this.getTime("seven");
-		else if(this.resFinal == 8)
-			this.getTime("eight");
-		else{
-			this.getTime("nine");
+		console.log("this.resFinal", res, res2, res3);
+
+		if(res < 10){
+			this.resFinalUnits = res;
+			this.resFinalDozens = 0;
 		}
+
+		else{
+			this.resFinalDozens = res3;
+			this.resFinalUnits = Math.floor(Math.round(res4*10));
+		}
+
+
+		this.getTime(this.resFinalUnits.toString(), this.resFinalDozens.toString());
 
 }

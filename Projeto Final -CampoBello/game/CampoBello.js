@@ -148,7 +148,6 @@ CampoBello.prototype.checkEndGame=function(state){
       this_t.checkWinner();
       }
       else{
-
         this_t.currentState=state;
         this_t.game();
       }
@@ -236,6 +235,7 @@ CampoBello.prototype.createPieceAnimation=function(pieceOrigin,pieceDestiny,coor
   var animation = new BezierAnimation(this.scene,3,cpointsOrigin,6);
   pieceOrigin.animation=animation;
   console.log('ANIMATION',pieceOrigin.animation);
+  console.log('animationFinished',pieceOrigin.animationFinished);
   pieceOrigin.animationFinished=false;
   console.log('animei');
   var cpointsDestiny=new Array();
@@ -458,6 +458,8 @@ var stateToReturn;
 
   if(pieceOrigin.typeOfPiece==pieceDestiny.typeOfPiece){
     if(this.currentPlayer==PLAYER1_ID){
+      if(this.actualGridAreaP1==18)
+      this.actualGridAreaP1=0;
     var coordinates=[
       {'x':this.gridAreaPlayer1[this.actualGridAreaP1].x,
       'y':this.gridAreaPlayer1[this.actualGridAreaP1].y,
@@ -466,7 +468,10 @@ var stateToReturn;
     this.actualGridAreaP1++;
     }
     else {
-      console.log('aquii',this.gridAreaPlayer2[this.actualGridAreaP2]);
+      if(this.actualGridAreaP2==18)
+      this.actualGridAreaP2=0;
+      console.log('actual',this.actualGridAreaP2);
+      console.log('aquii',this.gridAreaPlayer2);
       var coordinates=[
         {'x':this.gridAreaPlayer2[this.actualGridAreaP2].x,
         'y':this.gridAreaPlayer2[this.actualGridAreaP2].y,
@@ -674,6 +679,9 @@ CampoBello.prototype.game = function(){
       break;
     case this.state.ANOTHER_MOVE:
     console.log('Choose another destiny!');
+    if(this.gameMode==XMLscene.gameMode.PC_VS_PC){
+        this.checkEndGame(this.state.MOVEMENT_PC);
+    }
     break;
     case this.state.CHECK_END_GAME:
     if(this.gameMode==XMLscene.gameMode.PLAYER_VS_PLAYER){

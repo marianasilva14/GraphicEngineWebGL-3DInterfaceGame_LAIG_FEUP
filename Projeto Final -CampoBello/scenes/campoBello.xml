@@ -68,53 +68,58 @@
       <amplif_factor s="2" t="2" />
     </TEXTURE>
 
-    <TEXTURE id="zero">
+    <TEXTURE id="0">
       <file path="images/0.png" />
       <amplif_factor s="2" t="2" />
     </TEXTURE>
 
-    <TEXTURE id="one">
+    <TEXTURE id="1">
       <file path="images/1.png" />
       <amplif_factor s="2" t="2" />
     </TEXTURE>
 
-    <TEXTURE id="two">
+    <TEXTURE id="2">
       <file path="images/2.png" />
       <amplif_factor s="2" t="2" />
     </TEXTURE>
 
-    <TEXTURE id="three">
+    <TEXTURE id="3">
       <file path="images/3.png" />
       <amplif_factor s="2" t="2" />
     </TEXTURE>
 
-    <TEXTURE id="four">
+    <TEXTURE id="4">
       <file path="images/4.png" />
       <amplif_factor s="2" t="2" />
     </TEXTURE>
 
-    <TEXTURE id="five">
+    <TEXTURE id="5">
       <file path="images/5.png" />
       <amplif_factor s="2" t="2" />
     </TEXTURE>
 
-    <TEXTURE id="six">
+    <TEXTURE id="6">
       <file path="images/6.png" />
       <amplif_factor s="2" t="2" />
     </TEXTURE>
 
-    <TEXTURE id="seven">
+    <TEXTURE id="7">
       <file path="images/7.png" />
       <amplif_factor s="2" t="2" />
     </TEXTURE>
 
-    <TEXTURE id="eight">
+    <TEXTURE id="8">
       <file path="images/8.png" />
       <amplif_factor s="2" t="2" />
     </TEXTURE>
 
-    <TEXTURE id="nine">
+    <TEXTURE id="9">
       <file path="images/9.png" />
+      <amplif_factor s="2" t="2" />
+    </TEXTURE>
+
+    <TEXTURE id="papel">
+      <file path="images/papel.jpg" />
       <amplif_factor s="2" t="2" />
     </TEXTURE>
 
@@ -533,11 +538,12 @@
 
  <NODE id="timerUnits">
    <MATERIAL id="null" />
-   <TEXTURE id="null" />
+   <TEXTURE id="papel" />
 
   <ROTATION axis="y" angle="70"/>
+  <ROTATION axis="x" angle="-15"/>
   <SCALE sx="1" sy="1" sz="1" />
-  <TRANSLATION x="-8.5" y="8.5" z="8" />
+  <TRANSLATION x="-8.5" y="6" z="9.7" />
 
    <DESCENDANTS>
      <LEAF  type="rectangle" args="0 2 2 0" />
@@ -547,11 +553,12 @@
 
  <NODE id="timerDozens">
    <MATERIAL id="null" />
-   <TEXTURE id="null" />
+   <TEXTURE id="papel" />
 
   <ROTATION axis="y" angle="70"/>
+  <ROTATION axis="x" angle="-15"/>
   <SCALE sx="1" sy="1" sz="1" />
-  <TRANSLATION x="-10.8" y="8.5" z="8" />
+  <TRANSLATION x="-10.5" y="6" z="9.7" />
 
    <DESCENDANTS>
      <LEAF  type="rectangle" args="0 2 2 0" />
