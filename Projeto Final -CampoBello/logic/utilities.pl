@@ -1,3 +1,4 @@
+:- use_module(library(lists)).
 %Predicate that read a char
 getChar(Input) :- get_char(_Input),
                   get_char(Input).
@@ -232,6 +233,10 @@ set_level(Level):-
   transformArea('areaX2',1).
   transformArea('areaY1',2).
   transformArea('areaY2',3).
+
+
+  eliminatePieceOnList(List,ListOut):-
+    subtract([5-5],List,ListOut).
 
 %Predicate copying one board to another
 duplicate(_Old,_New):-fail.
