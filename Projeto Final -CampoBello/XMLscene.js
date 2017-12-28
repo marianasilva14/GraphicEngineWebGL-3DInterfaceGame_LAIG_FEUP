@@ -193,8 +193,8 @@ XMLscene.prototype.init = function(application) {
 
 
   	this.updateScaleFactor(0);
-    this.scenario = new GamingHouse(this);
-    this.scenarioNumber=2;
+    this.scenario = new GamingRoom(this);
+    this.scenarioNumber=1;
 
     this.piece1AppearanceScenario1 = new CGFappearance(this);
 	  this.piece1AppearanceScenario1.loadTexture("scenes/images/yellow.png");
