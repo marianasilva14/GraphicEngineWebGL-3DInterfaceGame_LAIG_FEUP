@@ -43,7 +43,7 @@ function CampoBello(scene,gameMode) {
    {'x':18, 'y':38.5, 'z':44},
    {'x':19, 'y':38.5, 'z':47},
    {'x':14, 'y':38.5, 'z':44},
-   {'x':15, 'y':38.5, 'z':45},
+   {'x':15.1, 'y':38.5, 'z':45},
    {'x':14, 'y':38.5, 'z':46},
    {'x':14, 'y':38.5, 'z':45}
  ];
@@ -58,15 +58,15 @@ function CampoBello(scene,gameMode) {
  {'x':31, 'y':38.5, 'z':10},
  {'x':32, 'y':38.5, 'z':11},
  {'x':30, 'y':38.5, 'z':11},
- {'x':32, 'y':38.5, 'z':11},
- {'x':32, 'y':38.5, 'z':10},
- {'x':30, 'y':38.5, 'z':11},
- {'x':30, 'y':38.5, 'z':11},
- {'x':33, 'y':38.5, 'z':11.5},
+ {'x':32.6, 'y':38.5, 'z':11},
+ {'x':32.5, 'y':38.5, 'z':10},
+ {'x':30.6, 'y':38.5, 'z':11},
+ {'x':30, 'y':38.5, 'z':11.2},
+ {'x':33, 'y':38.5, 'z':11.1},
  {'x':32, 'y':38.5, 'z':10.5},
- {'x':30, 'y':38.5, 'z':10},
- {'x':30.5, 'y':38.5, 'z':10},
- {'x':32, 'y':38.5, 'z':10}
+ {'x':30, 'y':38.5, 'z':10.1},
+ {'x':30.5, 'y':38.5, 'z':10.2},
+ {'x':32, 'y':38.5, 'z':10.1}
  ];
 
   for(var i=0; i <9;i++){
@@ -85,7 +85,7 @@ function CampoBello(scene,gameMode) {
     MOVEMENT_PC:4,
     REMOVE_PIECE:5,
     CHOOSE_DESTINY:6,
-    OTHER_MOVE:7,
+    ANOTHER_MOVE:7,
     WAITING_FOR_ANOTHER_BOARD:8,
     CHECK_END_GAME:9
   };
@@ -94,7 +94,6 @@ function CampoBello(scene,gameMode) {
   this.currentPlayer=PLAYER1_ID;
   this.numberOfLoops=0;
   this.actualOrigin;
-  this.actualDestiny;
   this.game();
 };
 
@@ -233,10 +232,12 @@ CampoBello.prototype.createPieceAnimation=function(pieceOrigin,pieceDestiny,coor
   cpointsOrigin[0][3][1]=pieceDestiny.y;
   cpointsOrigin[0][3][2]=pieceDestiny.z;
 
+  console.log('AQUIIII');
   var animation = new BezierAnimation(this.scene,3,cpointsOrigin,6);
   pieceOrigin.animation=animation;
+  console.log('ANIMATION',pieceOrigin.animation);
   pieceOrigin.animationFinished=false;
-
+  console.log('animei');
   var cpointsDestiny=new Array();
   cpointsDestiny[0]=new Array(4);
   for(var k=0; k < 4;k++){
@@ -465,6 +466,7 @@ var stateToReturn;
     this.actualGridAreaP1++;
     }
     else {
+      console.log('aquii',this.gridAreaPlayer2[this.actualGridAreaP2]);
       var coordinates=[
         {'x':this.gridAreaPlayer2[this.actualGridAreaP2].x,
         'y':this.gridAreaPlayer2[this.actualGridAreaP2].y,
@@ -480,12 +482,16 @@ var stateToReturn;
       var coordinates=[];
       if(this.numberOfLoops!=3){
         this.numberOfLoops++;
+
+        this.actualOrigin=pieceOrigin;
+        stateToReturn=this.state.ANOTHER_MOVE;
       }
       else{
         this.numberOfLoops=0;
         this.switchPlayer();
+        stateToReturn=this.state.CHECK_END_GAME;
       }
-      stateToReturn=this.state.CHECK_END_GAME;
+
     }
     else{
 
@@ -632,6 +638,7 @@ CampoBello.prototype.validateMove=function(pieceOrigin,pieceDestiny){
 CampoBello.prototype.game = function(){
   switch (this.currentState) {
     case this.state.INITIAL_STATE:
+    console.log('Welcome!');
     if(this.gameMode==XMLscene.gameMode.PLAYER_VS_PLAYER){
     this.getInitialBoard(this.state.CHOOSE_ORIGIN);
 
@@ -648,11 +655,14 @@ CampoBello.prototype.game = function(){
     case this.state.CHOOSE_DESTINY:
     break;
     case this.state.VALID_MOVEMENT:
+    console.log('Its your turn player',this.currentPlayer);
+    console.log('Choose your pieces!');
     var pieceOrigin= this.pieceChoosen(this.scene.selectObjectOrigin);
     var pieceDestiny=this.pieceChoosen(this.scene.selectObjectDestiny);
-    this.validateMove(pieceOrigin,pieceDestiny,);
+    this.validateMove(pieceOrigin,pieceDestiny);
     break;
     case this.state.MOVEMENT_PC:
+    console.log('Its your turn player',this.currentPlayer);
     this.movementPC();
     break;
     case this.state.REMOVE_PIECE:
@@ -662,9 +672,9 @@ CampoBello.prototype.game = function(){
       this.choosePieceToRemovePC();
     }
       break;
-    case this.state.OTHER_MOVE:
-
-      break;
+    case this.state.ANOTHER_MOVE:
+    console.log('Choose another destiny!');
+    break;
     case this.state.CHECK_END_GAME:
     if(this.gameMode==XMLscene.gameMode.PLAYER_VS_PLAYER){
       this.checkEndGame(this.state.CHOOSE_ORIGIN);

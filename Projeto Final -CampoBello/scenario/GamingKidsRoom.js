@@ -40,11 +40,11 @@ function GamingKidsRoom(scene){
   this.lampAppearenceHead.setSpecular(0,0,0,1);
   this.lampAppearenceHead.setShininess(5);
   this.lampAppearenceHead.loadTexture("../scenes/images/lampHead.jpeg");
-/*
+
   this.carpet =new MyCylinder(this.scene,4,1,1,70,70,1,1);
   this.carpetAppearence= new CGFappearance(this.scene);
   this.carpetAppearence.loadTexture("../scenes/images/carpet.png");
-*/
+
 }
 
 GamingKidsRoom.prototype.display=function(){
@@ -160,15 +160,15 @@ GamingKidsRoom.prototype.display=function(){
   this.lampAppearenceHead.apply();
   this.lampHead.display();
   this.scene.popMatrix();
-/*
+
   this.scene.pushMatrix();
-  this.scene.scale(12,0.05,12);
+  this.scene.scale(12,0.0001,12);
   this.scene.translate(1.1,10,1.2);
   this.scene.rotate(-90*Math.PI/180,1,0,0);
   this.carpetAppearence.apply();
   this.carpet.display();
   this.scene.popMatrix();
-*/
+
 
 
 }

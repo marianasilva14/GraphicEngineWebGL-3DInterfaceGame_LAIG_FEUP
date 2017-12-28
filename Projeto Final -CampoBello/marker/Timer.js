@@ -24,7 +24,7 @@ Timer.prototype.constructor = Timer;
 
 Timer.prototype.getTime = function(nameTexture){
 
-this.scene.graph.nodes.timer.textureID = nameTexture;
+this.scene.graph.nodes.timerUnits.textureID = nameTexture;
 
 }
 

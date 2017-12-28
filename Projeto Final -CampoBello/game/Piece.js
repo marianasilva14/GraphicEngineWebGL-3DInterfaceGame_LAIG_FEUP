@@ -48,7 +48,7 @@ else{
     this.appearance=this.scene.piece2AppearanceScenario3;
 }
 
-  this.piece = new MySphere(scene,1,20,20);
+this.piece = new MySphere(scene,1,20,20);
 };
 
 Piece.prototype = Object.create(CGFobject.prototype);

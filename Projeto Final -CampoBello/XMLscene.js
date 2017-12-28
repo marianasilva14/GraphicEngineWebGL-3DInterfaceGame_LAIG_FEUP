@@ -19,6 +19,7 @@ function XMLscene(interface) {
     this.scaleFactor=50.0;
     this.selectObjectOrigin=0;
     this.selectObjectDestiny=0;
+    this.anotherMove;
     this.pieceToRemove=0;
     this.level=0;
     this.modeGame=0;
@@ -78,12 +79,13 @@ XMLscene.prototype.setScenarioGamingKidsRoom = function() {
 /**
 * Starts a game
 */
-XMLscene.prototype.startGame = function() {
-    //this.CampoBello = new Blockade(this, this.graph,XMLscene.gameMode.PLAYER_VS_PLAYER);
-  //  this.CampoBello.currentState = this.CampoBello.state.INITIALIZE_BOARD;
-  this.CampoBello.getInitialBoard(1);
-};
+XMLscene.prototype.setStartGame = function() {
+  if(this.CampoBello.gameMode == 0)
+    this.CampoBello= new CampoBello(this,XMLscene.gameMode.PLAYER_VS_PLAYER);
+  else
+    this.CampoBello= new CampoBello(this,XMLscene.gameMode.PC_VS_PC);
 
+};
 /**
 * Continues a game
 */
@@ -401,8 +403,14 @@ XMLscene.prototype.logPicking = function ()
             case this.CampoBello.state.REMOVE_PIECE:
             this.pieceToRemove=customId;
             this.CampoBello.choosePieceToRemove();
-            case this.CampoBello.state.OTHER_MOVE:
-            this.CampoBello.actualDestiny=customId;
+            break;
+            case this.CampoBello.state.ANOTHER_MOVE:
+            console.log('CHEGUEI');
+            this.anotherMove=customId;
+            var pieceDestiny=this.CampoBello.pieceChoosen(this.anotherMove);
+            console.log('PIECE',pieceDestiny);
+            this.CampoBello.validateMove(this.CampoBello.actualOrigin,pieceDestiny);
+            break;
             default:
 
           }

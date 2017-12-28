@@ -41,6 +41,12 @@ function GamingRoom(scene){
   this.lampAppearenceHead.setShininess(5);
   this.lampAppearenceHead.loadTexture("../scenes/images/lampHead.jpeg");
 
+  this.pillow=[];
+  for(var i=0; i < 2;i++)
+  this.pillow[i]=new MySphere(scene,1,20,20);
+  this.pillowAppearence=new CGFappearance(this.scene);
+  this.pillowAppearence.loadTexture("../scenes/images/lampHead.jpeg");
+
 }
 
 GamingRoom.prototype.display=function(){
@@ -155,6 +161,20 @@ GamingRoom.prototype.display=function(){
   this.scene.rotate(-90*Math.PI/180,1,0,0);
   this.lampAppearenceHead.apply();
   this.lampHead.display();
+  this.scene.popMatrix();
+
+  this.scene.pushMatrix();
+  this.scene.scale(2,0.9,2);
+  this.scene.translate(7.6,5,13.4);
+  this.pillowAppearence.apply();
+  this.pillow[0].display();
+  this.scene.popMatrix();
+
+  this.scene.pushMatrix();
+  this.scene.scale(2,0.9,2);
+  this.scene.translate(12.4,5,4.5);
+  this.pillowAppearence.apply();
+  this.pillow[1].display();
   this.scene.popMatrix();
 
 

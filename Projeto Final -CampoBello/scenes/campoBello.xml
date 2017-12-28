@@ -180,7 +180,8 @@
         <NODEREF id="chair2" />
         <NODEREF id="leg"/>
         <NODEREF id="marker"/>
-        <NODEREF id="timer"/>
+        <NODEREF id="timerUnits"/>
+        <NODEREF id="timerDozens"/>
 
       </DESCENDANTS>
 
@@ -530,7 +531,7 @@
 
  </NODE>
 
- <NODE id="timer">
+ <NODE id="timerUnits">
    <MATERIAL id="null" />
    <TEXTURE id="null" />
 
@@ -544,7 +545,19 @@
 
  </NODE>
 
+ <NODE id="timerDozens">
+   <MATERIAL id="null" />
+   <TEXTURE id="null" />
 
+  <ROTATION axis="y" angle="70"/>
+  <SCALE sx="1" sy="1" sz="1" />
+  <TRANSLATION x="-10.8" y="8.5" z="8" />
+
+   <DESCENDANTS>
+     <LEAF  type="rectangle" args="0 2 2 0" />
+   </DESCENDANTS>
+
+ </NODE>
 
   </NODES>
 
