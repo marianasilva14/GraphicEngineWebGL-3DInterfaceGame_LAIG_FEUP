@@ -185,8 +185,6 @@ parse_input(pcRemovePiece(Board,Player),[PieceToRemove,BoardOut]):-
 	length(List,LengthOfList),
 	random(0,LengthOfList,Index),
 	nth0(Index,List,Row-Col),
-	write(List),nl,
-	write(Row,Col),
 	transformToCoordinates(Row,Col,PieceToRemove),
 	setPiece(TmpBoard,Row,Col,'noPiece',TmpBoard2),
 	printFinalBoard(TmpBoard2),
@@ -199,11 +197,24 @@ parse_input(pcRemovePiece(Board,Player),[PieceToRemove,BoardOut]):-
 	length(List,LengthOfList),
 	random(0,LengthOfList,Index),
 	nth0(Index,List,Row-Col),
-	write(List),nl,
-	write(Row,Col),
+	write(Col),
 	transformToCoordinates(Row,Col,PieceToRemove),
 	setPiece(TmpBoard,Row,Col,'noPiece',TmpBoard2),
 	printFinalBoard(TmpBoard2),
 	boardToNumbers(TmpBoard2,BoardOut).
 
 parse_input(pcRemovePiece(Board,Player),[]).
+
+parse_input(endGame(Board),[Value]):-
+		boardToNumbers(TmpBoard,Board),
+		endGame(Tmpboard),
+		Value is 1.
+
+parse_input(endGame(Board),[Value]):-
+		boardToNumbers(TmpBoard,Board),
+		\+endGame(Tmpboard),
+		Value is 0.
+
+parse_input(checkWinner(Board),[Winner]):-
+	calculatePoints(Board,PointsX,PointsY),
+	if_then_else(PointsX@>PointsY,(Winner is 2,write('The winner is PlayerY')),(Winner is 1,write('The winner is PlayerX'))).

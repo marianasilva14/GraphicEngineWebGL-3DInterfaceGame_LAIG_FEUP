@@ -87,7 +87,7 @@ function CampoBello(scene,gameMode) {
     CHOOSE_DESTINY:6,
     OTHER_MOVE:7,
     WAITING_FOR_ANOTHER_BOARD:8,
-    END_GAME:9
+    CHECK_END_GAME:9
   };
 
   this.currentState=this.state.INITIAL_STATE;
@@ -135,6 +135,36 @@ CampoBello.prototype.getInitialBoard=function(state){
     this_t.game();
 
   });
+}
+
+CampoBello.prototype.checkEndGame=function(state){
+  var this_t=this;
+  this_t.currentState=this.state.WAITING_FOR_ANOTHER_BOARD;
+
+  getPrologRequest(
+    "endGame("+JSON.stringify(this_t.board)+")",
+    function(data){
+      var info=JSON.parse(data.target.response);
+      if(info==1){
+        this_t.checkWinner();
+      }
+      else{
+        this_t.currentState=state;
+        this_t.game();
+      }
+    });
+}
+
+CampoBello.prototype.checkWinner=function(){
+  var this_t=this;
+  this_t.currentState=this.state.WAITING_FOR_ANOTHER_BOARD;
+
+  getPrologRequest(
+    "checkWinner("+JSON.stringify(this_t.board)+")",
+    function(data){
+      var info=JSON.parse(data.target.response);
+
+    });
 }
 
 CampoBello.prototype.chooseDestiny=function(){
@@ -379,6 +409,8 @@ CampoBello.prototype.choosePieceToRemovePC=function(){
     piece.y=coordinates[0].y;
     piece.z=coordinates[0].z;
   }
+  this_t.currentState=this_t.state.MOVEMENT_PC;
+  this_t.game();
     });
 }
 function pausecomp(millis)
@@ -404,11 +436,11 @@ CampoBello.prototype.movementPC=function(){
         var pieceOrigin= this_t.pieceChoosen(info[2]);
         var pieceDestiny=this_t.pieceChoosen(info[1]);
 
-        state=this_t.gameCycle(pieceOrigin,pieceDestiny,this_t.state.MOVEMENT_PC);
+        state=this_t.gameCycle(pieceOrigin,pieceDestiny);
       }
       else{
         this_t.switchPlayer();
-
+        state=this_t.state.MOVEMENT_PC;
       }
 
       pausecomp(150);
@@ -440,7 +472,7 @@ var stateToReturn;
       }
 
       this.switchPlayer();
-      stateToReturn=state;
+      stateToReturn=this.state.CHECK_END_GAME;
     }
     else if(pieceDestiny.typeOfPiece==NO_PIECE){
       var coordinates=[];
@@ -451,7 +483,7 @@ var stateToReturn;
         this.numberOfLoops=0;
         this.switchPlayer();
       }
-      stateToReturn=state;
+      stateToReturn=this.state.CHECK_END_GAME;
     }
     else{
 
@@ -583,7 +615,7 @@ CampoBello.prototype.validateMove=function(pieceOrigin,pieceDestiny){
       if(info.length!=0){
         this_t.board=info;
 
-          state= this_t.gameCycle(pieceOrigin,pieceDestiny,this_t.state.CHOOSE_ORIGIN);
+          state=this_t.gameCycle(pieceOrigin,pieceDestiny);
 
         }
 
@@ -632,7 +664,13 @@ CampoBello.prototype.game = function(){
     case this.state.OTHER_MOVE:
 
       break;
-    case this.state.END_GAME:
+    case this.state.CHECK_END_GAME:
+    if(this.gameMode==XMLscene.gameMode.PLAYER_VS_PLAYER){
+      this.endGame(this.state.CHOOSE_ORIGIN);
+    }
+    else{
+      this.endGame(this.state.MOVEMENT_PC);
+    }
     break;
     default:
   }
