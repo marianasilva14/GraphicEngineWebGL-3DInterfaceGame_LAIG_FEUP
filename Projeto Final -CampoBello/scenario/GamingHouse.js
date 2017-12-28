@@ -27,6 +27,14 @@ function GamingHouse(scene){
   this.tableCoverGreenAppearence= new CGFappearance(this.scene);
   this.tableCoverGreenAppearence.loadTexture("../scenes/images/green.png");
 
+
+  this.ashtray= new MyCylinder(this.scene,4,2,2,70,70,1,1);
+  this.ashtrayAppearence=new CGFappearance(this.scene);
+  this.ashtrayAppearence.loadTexture("../scenes/images/metal.jpeg");
+
+  this.ashtrayHead= new MyCylinder(this.scene,4,2,2,70,70,0,1);
+  this.ashtrayHeadAppearence=new CGFappearance(this.scene);
+  this.ashtrayHeadAppearence.loadTexture("../scenes/images/metal.jpeg");
 }
 
 GamingHouse.prototype.display=function(){
@@ -75,6 +83,22 @@ GamingHouse.prototype.display=function(){
   this.scene.rotate(-90*Math.PI/180,1,0,0);
   this.tableCoverGreenAppearence.apply();
   this.tableCoverGreen.display();
+  this.scene.popMatrix();
+
+  this.scene.pushMatrix();
+  this.scene.scale(0.5,0.05,0.5);
+  this.scene.translate(18,150,9);
+  this.scene.rotate(-90*Math.PI/180,1,0,0);
+  this.ashtrayAppearence.apply();
+  this.ashtray.display();
+  this.scene.popMatrix();
+
+  this.scene.pushMatrix();
+  this.scene.scale(0.5,0.15,0.5);
+  this.scene.translate(18,50,9);
+  this.scene.rotate(-90*Math.PI/180,1,0,0);
+  this.ashtrayHeadAppearence.apply();
+  this.ashtrayHead.display();
   this.scene.popMatrix();
 
 }
