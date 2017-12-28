@@ -123,6 +123,16 @@
       <amplif_factor s="2" t="2" />
     </TEXTURE>
 
+    <TEXTURE id="winnerPlayer1">
+      <file path="images/player1.png" />
+      <amplif_factor s="2" t="2" />
+    </TEXTURE>
+
+    <TEXTURE id="winnerPlayer2">
+      <file path="images/player2.png" />
+      <amplif_factor s="2" t="2" />
+    </TEXTURE>
+
   </TEXTURES>
 
   <MATERIALS>
@@ -192,6 +202,8 @@
         <NODEREF id="pointsPlayerXDozens"/>
         <NODEREF id="pointsPlayerYUnits"/>
         <NODEREF id="pointsPlayerYDozens"/>
+        <!--<NODEREF id="winner" />-->
+
 
       </DESCENDANTS>
 
@@ -647,6 +659,22 @@
    </DESCENDANTS>
 
  </NODE>
+
+ <NODE id="winner">
+   <MATERIAL id="null" />
+   <TEXTURE id="null" />
+
+   <ROTATION axis="y" angle="70"/>
+   <ROTATION axis="x" angle="-20"/>
+  <SCALE sx="1" sy="0.5" sz="0.5" />
+  <TRANSLATION x="-10.5" y="12" z="21" />
+
+   <DESCENDANTS>
+     <LEAF  type="rectangle" args="0 2 2 0" />
+   </DESCENDANTS>
+
+ </NODE>
+
 
   </NODES>
 

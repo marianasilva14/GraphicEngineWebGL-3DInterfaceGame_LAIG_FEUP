@@ -96,6 +96,7 @@ function CampoBello(scene,gameMode) {
   this.actualOrigin;
   this.numberOfPiecesPlayer1=0;
   this.numberOfPiecesPlayer2=0;
+  this.winner1 = false;
   this.game();
 };
 
@@ -164,6 +165,12 @@ CampoBello.prototype.checkWinner=function(){
     "getWinner("+JSON.stringify(this_t.board)+")",
     function(data){
       var info=JSON.parse(data.target.response);
+
+    if(data.target.response == 1)
+        this.winner1 = true;
+    else
+      this.winner1 = false;
+
 
     });
 }
