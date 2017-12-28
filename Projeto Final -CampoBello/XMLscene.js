@@ -353,18 +353,21 @@ for(node in this.graph.nodes){
   }
 }
 
-//if(this.CampoBello.currentState==this.CampoBello.state.UPDATE_ANIMATION){
 for(var j=0; j < this.CampoBello.areas.length;j++){
   for(var i=1;i < this.CampoBello.areas[j].pieces.length;i++){
     this.CampoBello.areas[j].pieces[i].updateAnimation(current_time);
   }
 }
-//}
-
 
 this.updateScaleFactor(current_time);
 this.animcam.update(current_time);
 this.timer.update(current_time);
+
+if(this.timer.resFinalDozens>0){
+  this.timer.initialTime=0;
+  this.timer.deltaTime=0;
+  this.CampoBello.switchPlayer();
+}
 
 }
 

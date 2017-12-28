@@ -18,7 +18,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'Camera.js',
        '../animations/Animation.js', '../animations/BezierAnimation.js','../animations/CircularAnimation.js',
        '../animations/ComboAnimation.js','../animations/LinearAnimation.js','../game/CampoBello.js','../game/Area.js',
        '../game/Piece.js', '../scenario/GamingHouse.js','../scenario/GamingRoom.js', '../scenario/GamingKidsRoom.js',
-       '../marker/GameMarker.js', '../marker/Timer.js',
+       '../marker/Timer.js',
 main=function()
 {
 	// Standard application, scene and interface setup

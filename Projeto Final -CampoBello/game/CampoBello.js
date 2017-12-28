@@ -94,6 +94,8 @@ function CampoBello(scene,gameMode) {
   this.currentPlayer=PLAYER1_ID;
   this.numberOfLoops=0;
   this.actualOrigin;
+  this.numberOfPiecesPlayer1=0;
+  this.numberOfPiecesPlayer2=0;
   this.game();
 };
 
@@ -458,6 +460,7 @@ var stateToReturn;
 
   if(pieceOrigin.typeOfPiece==pieceDestiny.typeOfPiece){
     if(this.currentPlayer==PLAYER1_ID){
+      this.numberOfPiecesPlayer1++;
       if(this.actualGridAreaP1==18)
       this.actualGridAreaP1=0;
     var coordinates=[
@@ -468,6 +471,7 @@ var stateToReturn;
     this.actualGridAreaP1++;
     }
     else {
+      this.numberOfPiecesPlayer2++;
       if(this.actualGridAreaP2==18)
       this.actualGridAreaP2=0;
       console.log('actual',this.actualGridAreaP2);
@@ -500,7 +504,8 @@ var stateToReturn;
     }
     else{
 
-      if(this.currentPlayer==PLAYER2_ID){
+      if(this.currentPlayer==PLAYER1_ID){
+      this.numberOfPiecesPlayer1++;
       var coordinates=[
         {'x':this.gridAreaPlayer1[this.actualGridAreaP1].x,
         'y':this.gridAreaPlayer1[this.actualGridAreaP1].y,
@@ -509,6 +514,7 @@ var stateToReturn;
       this.actualGridAreaP1++;
       }
       else {
+        this.numberOfPiecesPlayer2++;
         var coordinates=[
           {'x':this.gridAreaPlayer2[this.actualGridAreaP2].x,
           'y':this.gridAreaPlayer2[this.actualGridAreaP2].y,

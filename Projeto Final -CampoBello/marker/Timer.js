@@ -11,7 +11,7 @@ function Timer(scene) {
 
 	this.initialTime = 0;
   this.deltaTime = 0;
-	this.resFinal;
+	this.resFinalDozens;
 };
 
 Timer.prototype = Object.create(CGFobject.prototype);
@@ -44,8 +44,6 @@ Timer.prototype.update = function(current_time){
 		var res3 = Math.floor(res2);
 		var res4 = (res2%1);
 
-		console.log("this.resFinal", res, res2, res3);
-
 		if(res < 10){
 			this.resFinalUnits = res;
 			this.resFinalDozens = 0;
@@ -56,7 +54,8 @@ Timer.prototype.update = function(current_time){
 			this.resFinalUnits = Math.floor(Math.round(res4*10));
 		}
 
-
+		this.scene.graph.nodes.pointsPlayerX.textureID = this.scene.CampoBello.numberOfPiecesPlayer1.toString();
+		this.scene.graph.nodes.pointsPlayerY.textureID = this.scene.CampoBello.numberOfPiecesPlayer2.toString();
 		this.getTime(this.resFinalUnits.toString(), this.resFinalDozens.toString());
 
 }

@@ -118,8 +118,8 @@
       <amplif_factor s="2" t="2" />
     </TEXTURE>
 
-    <TEXTURE id="papel">
-      <file path="images/papel.jpg" />
+    <TEXTURE id="paper">
+      <file path="images/paper.png" />
       <amplif_factor s="2" t="2" />
     </TEXTURE>
 
@@ -185,8 +185,12 @@
         <NODEREF id="chair2" />
         <NODEREF id="leg"/>
         <NODEREF id="marker"/>
+        <NODEREF id="marker_paper"/>
         <NODEREF id="timerUnits"/>
         <NODEREF id="timerDozens"/>
+        <NODEREF id="pointsPlayerX"/>
+        <NODEREF id="pointsPlayerY"/>
+
 
       </DESCENDANTS>
 
@@ -536,14 +540,31 @@
 
  </NODE>
 
- <NODE id="timerUnits">
-   <MATERIAL id="null" />
-   <TEXTURE id="papel" />
+ <NODE id="marker_paper">
+  <MATERIAL id="null" />
+  <TEXTURE id="paper" />
 
   <ROTATION axis="y" angle="70"/>
-  <ROTATION axis="x" angle="-15"/>
-  <SCALE sx="1" sy="1" sz="1" />
-  <TRANSLATION x="-8.5" y="6" z="9.7" />
+  <ROTATION axis="x" angle="-20"/>
+  <SCALE sx="2.3" sy="1.3" sz="2.3" />
+  <TRANSLATION x="-4.7" y="3.6" z="4.5" />
+
+
+  <DESCENDANTS>
+   <LEAF  type="rectangle" args="0 2 2 0" />
+  </DESCENDANTS>
+
+ </NODE>
+
+
+ <NODE id="timerUnits">
+   <MATERIAL id="null" />
+   <TEXTURE id="null" />
+
+  <ROTATION axis="y" angle="70"/>
+  <ROTATION axis="x" angle="-20"/>
+  <SCALE sx="0.5" sy="0.5" sz="0.5" />
+  <TRANSLATION x="-14.5" y="12.5" z="20.8" />
 
    <DESCENDANTS>
      <LEAF  type="rectangle" args="0 2 2 0" />
@@ -553,12 +574,42 @@
 
  <NODE id="timerDozens">
    <MATERIAL id="null" />
-   <TEXTURE id="papel" />
+   <TEXTURE id="null" />
 
   <ROTATION axis="y" angle="70"/>
-  <ROTATION axis="x" angle="-15"/>
-  <SCALE sx="1" sy="1" sz="1" />
-  <TRANSLATION x="-10.5" y="6" z="9.7" />
+  <ROTATION axis="x" angle="-20"/>
+  <SCALE sx="0.5" sy="0.5" sz="0.5" />
+  <TRANSLATION x="-16.5" y="12.5" z="20.8" />
+
+   <DESCENDANTS>
+     <LEAF  type="rectangle" args="0 2 2 0" />
+   </DESCENDANTS>
+
+ </NODE>
+
+ <NODE id="pointsPlayerX">
+   <MATERIAL id="null" />
+   <TEXTURE id="null" />
+
+  <ROTATION axis="y" angle="70"/>
+  <ROTATION axis="x" angle="-20"/>
+  <SCALE sx="0.35" sy="0.35" sz="0.35" />
+  <TRANSLATION x="-30" y="14" z="30" />
+
+   <DESCENDANTS>
+     <LEAF  type="rectangle" args="0 2 2 0" />
+   </DESCENDANTS>
+
+ </NODE>
+
+ <NODE id="pointsPlayerY">
+   <MATERIAL id="null" />
+   <TEXTURE id="null" />
+
+  <ROTATION axis="y" angle="70"/>
+  <ROTATION axis="x" angle="-20"/>
+  <SCALE sx="0.35" sy="0.35" sz="0.35" />
+  <TRANSLATION x="-20.5" y="14" z="30" />
 
    <DESCENDANTS>
      <LEAF  type="rectangle" args="0 2 2 0" />
