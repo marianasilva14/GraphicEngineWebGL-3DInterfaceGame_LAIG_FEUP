@@ -426,26 +426,19 @@ if_then_else(LengthOfFinalList==0,fail,true).
 
 %Predicate that checks if is the end of the game
 endGame(Board) :-
-    write('BOARD'),write(Board),nl,
   listOfPiecesThatHasPossibleMoveX(FinalList,Board),
-  	eliminatePieceOnList(FinalList,FinalList4),
-  write('aqui1'),
-length(FinalList4,LengthOfFinalList),
-write('aqui2'),
-listOfPiecesThatHasPossibleMoveY(FinalList2,Board),
-  write('aqui3'),
-eliminatePieceOnList(FinalList2,FinalList3),
-length(FinalList3,LengthOfFinalList2),
-  write('aqui4'),
-(if_then_else(checkIfExistsPiecesY(Board),fail,true);
-if_then_else(checkIfExistsPiecesX(Board),fail,true);
-if_then_else(LengthOfFinalList==0,true,fail);
-if_then_else(LengthOfFinalList2==0,true,fail)),
-write('FIIM').
+  eliminatePieceOnList(FinalList,FinalList4),
+  length(FinalList4,LengthOfFinalList),
+  listOfPiecesThatHasPossibleMoveY(FinalList2,Board),
+  eliminatePieceOnList(FinalList2,FinalList3),
+  length(FinalList3,LengthOfFinalList2),
+  (if_then_else(checkIfExistsPiecesY(Board),fail,true);
+  if_then_else(checkIfExistsPiecesX(Board),fail,true);
+  if_then_else(LengthOfFinalList==0,true,fail);
+  if_then_else(LengthOfFinalList2==0,true,fail)).
 
 checkEndGame(Board,Value):-
-  write('cheguei aqui'),
-		if_then_else(endGame(Board),(write('aqui'),Value is 1),(write('aqui2'),Value is 0)),
+		if_then_else(endGame(Board),(Value is 1),(Value is 0)),
     write(Value).
 
 %Predicate that calculates the points of each player

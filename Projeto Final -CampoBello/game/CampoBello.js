@@ -140,17 +140,16 @@ CampoBello.prototype.getInitialBoard=function(state){
 CampoBello.prototype.checkEndGame=function(state){
   var this_t=this;
   this_t.currentState=this.state.WAITING_FOR_ANOTHER_BOARD;
-  console.log('entrei aquiii');
+
   getPrologRequest(
     "checkEndGame("+JSON.stringify(this_t.board)+")",
     function(data){
       var info=JSON.parse(data.target.response);
-      console.log('info',info);
       if(info==1){
-      //  this_t.checkWinner();
+      this_t.checkWinner();
       }
       else{
-        console.log('entrei no else');
+
         this_t.currentState=state;
         this_t.game();
       }
@@ -372,9 +371,9 @@ CampoBello.prototype.choosePieceToRemovePC=function(){
         var coordinates=[
           {'x':this_t.gridAreaPlayer2[this_t.actualGridAreaP2].x,
           'y':this_t.gridAreaPlayer2[this_t.actualGridAreaP2].y,
-          'z':this_t.gridAreaPlayer2[this.actualGridAreaP2].z}
+          'z':this_t.gridAreaPlayer2[this_t.actualGridAreaP2].z}
         ];
-        this.actualGridAreaP2++;
+        this_t.actualGridAreaP2++;
         }
 
       var cpointsDestiny=new Array();
@@ -411,6 +410,7 @@ CampoBello.prototype.choosePieceToRemovePC=function(){
     piece.y=coordinates[0].y;
     piece.z=coordinates[0].z;
   }
+
   this_t.currentState=this_t.state.MOVEMENT_PC;
   this_t.game();
     });
@@ -519,7 +519,7 @@ var stateToReturn;
       this.createPieceAnimation(pieceOrigin,pieceDestiny,coordinates);
       this.addInfo(pieceOrigin,pieceDestiny,coordinates);
       this.setCoordinates(pieceOrigin,pieceDestiny,coordinates);
-      console.log('state',stateToReturn);
+
       return stateToReturn;
 }
 
@@ -616,7 +616,6 @@ CampoBello.prototype.validateMove=function(pieceOrigin,pieceDestiny){
       var info=JSON.parse(data.target.response);
       if(info.length!=0){
         this_t.board=info;
-        console.log('aquiii');
           state=this_t.gameCycle(pieceOrigin,pieceDestiny);
 
         }
@@ -673,7 +672,6 @@ CampoBello.prototype.game = function(){
     else{
       this.checkEndGame(this.state.MOVEMENT_PC);
     }
-    console.log('entrei');
     break;
     default:
   }

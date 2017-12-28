@@ -207,11 +207,11 @@ parse_input(pcRemovePiece(Board,Player),[]).
 
 parse_input(checkEndGame(Board),Value):-
 		boardToNumbers(TmpBoard,Board),
-		write('passei'),
 		checkEndGame(TmpBoard,Value),
 		write(Value).
 
 
 parse_input(getWinner(Board),Winner):-
-	calculatePoints(Board,PointsX,PointsY),
-	if_then_else(PointsX@>PointsY,(Winner is 2,write('The winner is PlayerY')),(Winner is 1,write('The winner is PlayerX'))).
+	boardToNumbers(TmpBoard,Board),
+	calculatePoints(TmpBoard,PointsX,PointsY),
+	if_then_else(PointsX@>PointsY,(Winner is 2),(Winner is 1)).

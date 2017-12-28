@@ -26,10 +26,6 @@ Timer.prototype.getTime = function(nameTexture){
 
 this.scene.graph.nodes.timer.textureID = nameTexture;
 
-console.log('nodes2',this.scene.graph.nodes.timer.textureID);
-console.log('nodes3',this.scene.graph.textures);
-
-
 }
 
 Timer.prototype.update = function(current_time){
@@ -41,14 +37,10 @@ Timer.prototype.update = function(current_time){
 	else
 		this.deltaTime=current_time2-this.initialTime;
 
-		console.log('delta_time do timer', this.deltaTime);
-
 		var res = Math.floor(this.deltaTime);
 		var res2 = (res/10);
 		var res3 = (res2%1);
 		this.resFinal = Math.floor(Math.round(res3*10));
-		console.log("res2", res2);
-		console.log("resFinal",  res, res2, res3, this.resFinal);
 
 		if(this.resFinal == 0)
 			this.getTime("zero");
