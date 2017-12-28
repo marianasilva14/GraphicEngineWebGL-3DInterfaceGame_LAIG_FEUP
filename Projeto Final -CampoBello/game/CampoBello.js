@@ -140,15 +140,17 @@ CampoBello.prototype.getInitialBoard=function(state){
 CampoBello.prototype.checkEndGame=function(state){
   var this_t=this;
   this_t.currentState=this.state.WAITING_FOR_ANOTHER_BOARD;
-
+  console.log('entrei aquiii');
   getPrologRequest(
-    "endGame("+JSON.stringify(this_t.board)+")",
+    "checkEndGame("+JSON.stringify(this_t.board)+")",
     function(data){
       var info=JSON.parse(data.target.response);
+      console.log('info',info);
       if(info==1){
-        this_t.checkWinner();
+      //  this_t.checkWinner();
       }
       else{
+        console.log('entrei no else');
         this_t.currentState=state;
         this_t.game();
       }
@@ -160,7 +162,7 @@ CampoBello.prototype.checkWinner=function(){
   this_t.currentState=this.state.WAITING_FOR_ANOTHER_BOARD;
 
   getPrologRequest(
-    "checkWinner("+JSON.stringify(this_t.board)+")",
+    "getWinner("+JSON.stringify(this_t.board)+")",
     function(data){
       var info=JSON.parse(data.target.response);
 
@@ -450,7 +452,7 @@ CampoBello.prototype.movementPC=function(){
       });
 
 }
-CampoBello.prototype.gameCycle=function(pieceOrigin,pieceDestiny,state){
+CampoBello.prototype.gameCycle=function(pieceOrigin,pieceDestiny){
 var stateToReturn;
 
   if(pieceOrigin.typeOfPiece==pieceDestiny.typeOfPiece){
@@ -517,7 +519,7 @@ var stateToReturn;
       this.createPieceAnimation(pieceOrigin,pieceDestiny,coordinates);
       this.addInfo(pieceOrigin,pieceDestiny,coordinates);
       this.setCoordinates(pieceOrigin,pieceDestiny,coordinates);
-
+      console.log('state',stateToReturn);
       return stateToReturn;
 }
 
@@ -614,7 +616,7 @@ CampoBello.prototype.validateMove=function(pieceOrigin,pieceDestiny){
       var info=JSON.parse(data.target.response);
       if(info.length!=0){
         this_t.board=info;
-
+        console.log('aquiii');
           state=this_t.gameCycle(pieceOrigin,pieceDestiny);
 
         }
@@ -666,11 +668,12 @@ CampoBello.prototype.game = function(){
       break;
     case this.state.CHECK_END_GAME:
     if(this.gameMode==XMLscene.gameMode.PLAYER_VS_PLAYER){
-      this.endGame(this.state.CHOOSE_ORIGIN);
+      this.checkEndGame(this.state.CHOOSE_ORIGIN);
     }
     else{
-      this.endGame(this.state.MOVEMENT_PC);
+      this.checkEndGame(this.state.MOVEMENT_PC);
     }
+    console.log('entrei');
     break;
     default:
   }

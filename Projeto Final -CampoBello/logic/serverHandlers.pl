@@ -205,16 +205,13 @@ parse_input(pcRemovePiece(Board,Player),[PieceToRemove,BoardOut]):-
 
 parse_input(pcRemovePiece(Board,Player),[]).
 
-parse_input(endGame(Board),[Value]):-
+parse_input(checkEndGame(Board),Value):-
 		boardToNumbers(TmpBoard,Board),
-		endGame(Tmpboard),
-		Value is 1.
+		write('passei'),
+		checkEndGame(TmpBoard,Value),
+		write(Value).
 
-parse_input(endGame(Board),[Value]):-
-		boardToNumbers(TmpBoard,Board),
-		\+endGame(Tmpboard),
-		Value is 0.
 
-parse_input(checkWinner(Board),[Winner]):-
+parse_input(getWinner(Board),Winner):-
 	calculatePoints(Board,PointsX,PointsY),
 	if_then_else(PointsX@>PointsY,(Winner is 2,write('The winner is PlayerY')),(Winner is 1,write('The winner is PlayerX'))).
