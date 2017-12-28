@@ -234,9 +234,13 @@ set_level(Level):-
   transformArea('areaY1',2).
   transformArea('areaY2',3).
 
+  eliminatePieceOnList(List,ListOut):-
+    member(5-5,List),
+    select(5-5,List,ListOut).
 
   eliminatePieceOnList(List,ListOut):-
-    subtract([5-5],List,ListOut).
+    \+member(5-5,List),
+    ListOut=List.
 
 %Predicate copying one board to another
 duplicate(_Old,_New):-fail.

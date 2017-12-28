@@ -129,7 +129,7 @@ CampoBello.prototype.getInitialBoard=function(state){
   this_t.currentState=this.state.WAITING_FOR_ANOTHER_BOARD;
 
   getPrologRequest('initialBoard',function(data){
-    console.log(data.target.response);
+
     this_t.board=JSON.parse(data.target.response);
     this_t.currentState=state;
     this_t.game();
@@ -161,7 +161,6 @@ for(var i=0; i < this.areas.length;i++){
     for(var j=1; j< this.areas[i].pieces.length;j++){
       if(this.areas[i].pieces[j].positionOnBoard==pickingId){
         var piece=this.areas[i].pieces[j];
-        console.log('pecas visiveis',piece);
         return piece;
       }
     }
@@ -171,7 +170,6 @@ for(var i=0; i < this.areas.length;i++){
     for(var j=1; j< this.areas[i].piecesInvisible.length;j++){
       if(this.areas[i].piecesInvisible[j].pickingId==pickingId){
         var piece=this.areas[i].piecesInvisible[j];
-        console.log('pecas visiveis',piece);
         return piece;
       }
     }
@@ -190,7 +188,7 @@ CampoBello.prototype.createPieceAnimation=function(pieceOrigin,pieceDestiny,coor
   var x=(pieceDestiny.x-pieceOrigin.x)/2;
   var y=(pieceDestiny.y-pieceOrigin.y)/2;
   var z=(pieceDestiny.z-pieceOrigin.z)/2;
-  console.log('xyz',x,y,z);
+
   cpointsOrigin[0][0][0]=pieceOrigin.x;
   cpointsOrigin[0][0][1]=pieceOrigin.y;
   cpointsOrigin[0][0][2]=pieceOrigin.z;
@@ -244,8 +242,6 @@ CampoBello.prototype.undoMove=function(piecesUndo){
 
   var pieceOrigin= this.pieceChoosen(piecesUndo[0].pickingIdOrigin);
   var pieceDestiny=this.pieceChoosen(piecesUndo[0].pickingIdDestiny);
-
-  console.log('UNDO',pieceOrigin,pieceDestiny);
 
   var cpointsOrigin=new Array();
   cpointsOrigin[0]=new Array(4);
@@ -319,12 +315,12 @@ CampoBello.prototype.choosePieceToRemove=function(){
     });
 }
 
-CampoBello.prototype.choosePieceToRemove=function(){
+CampoBello.prototype.choosePieceToRemovePC=function(){
   var this_t=this;
 
   getPrologRequest(
     "pcRemovePiece("+JSON.stringify(this_t.board)+","+
-    JSON.stringify(this_t.currentPlayer)+","+")",
+    JSON.stringify(this_t.currentPlayer)+")",
     function(data){
       var info=JSON.parse(data.target.response);
       if(info.length!=0){
@@ -385,9 +381,16 @@ CampoBello.prototype.choosePieceToRemove=function(){
   }
     });
 }
-
+function pausecomp(millis)
+{
+    var date = new Date();
+    var curDate = null;
+    do { curDate = new Date(); }
+    while(curDate-date < millis);
+}
 CampoBello.prototype.movementPC=function(){
     var this_t=this;
+    var state;
 
     getPrologRequest(
       "pcMove("+JSON.stringify(this_t.board)+","+
@@ -401,15 +404,23 @@ CampoBello.prototype.movementPC=function(){
         var pieceOrigin= this_t.pieceChoosen(info[2]);
         var pieceDestiny=this_t.pieceChoosen(info[1]);
 
-        this_t.gameCycle(pieceOrigin,pieceDestiny);
-
-        this_t.currentState=this_t.state.MOVEMENT_PC;
-       this_t.game();
+        state=this_t.gameCycle(pieceOrigin,pieceDestiny,this_t.state.MOVEMENT_PC);
       }
+      else{
+        this_t.switchPlayer();
+
+      }
+
+      pausecomp(150);
+      this_t.currentState=state;
+      this_t.game();
+
       });
 
 }
-CampoBello.prototype.gameCycle=function(pieceOrigin,pieceDestiny){
+CampoBello.prototype.gameCycle=function(pieceOrigin,pieceDestiny,state){
+var stateToReturn;
+
   if(pieceOrigin.typeOfPiece==pieceDestiny.typeOfPiece){
     if(this.currentPlayer==PLAYER1_ID){
     var coordinates=[
@@ -429,6 +440,7 @@ CampoBello.prototype.gameCycle=function(pieceOrigin,pieceDestiny){
       }
 
       this.switchPlayer();
+      stateToReturn=state;
     }
     else if(pieceDestiny.typeOfPiece==NO_PIECE){
       var coordinates=[];
@@ -439,7 +451,7 @@ CampoBello.prototype.gameCycle=function(pieceOrigin,pieceDestiny){
         this.numberOfLoops=0;
         this.switchPlayer();
       }
-
+      stateToReturn=state;
     }
     else{
 
@@ -460,7 +472,7 @@ CampoBello.prototype.gameCycle=function(pieceOrigin,pieceDestiny){
         this.actualGridAreaP2++;
         }
 
-        this.currentState=this.state.REMOVE_PIECE;
+        stateToReturn=this.state.REMOVE_PIECE;
         this.switchPlayer();
         if(this.currentPlayer==PLAYER1_ID)
         pieceDestiny.setTypeOfPiece(PIECEX);
@@ -471,10 +483,10 @@ CampoBello.prototype.gameCycle=function(pieceOrigin,pieceDestiny){
       }
 
       this.createPieceAnimation(pieceOrigin,pieceDestiny,coordinates);
-      console.log('pieceDestiny',pieceDestiny);
       this.addInfo(pieceOrigin,pieceDestiny,coordinates);
       this.setCoordinates(pieceOrigin,pieceDestiny,coordinates);
 
+      return stateToReturn;
 }
 
 CampoBello.prototype.setCoordinates=function(origin,destiny,coordinates){
@@ -540,29 +552,27 @@ CampoBello.prototype.switchPlayer=function(){
       this.currentPlayer=PLAYER2_ID;
 
       this.scene.animcam.setFinalPoint(vec3.fromValues(12, 11.5, 7));
-      console.log('entrou no if, mudou de camara');
     }
 
   else{
     this.currentPlayer=PLAYER1_ID;
       this.scene.animcam.setFinalPoint(vec3.fromValues(5, 10, 14));
-    console.log('entrou no else, mudou de camara');
   }
 
 }
 
 CampoBello.prototype.validateMove=function(pieceOrigin,pieceDestiny){
-  console.log('entrei no validate Move');
   var this_t=this;
   var areaOriginPiece=this_t.areaPiece(pieceOrigin.positionOnBoard);
-  console.log('Destiny',pieceDestiny);
+  var state;
+
   if(pieceDestiny.typeOfPiece==NO_PIECE){
     var idDestiny=pieceDestiny.pickingId;
   }
   else{
     var idDestiny=pieceDestiny.positionOnBoard;
   }
-      console.log('this_t.board',this_t.board);
+
   getPrologRequest(
     "validateGame("+JSON.stringify(this_t.board)+","+
     JSON.stringify(pieceOrigin.positionOnBoard)+","+
@@ -573,13 +583,14 @@ CampoBello.prototype.validateMove=function(pieceOrigin,pieceDestiny){
       if(info.length!=0){
         this_t.board=info;
 
-          this_t.gameCycle(pieceOrigin,pieceDestiny);
+          state= this_t.gameCycle(pieceOrigin,pieceDestiny,this_t.state.CHOOSE_ORIGIN);
 
         }
 
           this_t.scene.selectObjectOrigin=0;
           this_t.scene.selectObjectDestiny=0;
-          this_t.currentState=this_t.state.CHOOSE_ORIGIN;
+
+          this_t.currentState=state;
           this_t.game();
 
     });
