@@ -61,9 +61,6 @@ Timer.prototype.update = function(current_time){
 		var unitsPlayer1 = Math.floor(numPiecesPlayer1 / 10);
 		var unitsPlayer2 = Math.floor(numPiecesPlayer2 / 10);
 
-		console.log("points Player1", numPiecesPlayer1, dozensPlayer1, unitsPlayer1);
-		console.log("points Player2", numPiecesPlayer2, dozensPlayer2, unitsPlayer2);
-
 
 		if(this.scene.CampoBello.numberOfPiecesPlayer1 < 10){
 			this.scene.graph.nodes.pointsPlayerXUnits.textureID = "0";
