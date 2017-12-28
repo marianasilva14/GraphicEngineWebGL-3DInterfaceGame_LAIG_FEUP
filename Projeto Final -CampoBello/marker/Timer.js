@@ -11,6 +11,7 @@ function Timer(scene) {
 
 	this.initialTime = 0;
   this.deltaTime = 0;
+	this.resFinal;
 };
 
 Timer.prototype = Object.create(CGFobject.prototype);
@@ -25,6 +26,10 @@ Timer.prototype.getTime = function(nameTexture){
 
 this.scene.graph.nodes.timer.textureID = nameTexture;
 
+console.log('nodes2',this.scene.graph.nodes.timer.textureID);
+console.log('nodes3',this.scene.graph.textures);
+
+
 }
 
 Timer.prototype.update = function(current_time){
@@ -36,26 +41,35 @@ Timer.prototype.update = function(current_time){
 	else
 		this.deltaTime=current_time2-this.initialTime;
 
-		var res = Math.floor(this.deltaTime);
+		console.log('delta_time do timer', this.deltaTime);
 
-		if(res == 0)
+		var res = Math.floor(this.deltaTime);
+		var res2 = (res/10);
+		var res3 = (res2%1);
+		this.resFinal = Math.floor(Math.round(res3*10));
+		console.log("res2", res2);
+		console.log("resFinal",  res, res2, res3, this.resFinal);
+
+		if(this.resFinal == 0)
 			this.getTime("zero");
-		else if(res == 1)
+		else if(this.resFinal == 1)
 			this.getTime("one");
-		else if(res == 2)
+		else if(this.resFinal == 2)
 			this.getTime("two");
-		else if(res == 3)
+		else if(this.resFinal == 3)
 			this.getTime("three");
-		else if(res == 4)
+		else if(this.resFinal == 4)
 			this.getTime("four");
-		else if(res == 5)
+		else if(this.resFinal == 5)
 			this.getTime("five");
-		else if(res == 6)
+		else if(this.resFinal == 6)
 			this.getTime("six");
-		else if(res == 7)
+		else if(this.resFinal == 7)
 			this.getTime("seven");
-		else if(res == 8)
+		else if(this.resFinal == 8)
 			this.getTime("eight");
-		else
+		else{
 			this.getTime("nine");
+		}
+
 }
