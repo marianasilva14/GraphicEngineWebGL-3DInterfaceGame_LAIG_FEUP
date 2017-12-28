@@ -188,9 +188,10 @@
         <NODEREF id="marker_paper"/>
         <NODEREF id="timerUnits"/>
         <NODEREF id="timerDozens"/>
-        <NODEREF id="pointsPlayerX"/>
-        <NODEREF id="pointsPlayerY"/>
-
+        <NODEREF id="pointsPlayerXUnits"/>
+        <NODEREF id="pointsPlayerXDozens"/>
+        <NODEREF id="pointsPlayerYUnits"/>
+        <NODEREF id="pointsPlayerYDozens"/>
 
       </DESCENDANTS>
 
@@ -587,7 +588,7 @@
 
  </NODE>
 
- <NODE id="pointsPlayerX">
+ <NODE id="pointsPlayerXUnits">
    <MATERIAL id="null" />
    <TEXTURE id="null" />
 
@@ -602,7 +603,37 @@
 
  </NODE>
 
- <NODE id="pointsPlayerY">
+ <NODE id="pointsPlayerXDozens">
+   <MATERIAL id="null" />
+   <TEXTURE id="null" />
+
+  <ROTATION axis="y" angle="70"/>
+  <ROTATION axis="x" angle="-20"/>
+  <SCALE sx="0.35" sy="0.35" sz="0.35" />
+  <TRANSLATION x="-28" y="14" z="30" />
+
+   <DESCENDANTS>
+     <LEAF  type="rectangle" args="0 2 2 0" />
+   </DESCENDANTS>
+
+ </NODE>
+
+ <NODE id="pointsPlayerYUnits">
+   <MATERIAL id="null" />
+   <TEXTURE id="null" />
+
+  <ROTATION axis="y" angle="70"/>
+  <ROTATION axis="x" angle="-20"/>
+  <SCALE sx="0.35" sy="0.35" sz="0.35" />
+  <TRANSLATION x="-22.5" y="14" z="30" />
+
+   <DESCENDANTS>
+     <LEAF  type="rectangle" args="0 2 2 0" />
+   </DESCENDANTS>
+
+ </NODE>
+
+ <NODE id="pointsPlayerYDozens">
    <MATERIAL id="null" />
    <TEXTURE id="null" />
 

@@ -54,8 +54,33 @@ Timer.prototype.update = function(current_time){
 			this.resFinalUnits = Math.floor(Math.round(res4*10));
 		}
 
-		this.scene.graph.nodes.pointsPlayerX.textureID = this.scene.CampoBello.numberOfPiecesPlayer1.toString();
-		this.scene.graph.nodes.pointsPlayerY.textureID = this.scene.CampoBello.numberOfPiecesPlayer2.toString();
+		var numPiecesPlayer1 = this.scene.CampoBello.numberOfPiecesPlayer1;
+		var numPiecesPlayer2 = this.scene.CampoBello.numberOfPiecesPlayer2;
+		var dozensPlayer1 = Math.floor((numPiecesPlayer1 % 1)*10);
+		var dozensPlayer2 = Math.floor((numPiecesPlayer2 % 1)*10);
+		var unitsPlayer1 = Math.floor(numPiecesPlayer1 / 10);
+		var unitsPlayer2 = Math.floor(numPiecesPlayer2 / 10);
+
+
+		if(this.scene.CampoBello.numberOfPiecesPlayer1 < 10){
+			this.scene.graph.nodes.pointsPlayerXUnits.textureID = "0";
+			this.scene.graph.nodes.pointsPlayerXDozens.textureID = numPiecesPlayer1.toString();
+		}
+
+		else{
+			this.scene.graph.nodes.pointsPlayerXUnits.textureID = unitsPlayer1.toString();
+			this.scene.graph.nodes.pointsPlayerXDozens.textureID = dozensPlayer1.toString();
+		}
+
+		if(this.scene.CampoBello.numberOfPiecesPlayer2 < 10){
+			this.scene.graph.nodes.pointsPlayerYUnits.textureID = "0";
+			this.scene.graph.nodes.pointsPlayerYDozens.textureID = numPiecesPlayer2.toString();
+		}
+
+		else{
+			this.scene.graph.nodes.pointsPlayerYUnits.textureID = unitsPlayer2.toString();
+			this.scene.graph.nodes.pointsPlayerYDozens.textureID = dozensPlayer2.toString();
+		}
 		this.getTime(this.resFinalUnits.toString(), this.resFinalDozens.toString());
 
 }

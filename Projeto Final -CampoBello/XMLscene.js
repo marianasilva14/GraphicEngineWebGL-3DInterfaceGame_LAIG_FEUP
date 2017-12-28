@@ -80,20 +80,20 @@ XMLscene.prototype.setScenarioGamingKidsRoom = function() {
 * Starts a game
 */
 XMLscene.prototype.setStartGame = function() {
+  this.timer.initialTime=0;
+  this.timer.deltaTime=0;
+
   if(this.CampoBello.gameMode == 0)
     this.CampoBello= new CampoBello(this,XMLscene.gameMode.PLAYER_VS_PLAYER);
   else
     this.CampoBello= new CampoBello(this,XMLscene.gameMode.PC_VS_PC);
 
 };
-/**
-* Continues a game
-*/
-XMLscene.prototype.continueGame = function() {
-/*  if(this.CampoBello.gameMode == XMLscene.gameMode.MOVIE){
-    this.CampoBello = this.oldGame;
-  }*/
-}
+
+XMLscene.prototype.viewMovie = function() {
+  console.log('aqui');
+};
+
 
 /**
 * Undos a play
