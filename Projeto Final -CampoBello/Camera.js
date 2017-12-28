@@ -18,10 +18,6 @@ function Camera(camera, speed, finalPoint){
   (Math.pow(this.distance[2], 2)));
 
   this.totalTime = this.lengthDistance/this.speed;
-  console.log('totalTime', this.totalTime);
-  console.log('lengthDistance', this.lengthDistance);
-  console.log('this.startPoint', this.startPoint);
-  console.log('this.distance', this.distance);
 }
 
 //Camera.prototype = Object.create(Camera.prototype);
@@ -53,15 +49,9 @@ Camera.prototype.update = function (current_time) {
     else
       this.deltaTime=current_time2-this.initialTime;
 
-    console.log('current_time2', current_time2);
-    console.log('this.totalTime', this.totalTime);
-    console.log('deltaTime', this.deltaTime);
-    console.log('time distance', this.distance);
     this.distanceAux = [((this.deltaTime * this.distance[0]) / this.totalTime),
                     ((this.deltaTime * this.distance[1]) / this.totalTime),
                     ((this.deltaTime * this.distance[2]) / this.totalTime)];
-
-    console.log('this.distanceAux',this.distanceAux);
 
 
     this.lengthStartPoint = Math.sqrt((Math.pow(this.startPoint[0], 2)) + (Math.pow(this.startPoint[1], 2)) +
@@ -69,7 +59,6 @@ Camera.prototype.update = function (current_time) {
 
     this.distanceAuxFinal = [(this.startPoint[0] + this.distanceAux[0]), (this.startPoint[1] + this.distanceAux[1]),
                             (this.startPoint[2] + this.distanceAux[2])];
-    console.log('this.distanceAuxFinal', this.distanceAuxFinal);
 
     this.moveToFinalPoint(this.distanceAuxFinal);
 

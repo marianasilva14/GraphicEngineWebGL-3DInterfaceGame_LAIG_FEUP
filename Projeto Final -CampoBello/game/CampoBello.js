@@ -319,6 +319,73 @@ CampoBello.prototype.choosePieceToRemove=function(){
     });
 }
 
+CampoBello.prototype.choosePieceToRemove=function(){
+  var this_t=this;
+
+  getPrologRequest(
+    "pcRemovePiece("+JSON.stringify(this_t.board)+","+
+    JSON.stringify(this_t.currentPlayer)+","+")",
+    function(data){
+      var info=JSON.parse(data.target.response);
+      if(info.length!=0){
+      this_t.board=info[1];
+
+      var piece=this_t.pieceChoosen(info[0]);
+
+      if(this_t.currentPlayer==PLAYER1_ID){
+      var coordinates=[
+        {'x':this_t.gridAreaPlayer1[this_t.actualGridAreaP1].x,
+        'y':this_t.gridAreaPlayer1[this_t.actualGridAreaP1].y,
+        'z':this_t.gridAreaPlayer1[this_t.actualGridAreaP1].z}
+      ];
+      this_t.actualGridAreaP1++;
+      }
+      else {
+        var coordinates=[
+          {'x':this_t.gridAreaPlayer2[this_t.actualGridAreaP2].x,
+          'y':this_t.gridAreaPlayer2[this_t.actualGridAreaP2].y,
+          'z':this_t.gridAreaPlayer2[this.actualGridAreaP2].z}
+        ];
+        this.actualGridAreaP2++;
+        }
+
+      var cpointsDestiny=new Array();
+      cpointsDestiny[0]=new Array(4);
+      for(var k=0; k < 4;k++){
+        cpointsDestiny[0][k]=new Array();
+      }
+
+    var x2=(coordinates[0].x-piece.x)/2;
+    var y2=(coordinates[0].y-piece.y)/2;
+    var z2=(coordinates[0].z-piece.z)/2;
+
+    cpointsDestiny[0][0][0]=piece.x;
+    cpointsDestiny[0][0][1]=piece.y;
+    cpointsDestiny[0][0][2]=piece.z;
+
+    cpointsDestiny[0][1][0]=piece.x+x2;
+    cpointsDestiny[0][1][1]=piece.y+(2*y2);
+    cpointsDestiny[0][1][2]=piece.z+z2;
+
+    cpointsDestiny[0][2][0]=piece.x+(2*x2);
+    cpointsDestiny[0][2][1]=piece.y+(3*y2);
+    cpointsDestiny[0][2][2]=piece.z+(2*z2);
+
+    cpointsDestiny[0][3][0]=coordinates[0].x;
+    cpointsDestiny[0][3][1]=coordinates[0].y;
+    cpointsDestiny[0][3][2]=coordinates[0].z;
+
+    var animation = new LinearAnimation(this.scene,3,cpointsDestiny,6);
+    piece.animation=animation;
+    piece.animationFinished=false;
+
+    piece.x=coordinates[0].x;
+    piece.y=coordinates[0].y;
+    piece.z=coordinates[0].z;
+  }
+    });
+}
+
 CampoBello.prototype.movementPC=function(){
     var this_t=this;
 
@@ -337,7 +404,7 @@ CampoBello.prototype.movementPC=function(){
         this_t.gameCycle(pieceOrigin,pieceDestiny);
 
         this_t.currentState=this_t.state.MOVEMENT_PC;
-      //  this_t.game();
+       this_t.game();
       }
       });
 
@@ -512,11 +579,8 @@ CampoBello.prototype.validateMove=function(pieceOrigin,pieceDestiny){
 
           this_t.scene.selectObjectOrigin=0;
           this_t.scene.selectObjectDestiny=0;
-
-
-
-      this_t.currentState=this_t.state.CHOOSE_ORIGIN;
-      this_t.game();
+          this_t.currentState=this_t.state.CHOOSE_ORIGIN;
+          this_t.game();
 
     });
   }
@@ -548,7 +612,11 @@ CampoBello.prototype.game = function(){
     this.movementPC();
     break;
     case this.state.REMOVE_PIECE:
+    if(this.gameMode==XMLscene.gameMode.PLAYER_VS_PLAYER)
     this.choosePieceToRemove();
+    else{
+      this.choosePieceToRemovePC();
+    }
       break;
     case this.state.OTHER_MOVE:
 
