@@ -154,6 +154,7 @@ CampoBello.prototype.getInitialBoard=function(state){
   * @param state state to return
 */
 CampoBello.prototype.checkEndGame=function(state){
+  console.log('currentState',this.currentState);
   var this_t=this;
   this_t.currentState=this.state.WAITING_FOR_ANOTHER_BOARD;
 
@@ -267,10 +268,10 @@ CampoBello.prototype.createPieceAnimation=function(pieceOrigin,pieceDestiny,coor
   cpointsOrigin[0][0][1]=pieceOrigin.y;
   cpointsOrigin[0][0][2]=pieceOrigin.z;
   cpointsOrigin[0][1][0]=pieceOrigin.x+x;
-  cpointsOrigin[0][1][1]=pieceOrigin.y+y;
+  cpointsOrigin[0][1][1]=40;
   cpointsOrigin[0][1][2]=pieceOrigin.z+z;
   cpointsOrigin[0][2][0]=pieceOrigin.x+(2*x);
-  cpointsOrigin[0][2][1]=pieceOrigin.y+(2*y);
+  cpointsOrigin[0][2][1]=40;
   cpointsOrigin[0][2][2]=pieceOrigin.z+(2*z);
   cpointsOrigin[0][3][0]=pieceDestiny.x;
   cpointsOrigin[0][3][1]=pieceDestiny.y;
@@ -299,11 +300,11 @@ cpointsDestiny[0][0][1]=pieceDestiny.y;
 cpointsDestiny[0][0][2]=pieceDestiny.z;
 
 cpointsDestiny[0][1][0]=pieceDestiny.x+x2;
-cpointsDestiny[0][1][1]=pieceDestiny.y+(2*y2);
+cpointsDestiny[0][1][1]=40;
 cpointsDestiny[0][1][2]=pieceDestiny.z+z2;
 
 cpointsDestiny[0][2][0]=pieceDestiny.x+(2*x2);
-cpointsDestiny[0][2][1]=pieceDestiny.y+(3*y2);
+cpointsDestiny[0][2][1]=40;
 cpointsDestiny[0][2][2]=pieceDestiny.z+(2*z2);
 
 cpointsDestiny[0][3][0]=coordinates[0].x;
@@ -317,6 +318,11 @@ pieceDestiny.initial_time=0;
 pieceDestiny.delta_time=0;
 }
 }
+
+/**
+  * Creates the undo animation
+  * @param piecesUndo last play information
+*/
 CampoBello.prototype.undoMove=function(piecesUndo){
 
   var pieceOrigin= this.pieceChosen(piecesUndo[0].pickingIdOrigin);
@@ -343,7 +349,7 @@ CampoBello.prototype.undoMove=function(piecesUndo){
   cpointsOrigin[0][2][0]=piecesUndo[0].NewCoordinatesOriginX+(2*x);
   cpointsOrigin[0][2][1]=piecesUndo[0].NewCoordinatesOriginY+(2*y);
   cpointsOrigin[0][2][2]=piecesUndo[0].NewCoordinatesOriginZ+(2*z);
-  
+
   cpointsOrigin[0][3][0]=piecesUndo[0].coordinatesOriginX;
   cpointsOrigin[0][3][1]=piecesUndo[0].coordinatesOriginY;
   cpointsOrigin[0][3][2]=piecesUndo[0].coordinatesOriginZ;
