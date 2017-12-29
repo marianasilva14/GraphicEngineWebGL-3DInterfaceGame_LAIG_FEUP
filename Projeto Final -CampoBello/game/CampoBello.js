@@ -97,7 +97,7 @@ function CampoBello(scene,gameMode) {
   this.actualOrigin;
   this.numberOfPiecesPlayer1=0;
   this.numberOfPiecesPlayer2=0;
-  this.winner1 = false;
+  this.winner = [];
   this.game();
 };
 
@@ -149,7 +149,7 @@ CampoBello.prototype.checkEndGame=function(state){
     function(data){
       var info=JSON.parse(data.target.response);
       if(info==1){
-      this_t.checkWinner();
+        this_t.checkWinner();
       }
       else{
         this_t.currentState=state;
@@ -168,9 +168,9 @@ CampoBello.prototype.checkWinner=function(){
       var info=JSON.parse(data.target.response);
 
     if(data.target.response == 1)
-        this.winner1 = true;
+        this_t.winner.push(1);
     else
-      this.winner1 = false;
+        this_t.winner.push(2);
 
 
     });
@@ -358,9 +358,70 @@ CampoBello.prototype.choosePieceToRemove=function(){
 
   getPrologRequest(
     "removePiece("+JSON.stringify(this_t.board)+","+
-    JSON.stringify(this_t.scene.selectObjectOrigin)+","+
+    JSON.stringify(this_t.scene.pieceToRemove)+","+
     JSON.stringify(this_t.currentPlayer)+")",
     function(data){
+      info=JSON.parse(data.target.response);
+
+      if(info.length!=0){
+        this_t.board=info;
+        var piece=this_t.pieceChoosen(this_t.scene.pieceToRemove);
+
+        if(this_t.currentPlayer==PLAYER1_ID){
+        var coordinates=[
+          {'x':this_t.gridAreaPlayer1[this_t.actualGridAreaP1].x,
+          'y':this_t.gridAreaPlayer1[this_t.actualGridAreaP1].y,
+          'z':this_t.gridAreaPlayer1[this_t.actualGridAreaP1].z}
+        ];
+        this_t.actualGridAreaP1++;
+        }
+        else {
+          var coordinates=[
+            {'x':this_t.gridAreaPlayer2[this_t.actualGridAreaP2].x,
+            'y':this_t.gridAreaPlayer2[this_t.actualGridAreaP2].y,
+            'z':this_t.gridAreaPlayer2[this_t.actualGridAreaP2].z}
+          ];
+          this_t.actualGridAreaP2++;
+          }
+
+        var cpointsDestiny=new Array();
+        cpointsDestiny[0]=new Array(4);
+        for(var k=0; k < 4;k++){
+          cpointsDestiny[0][k]=new Array();
+        }
+
+      var x2=(coordinates[0].x-piece.x)/2;
+      var y2=(coordinates[0].y-piece.y)/2;
+      var z2=(coordinates[0].z-piece.z)/2;
+
+      cpointsDestiny[0][0][0]=piece.x;
+      cpointsDestiny[0][0][1]=piece.y;
+      cpointsDestiny[0][0][2]=piece.z;
+
+      cpointsDestiny[0][1][0]=piece.x+x2;
+      cpointsDestiny[0][1][1]=piece.y+(2*y2);
+      cpointsDestiny[0][1][2]=piece.z+z2;
+
+      cpointsDestiny[0][2][0]=piece.x+(2*x2);
+      cpointsDestiny[0][2][1]=piece.y+(3*y2);
+      cpointsDestiny[0][2][2]=piece.z+(2*z2);
+
+      cpointsDestiny[0][3][0]=coordinates[0].x;
+      cpointsDestiny[0][3][1]=coordinates[0].y;
+      cpointsDestiny[0][3][2]=coordinates[0].z;
+
+      var animation = new LinearAnimation(this.scene,3,cpointsDestiny,6);
+      piece.animation=animation;
+      piece.animationFinished=false;
+
+      piece.x=coordinates[0].x;
+      piece.y=coordinates[0].y;
+      piece.z=coordinates[0].z;
+      }
+
+      this_t.switchPlayer();
+      this_t.currentState=this_t.state.CHECK_END_GAME;
+      this_t.game();
     });
 }
 
@@ -428,8 +489,8 @@ CampoBello.prototype.choosePieceToRemovePC=function(){
     piece.y=coordinates[0].y;
     piece.z=coordinates[0].z;
   }
-
-  this_t.currentState=this_t.state.MOVEMENT_PC;
+  this_t.switchPlayer();
+  this_t.currentState=this_t.state.CHECK_END_GAME;
   this_t.game();
     });
 }
@@ -441,27 +502,6 @@ function pausecomp(millis)
     while(curDate-date < millis);
 }
 
-
-CampoBello.prototype.checkPossibleMoves=function(pieceOrigin){
-  var this_t=this;
-  var state;
-  getPrologRequest(
-    "checkPossibleMoves("+JSON.stringify(this_t.board)+","+
-    JSON.stringify(pieceOrigin)+")",
-    function(data){
-      var info=JSON.parse(data.target.response);
-
-      if(info==0){
-        this_t.currentState= this_t.state.CHECK_END_GAME;
-        this_t.switchPlayer();
-      }
-      else{
-        this_t.currentState= this_t.state.ANOTHER_MOVE;
-      }
-
-        this_t.game();
-    });
-}
 CampoBello.prototype.movementPC=function(){
     var this_t=this;
     var state;
@@ -485,7 +525,7 @@ CampoBello.prototype.movementPC=function(){
         state=this_t.state.MOVEMENT_PC;
       }
 
-      pausecomp(150);
+//      pausecomp(150);
       this_t.currentState=state;
       this_t.game();
 
@@ -528,8 +568,8 @@ var stateToReturn;
         this.numberOfLoops++;
 
         this.actualOrigin=pieceOrigin;
-        this.checkPossibleMoves(pieceOrigin.positionOnBoard);
-        console.log('stateToReturn',this.currentState);
+
+        stateToReturn=this.state.ANOTHER_MOVE;
       }
       else{
         this.numberOfLoops=0;
@@ -540,7 +580,7 @@ var stateToReturn;
     }
     else{
 
-      if(this.currentPlayer==PLAYER1_ID){
+      if(this.currentPlayer==PLAYER2_ID){
       this.numberOfPiecesPlayer1++;
       var coordinates=[
         {'x':this.gridAreaPlayer1[this.actualGridAreaP1].x,
@@ -560,7 +600,6 @@ var stateToReturn;
         }
 
         stateToReturn=this.state.REMOVE_PIECE;
-        this.switchPlayer();
         if(this.currentPlayer==PLAYER1_ID)
         pieceDestiny.setTypeOfPiece(PIECEX);
         else {
@@ -648,6 +687,9 @@ CampoBello.prototype.switchPlayer=function(){
       this.scene.animcam.setFinalPoint(vec3.fromValues(5, 10, 14));
   }
 
+  console.log('Its your turn player',this.currentPlayer);
+  console.log('Choose your pieces!');
+
 }
 
 CampoBello.prototype.validateMove=function(pieceOrigin,pieceDestiny){
@@ -704,20 +746,16 @@ CampoBello.prototype.game = function(){
     case this.state.CHOOSE_DESTINY:
     break;
     case this.state.VALID_MOVEMENT:
-    console.log('Its your turn player',this.currentPlayer);
-    console.log('Choose your pieces!');
     var pieceOrigin= this.pieceChoosen(this.scene.selectObjectOrigin);
     var pieceDestiny=this.pieceChoosen(this.scene.selectObjectDestiny);
     this.validateMove(pieceOrigin,pieceDestiny);
     break;
     case this.state.MOVEMENT_PC:
-    console.log('Its your turn player',this.currentPlayer);
     this.movementPC();
     break;
     case this.state.REMOVE_PIECE:
-    if(this.gameMode==XMLscene.gameMode.PLAYER_VS_PLAYER)
-    this.choosePieceToRemove();
-    else{
+    console.log('Choose a piece to remove!');
+    if(this.gameMode==XMLscene.gameMode.PC_VS_PC){
       this.choosePieceToRemovePC();
     }
       break;

@@ -83,10 +83,17 @@ Timer.prototype.update = function(current_time){
 		}
 
 
-		if(this.scene.CampoBello.winner1)
-			this.scene.graph.nodes.winner.textureID = "winnerPlayer1";
-		else
+		if(this.scene.CampoBello.winner.length!=0){
+			if(this.scene.CampoBello.winner[0]==1){
+				this.scene.graph.nodes.winner.textureID = "winnerPlayer1";
+			}
+			else{
 			this.scene.graph.nodes.winner.textureID = "winnerPlayer2";
+		}
+		}
+		else{
+			this.scene.graph.nodes.winner.textureID = "paper";
+		}
 
 
 

@@ -363,7 +363,7 @@ this.updateScaleFactor(current_time);
 this.animcam.update(current_time);
 this.timer.update(current_time);
 
-if(this.timer.resFinalDozens>0){
+if(this.timer.resFinalDozens>2){
   this.timer.initialTime=0;
   this.timer.deltaTime=0;
   this.CampoBello.switchPlayer();
@@ -384,7 +384,6 @@ XMLscene.prototype.logPicking = function ()
 					console.log("Picked object: " + obj + ", with pick id " + customId);
           switch (this.CampoBello.currentState) {
             case this.CampoBello.state.CHOOSE_ORIGIN:
-            if(this.selectObjectOrigin==0 && this.selectObjectDestiny==0){
             if(this.CampoBello.currentPlayer==PLAYER1_ID){
               if(this.CampoBello.piecesPlayer1.indexOf(customId)!=-1 || this.CampoBello.noPieces.indexOf(customId)!=-1){
                 this.selectObjectOrigin=customId;
@@ -397,7 +396,6 @@ XMLscene.prototype.logPicking = function ()
                 this.CampoBello.currentState=this.CampoBello.state.CHOOSE_DESTINY;
               }
             }
-            }
               break;
             case this.CampoBello.state.CHOOSE_DESTINY:
             this.selectObjectDestiny=customId;
@@ -408,10 +406,8 @@ XMLscene.prototype.logPicking = function ()
             this.CampoBello.choosePieceToRemove();
             break;
             case this.CampoBello.state.ANOTHER_MOVE:
-            console.log('CHEGUEI');
             this.anotherMove=customId;
             var pieceDestiny=this.CampoBello.pieceChoosen(this.anotherMove);
-            console.log('PIECE',pieceDestiny);
             this.CampoBello.validateMove(this.CampoBello.actualOrigin,pieceDestiny);
             break;
             default:
