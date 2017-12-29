@@ -205,6 +205,26 @@ parse_input(pcRemovePiece(Board,Player),[PieceToRemove,BoardOut]):-
 
 parse_input(pcRemovePiece(Board,Player),[]).
 
+parse_input(checkPossibleMoves(Board,Piece),Value):-
+	boardToNumbers(TmpBoard,Board),
+	transformToCoordinates(RowSource,ColSource,Piece),
+	areaOfPiece(RowSource,ColSource,Area),
+	listOfValidDestinyMove(List,RowSource,ColSource,Area,TmpBoard),
+	eliminatePieceOnList(List,List2),
+	length(List2,LengthOfList2),
+	LengthOfList2\=0,
+	Value=1.
+
+parse_input(checkPossibleMoves(Board,Piece),Value):-
+	boardToNumbers(TmpBoard,Board),
+	transformToCoordinates(RowSource,ColSource,Piece),
+	areaOfPiece(RowSource,ColSource,Area),
+	listOfValidDestinyMove(List,RowSource,ColSource,Area,TmpBoard),
+	eliminatePieceOnList(List,List2),
+	length(List2,LengthOfList2),
+	LengthOfList2==0,
+	Value=0.
+
 parse_input(checkEndGame(Board),Value):-
 		boardToNumbers(TmpBoard,Board),
 		checkEndGame(TmpBoard,Value),
