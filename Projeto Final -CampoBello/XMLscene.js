@@ -91,7 +91,7 @@ XMLscene.prototype.setStartGame = function() {
   * Game movie
 */
 XMLscene.prototype.viewMovie = function() {
-  console.log('aqui');
+  this.CampoBello.viewMovie();
 };
 
 
