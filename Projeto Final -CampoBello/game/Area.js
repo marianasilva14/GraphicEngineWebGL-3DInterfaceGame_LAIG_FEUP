@@ -9,7 +9,12 @@ const PIECE8_ID =8;
 const PIECE9_ID =9;
 const PIECE10_ID =10;
 
-
+/**
+ * Area represents one triangle in the board. Each area has 9 pieces initially
+ * @param idPlayer player ID
+ * @param id area ID
+ * @constructor
+ */
 function Area(scene,idPlayer,id) {
  	 CGFobject.call(this,scene);
 
@@ -54,7 +59,7 @@ function Area(scene,idPlayer,id) {
   this.piecesInvisible[10]=new Piece(scene,idPlayer,lastID,NO_PIECE,false);
 
 
- //coordenadas pecas
+ //pieces coordinates
  if(id==0){
     var piecesAux=[
    {'x':8, 'y':38.5, 'z':27.7},
@@ -162,6 +167,7 @@ var piecesInvisibleAux=[
   {'x':35, 'y':38.5, 'z':25.5},
   {'x':36.5, 'y':38.5, 'z':30},
   {'x':30.5, 'y':38.5, 'z':24.5},
+  {'x':32, 'y':38.5, 'z':29},
   {'x':28, 'y':38.5, 'z':28}
 ];
 }
@@ -178,7 +184,6 @@ var piecesInvisibleAux=[
     this.piecesInvisible[i+1].z=piecesInvisibleAux[i].z;
    }
 
-   console.log('invisible',this.piecesInvisible[10]);
  for(var i=1; i<= 9;i++){
     mat4.translate(this.pieces[i].transformMatrix,this.pieces[i].origin,[this.pieces[i].x,this.pieces[i].y,this.pieces[i].z]);
     mat4.translate(this.piecesInvisible[i].transformMatrix,this.piecesInvisible[i].origin,[this.piecesInvisible[i].x,this.piecesInvisible[i].y,this.piecesInvisible[i].z]);
@@ -190,6 +195,9 @@ var piecesInvisibleAux=[
 Area.prototype = Object.create(CGFobject.prototype);
 Area.prototype.constructor = Area;
 
+/*
+  * Displays the pieces
+*/
 Area.prototype.display= function(){
 
 if(this.scene.pickMode){

@@ -407,7 +407,7 @@ XMLscene.prototype.logPicking = function ()
             break;
             case this.CampoBello.state.ANOTHER_MOVE:
             this.anotherMove=customId;
-            var pieceDestiny=this.CampoBello.pieceChoosen(this.anotherMove);
+            var pieceDestiny=this.CampoBello.pieceChosen(this.anotherMove);
             this.CampoBello.validateMove(this.CampoBello.actualOrigin,pieceDestiny);
             break;
             default:

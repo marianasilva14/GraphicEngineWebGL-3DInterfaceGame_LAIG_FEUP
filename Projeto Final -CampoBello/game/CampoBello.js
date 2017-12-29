@@ -1,6 +1,3 @@
-/**
-* CampoBello
-*/
 const PLAYER1_ID = 1;
 const PLAYER2_ID = 2;
 
@@ -14,6 +11,11 @@ const PIECEX=1;
 const PIECEY=2;
 const NO_PIECE=3;
 
+/**
+ * CampoBello represents the game and all its features
+ * @param gameMode game mode
+ * @constructor
+ */
 function CampoBello(scene,gameMode) {
   CGFobject.call(this,scene);
 
@@ -104,6 +106,9 @@ function CampoBello(scene,gameMode) {
 CampoBello.prototype = Object.create(CGFobject.prototype);
 CampoBello.prototype.constructor = CampoBello;
 
+/**
+  * Displays areas
+*/
 CampoBello.prototype.display=function(){
   for(var i=0; i <= 3; i++){
   this.scene.pushMatrix();
@@ -127,6 +132,10 @@ function getPrologRequest(requestString, onSuccess, onError, port)
   request.send();
 }
 
+/**
+  * Receives from the prolog the initial board
+  * @param  state state to return
+*/
 CampoBello.prototype.getInitialBoard=function(state){
   var this_t=this;
   this_t.currentState=this.state.WAITING_FOR_ANOTHER_BOARD;
@@ -140,6 +149,10 @@ CampoBello.prototype.getInitialBoard=function(state){
   });
 }
 
+/**
+  * Check if is the end of the game. If yes, check the winner, if not continue the game
+  * @param state state to return
+*/
 CampoBello.prototype.checkEndGame=function(state){
   var this_t=this;
   this_t.currentState=this.state.WAITING_FOR_ANOTHER_BOARD;
@@ -158,6 +171,9 @@ CampoBello.prototype.checkEndGame=function(state){
     });
 }
 
+/**
+  * Check the winner of the game
+*/
 CampoBello.prototype.checkWinner=function(){
   var this_t=this;
   this_t.currentState=this.state.WAITING_FOR_ANOTHER_BOARD;
@@ -176,6 +192,9 @@ CampoBello.prototype.checkWinner=function(){
     });
 }
 
+/**
+  * Validates the piece destination and calls the next state
+*/
 CampoBello.prototype.chooseDestiny=function(){
   if(this.scene.selectObjectDestiny!=0){
     this.currentState=this.state.VALID_MOVEMENT;
@@ -184,6 +203,11 @@ CampoBello.prototype.chooseDestiny=function(){
 
 }
 
+/**
+  * Check which is the area of the piece
+  * @param idPiece piece id
+  * @return id area
+*/
 CampoBello.prototype.areaPiece=function(idPiece) {
   for(var i=0; i< this.areas.length;i++){
     for(var j=1; j < this.areas[i].pieces.length;j++){
@@ -194,7 +218,12 @@ CampoBello.prototype.areaPiece=function(idPiece) {
   }
 }
 
-CampoBello.prototype.pieceChoosen=function(pickingId){
+/**
+  * Returns the piece choosen
+  * @param pickingId piece pickingId
+  * @return piece
+*/
+CampoBello.prototype.pieceChosen=function(pickingId){
 
 for(var i=0; i < this.areas.length;i++){
     for(var j=1; j< this.areas[i].pieces.length;j++){
@@ -215,6 +244,12 @@ for(var i=0; i < this.areas.length;i++){
 }
 }
 
+/**
+  * Creates the animation of the movement of the pieces
+  * @param pieceOrigin origin piece
+  * @param pieceDestiny destiny piece
+  * @param coordinates destiny of the piece coordinates
+*/
 CampoBello.prototype.createPieceAnimation=function(pieceOrigin,pieceDestiny,coordinates){
   this.currentState=this.state.UPDATE_ANIMATION;
 
@@ -284,78 +319,82 @@ pieceDestiny.delta_time=0;
 }
 CampoBello.prototype.undoMove=function(piecesUndo){
 
-  var pieceOrigin= this.pieceChoosen(piecesUndo[0].positionOnBoard);
-  var pieceDestiny=this.pieceChoosen(piecesUndo[0].pickingIdDestiny);
+  var pieceOrigin= this.pieceChosen(piecesUndo[0].pickingIdOrigin);
+  var pieceDestiny=this.pieceChosen(piecesUndo[0].pickingIdDestiny);
 
-  var cpointsOrigin=new Array();
-  cpointsOrigin[0]=new Array(4);
-  for(var k=0; k < 4;k++){
-    cpointsOrigin[0][k]=new Array();
-  }
-
-  var x=(piecesUndo[0].NewCoordinatesOriginX-piecesUndo[0].coordinatesOriginX)/3;
-  var y=(piecesUndo[0].NewCoordinatesOriginY-piecesUndo[0].coordinatesOriginY)/3;
-  var z=(piecesUndo[0].NewCoordinatesOriginZ-piecesUndo[0].coordinatesOriginZ)/3;
-
-  cpointsOrigin[0][0][0]=piecesUndo[0].NewCoordinatesOriginX;
-  cpointsOrigin[0][0][1]=piecesUndo[0].NewCoordinatesOriginY;
-  cpointsOrigin[0][0][2]=piecesUndo[0].NewCoordinatesOriginZ;
-  cpointsOrigin[0][1][0]=piecesUndo[0].NewCoordinatesOriginX+x;
-  cpointsOrigin[0][1][1]=piecesUndo[0].NewCoordinatesOriginY+y;
-  cpointsOrigin[0][1][2]=piecesUndo[0].NewCoordinatesOriginZ+z;
-  cpointsOrigin[0][2][0]=piecesUndo[0].NewCoordinatesOriginX+(2*x);
-  cpointsOrigin[0][2][1]=piecesUndo[0].NewCoordinatesOriginY+(2*y);
-  cpointsOrigin[0][2][2]=piecesUndo[0].NewCoordinatesOriginZ+(2*z);
-  cpointsOrigin[0][3][0]=piecesUndo[0].coordinatesOriginX;
-  cpointsOrigin[0][3][1]=piecesUndo[0].coordinatesOriginY;
-  cpointsOrigin[0][3][2]=piecesUndo[0].coordinatesOriginZ;
-
-  var animation = new BezierAnimation(this.scene,3,cpointsOrigin,6);
-  console.log('cpointsOrigin', cpointsOrigin);
-  pieceOrigin.animation=animation;
-  pieceOrigin.animationFinished=false;
-  pieceOrigin.initial_time=0;
-  pieceOrigin.delta_time=0;
+    var cpointsOrigin=new Array();
+    cpointsOrigin[0]=new Array(4);
+    for(var k=0; k < 4;k++){
+      cpointsOrigin[0][k]=new Array();
+    }
 
 
-  var cpointsDestiny=new Array();
-  cpointsDestiny[0]=new Array(4);
-  for(var k=0; k < 4;k++){
-    cpointsDestiny[0][k]=new Array();
-  }
+    var x2=(piecesUndo[0].NewCoordinatesDestinyX-piecesUndo[0].coordinatesDestinyX)/3;
+    var y2=(piecesUndo[0].NewCoordinatesDestinyY-piecesUndo[0].coordinatesDestinyY)/3;
+    var z2=(piecesUndo[0].NewCoordinatesDestinyZ-piecesUndo[0].coordinatesDestinyZ)/3;
+
+    cpointsOrigin[0][0][0]=piecesUndo[0].NewCoordinatesDestinyX;
+    cpointsOrigin[0][0][1]=piecesUndo[0].NewCoordinatesDestinyY;
+    cpointsOrigin[0][0][2]=piecesUndo[0].NewCoordinatesDestinyZ;
+
+    cpointsOrigin[0][1][0]=piecesUndo[0].coordinatesDestinyX+(2*x2);
+    cpointsOrigin[0][1][1]=piecesUndo[0].coordinatesDestinyY+(3*y2);
+    cpointsOrigin[0][1][2]=piecesUndo[0].coordinatesDestinyZ+(2*z2);
+
+    cpointsOrigin[0][2][0]=piecesUndo[0].coordinatesDestinyX+x2;
+    cpointsOrigin[0][2][1]=piecesUndo[0].coordinatesDestinyY+(2*y2);
+    cpointsOrigin[0][2][2]=piecesUndo[0].coordinatesDestinyZ+z2;
+
+    cpointsOrigin[0][3][0]=piecesUndo[0].coordinatesDestinyX;
+    cpointsOrigin[0][3][1]=piecesUndo[0].coordinatesDestinyY;
+    cpointsOrigin[0][3][2]=piecesUndo[0].coordinatesDestinyZ;
+
+    var animation = new BezierAnimation(this.scene,3,cpointsOrigin,2);
+
+    pieceOrigin.animation=animation;
+    pieceOrigin.animationFinished=false;
+    pieceOrigin.initial_time=0;
+    pieceOrigin.delta_time=0;
 
 
-var x2=(piecesUndo[0].NewCoordinatesDestinyX-piecesUndo[0].coordinatesDestinyX)/3;
-var y2=(piecesUndo[0].NewCoordinatesDestinyY-piecesUndo[0].coordinatesDestinyY)/3;
-var z2=(piecesUndo[0].NewCoordinatesDestinyZ-piecesUndo[0].coordinatesDestinyZ)/3;
-
-cpointsDestiny[0][0][0]=piecesUndo[0].NewCoordinatesDestinyX;
-cpointsDestiny[0][0][1]=piecesUndo[0].NewCoordinatesDestinyY;
-cpointsDestiny[0][0][2]=piecesUndo[0].NewCoordinatesDestinyZ;
-
-cpointsDestiny[0][1][0]=piecesUndo[0].NewCoordinatesDestinyX+x2;
-cpointsDestiny[0][1][1]=piecesUndo[0].NewCoordinatesDestinyY+(2*y2);
-cpointsDestiny[0][1][2]=piecesUndo[0].NewCoordinatesDestinyZ+z2;
-
-cpointsDestiny[0][2][0]=piecesUndo[0].NewCoordinatesDestinyX+(2*x2);
-cpointsDestiny[0][2][1]=piecesUndo[0].NewCoordinatesDestinyY+(3*y2);
-cpointsDestiny[0][2][2]=piecesUndo[0].NewCoordinatesDestinyZ+(2*z2);
-
-cpointsDestiny[0][3][0]=piecesUndo[0].coordinatesDestinyX;
-cpointsDestiny[0][3][1]=piecesUndo[0].coordinatesDestinyY;
-cpointsDestiny[0][3][2]=piecesUndo[0].coordinatesDestinyZ;
+    var cpointsDestiny=new Array();
+    cpointsDestiny[0]=new Array(4);
+    for(var k=0; k < 4;k++){
+      cpointsDestiny[0][k]=new Array();
+    }
 
 
-var animation = new LinearAnimation(this.scene,3,cpointsDestiny,6);
-console.log('cpointsDestiny', cpointsDestiny);
+    var x=(piecesUndo[0].NewCoordinatesOriginX-piecesUndo[0].coordinatesOriginX)/3;
+    var y=(piecesUndo[0].NewCoordinatesOriginY-piecesUndo[0].coordinatesOriginY)/3;
+    var z=(piecesUndo[0].NewCoordinatesOriginZ-piecesUndo[0].coordinatesOriginZ)/3;
 
-pieceDestiny.animation=animation;
-pieceDestiny.animationFinished=false;
-pieceDestiny.initial_time=0;
-pieceDestiny.delta_time=0;
+  cpointsDestiny[0][0][0]=piecesUndo[0].NewCoordinatesOriginX;
+  cpointsDestiny[0][0][1]=piecesUndo[0].NewCoordinatesOriginY;
+  cpointsDestiny[0][0][2]=piecesUndo[0].NewCoordinatesOriginZ;
+
+  cpointsDestiny[0][2][0]=piecesUndo[0].coordinatesOriginX+x;
+  cpointsDestiny[0][2][1]=piecesUndo[0].coordinatesOriginY+y;
+  cpointsDestiny[0][2][2]=piecesUndo[0].coordinatesOriginZ+z;
+
+  cpointsDestiny[0][1][0]=piecesUndo[0].coordinatesOriginX+(2*x);
+  cpointsDestiny[0][1][1]=piecesUndo[0].coordinatesOriginY+(2*y);
+  cpointsDestiny[0][1][2]=piecesUndo[0].coordinatesOriginZ+(2*z);
+
+  cpointsDestiny[0][3][0]=piecesUndo[0].coordinatesOriginX;
+  cpointsDestiny[0][3][1]=piecesUndo[0].coordinatesOriginY;
+  cpointsDestiny[0][3][2]=piecesUndo[0].coordinatesOriginZ;
+
+  var animation = new LinearAnimation(this.scene,3,cpointsDestiny,6);
+
+  pieceDestiny.animation=animation;
+  pieceDestiny.animationFinished=false;
+  pieceDestiny.initial_time=0;
+  pieceDestiny.delta_time=0;
 }
 
-
+/**
+  * Choose a piece to remove
+*/
 CampoBello.prototype.choosePieceToRemove=function(){
   var this_t=this;
 
@@ -369,7 +408,7 @@ CampoBello.prototype.choosePieceToRemove=function(){
       if(info.length!=0){
 
         this_t.board=info;
-        var piece=this_t.pieceChoosen(this_t.scene.pieceToRemove);
+        var piece=this_t.pieceChosen(this_t.scene.pieceToRemove);
 
         if(this_t.currentPlayer==PLAYER1_ID){
         var coordinates=[
@@ -429,6 +468,9 @@ CampoBello.prototype.choosePieceToRemove=function(){
     });
 }
 
+/**
+  * Pc choose a piece to remove
+*/
 CampoBello.prototype.choosePieceToRemovePC=function(){
   var this_t=this;
 
@@ -440,7 +482,7 @@ CampoBello.prototype.choosePieceToRemovePC=function(){
       if(info.length!=0){
       this_t.board=info[1];
 
-      var piece=this_t.pieceChoosen(info[0]);
+      var piece=this_t.pieceChosen(info[0]);
 
       if(this_t.currentPlayer==PLAYER1_ID){
       var coordinates=[
@@ -498,6 +540,7 @@ CampoBello.prototype.choosePieceToRemovePC=function(){
   this_t.game();
     });
 }
+
 function pausecomp(millis)
 {
     var date = new Date();
@@ -506,6 +549,9 @@ function pausecomp(millis)
     while(curDate-date < millis);
 }
 
+/**
+  * Pc choose the movement of the pieces
+*/
 CampoBello.prototype.movementPC=function(){
     var this_t=this;
     var state;
@@ -519,8 +565,8 @@ CampoBello.prototype.movementPC=function(){
         if(info.length!=0){
         this_t.board=info[0];
 
-        var pieceOrigin= this_t.pieceChoosen(info[2]);
-        var pieceDestiny=this_t.pieceChoosen(info[1]);
+        var pieceOrigin= this_t.pieceChosen(info[2]);
+        var pieceDestiny=this_t.pieceChosen(info[1]);
 
         state=this_t.gameCycle(pieceOrigin,pieceDestiny);
       }
@@ -536,6 +582,13 @@ CampoBello.prototype.movementPC=function(){
       });
 
 }
+
+/**
+  * Game cycle
+  * @param pieceOrigin origin piece
+  * @param pieceDestiny destiny piece
+  * @return the next state
+*/
 CampoBello.prototype.gameCycle=function(pieceOrigin,pieceDestiny){
 var stateToReturn;
 
@@ -619,6 +672,12 @@ var stateToReturn;
       return stateToReturn;
 }
 
+/**
+  * Set coordinates of the piece and the position on board
+  * @param origin origin piece
+  * @param destiny destiny piece
+  * @param coordinates destiny piece coordinates
+*/
 CampoBello.prototype.setCoordinates=function(origin,destiny,coordinates){
 
   origin.x=destiny.x;
@@ -633,6 +692,12 @@ CampoBello.prototype.setCoordinates=function(origin,destiny,coordinates){
 
 }
 
+/**
+  * Adds the information of the plays
+  * @param origin origin piece
+  * @param destiny destiny piece
+  * @param coordinates destiny piece coordinates
+*/
 CampoBello.prototype.addInfo=function(origin,destiny,coordinates){
   if(coordinates.length!=0){
   var addInfo=[
@@ -649,7 +714,7 @@ CampoBello.prototype.addInfo=function(origin,destiny,coordinates){
    'NewCoordinatesDestinyX':coordinates[0].x,
    'NewCoordinatesDestinyY':coordinates[0].y,
    'NewCoordinatesDestinyZ':coordinates[0].z,
-   'pickingIdDestiny':destiny.getPickingID(),
+   'pickingIdDestiny':destiny.getPickingID()-100,
    'lastBoard':this.board}
   ];
 }
@@ -676,12 +741,14 @@ else{
 
 }
 
+/**
+  * Switch the player and the camara
+*/
 CampoBello.prototype.switchPlayer=function(){
     this.scene.animcam.animationCameraFinished=false;
     this.scene.timer.initialTime=0;
     this.scene.timer.deltaTime=0;
 
-    console.log('currentState',this.currentState);
   if(this.currentPlayer==PLAYER1_ID){
       this.currentPlayer=PLAYER2_ID;
 
@@ -703,6 +770,11 @@ CampoBello.prototype.switchPlayer=function(){
 
 }
 
+/**
+  * Verify if the move is valid
+  * @param pieceOrigin origin piece
+  * @param pieceDestiny destiny piece
+*/
 CampoBello.prototype.validateMove=function(pieceOrigin,pieceDestiny){
   var this_t=this;
   var areaOriginPiece=this_t.areaPiece(pieceOrigin.positionOnBoard);
@@ -737,6 +809,9 @@ CampoBello.prototype.validateMove=function(pieceOrigin,pieceDestiny){
     });
   }
 
+/**
+  * Game state machine
+*/
 CampoBello.prototype.game = function(){
   switch (this.currentState) {
     case this.state.INITIAL_STATE:
@@ -757,8 +832,8 @@ CampoBello.prototype.game = function(){
     case this.state.CHOOSE_DESTINY:
     break;
     case this.state.VALID_MOVEMENT:
-    var pieceOrigin= this.pieceChoosen(this.scene.selectObjectOrigin);
-    var pieceDestiny=this.pieceChoosen(this.scene.selectObjectDestiny);
+    var pieceOrigin= this.pieceChosen(this.scene.selectObjectOrigin);
+    var pieceDestiny=this.pieceChosen(this.scene.selectObjectDestiny);
     this.validateMove(pieceOrigin,pieceDestiny);
     break;
     case this.state.MOVEMENT_PC:

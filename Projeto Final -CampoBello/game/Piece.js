@@ -1,5 +1,9 @@
 /**
 * Piece
+* @param playerID player id
+* @param pickingId piece pickingId
+* @param typeOfPiece type of the piece(PIECEX,PIECEY,NO_PIECE)
+* @param visible visibility of the piece
 * @constructor
 */
 function Piece(scene,playerID,pickingId,typeOfPiece,visible) {
@@ -54,6 +58,9 @@ this.piece = new MySphere(scene,1,20,20);
 Piece.prototype = Object.create(CGFobject.prototype);
 Piece.prototype.constructor = Piece;
 
+/**
+  * Displays the pieces
+*/
 Piece.prototype.display= function(){
 
 this.scene.pushMatrix();
@@ -76,10 +83,17 @@ this.scene.pushMatrix();
 this.scene.popMatrix();
 }
 
+/**
+  * Set type of piece
+  * @param newType new type of piece
+*/
 Piece.prototype.setTypeOfPiece=function(newType){
   this.typeOfPiece=newType;
 }
 
+/**
+  * Set the appearance of the piece
+*/
 Piece.prototype.setAppearence=function(){
   if(this.scene.scenarioNumber==2){
     if(this.typeOfPiece==1)
@@ -105,6 +119,10 @@ Piece.prototype.setAppearence=function(){
   }
 }
 
+/**
+  * Updates the animation of the piece
+  * @param current_time current time animation
+*/
 Piece.prototype.updateAnimation =function(current_time){
 
 if(this.animation==null)
@@ -124,15 +142,23 @@ return;
     }
 
 }
+/**
+  * Get pickingId
+*/
 Piece.prototype.getPickingID=function(){
   return this.pickingId;
 }
 
+/**
+  * Set pickingId
+*/
 Piece.prototype.setPickingID=function(pickingId){
   this.pickingId=pickingId;
 }
 
-
+/**
+  * Update transform matrix 
+*/
 Piece.prototype.updateTransformMatrix = function(){
     if(this.animation != null){
       this.animation.update(this.delta_time);
