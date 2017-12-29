@@ -109,8 +109,13 @@ MyInterface.prototype.modeGame = function(){
       setPcVsPc: this.scene.setPcVsPc.bind(this.scene)
   };
 
+  let PcVsPlayer = {
+      setPcVsPlayer: this.scene.setPcVsPlayer.bind(this.scene)
+  };
+
   group.add(playerVsPlayer, 'setPlayerVsPlayer').name('Player vs Player');
   group.add(PcVsPc, 'setPcVsPc').name('Pc Vs Pc');
+  group.add(PcVsPlayer, 'setPcVsPlayer').name('Pc Vs Player');
 
   group.close();
 }

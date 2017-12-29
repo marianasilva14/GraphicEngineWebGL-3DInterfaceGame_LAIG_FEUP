@@ -11,6 +11,9 @@ const PIECEX=1;
 const PIECEY=2;
 const NO_PIECE=3;
 
+const PLAYER =1;
+const PC=2;
+
 /**
  * CampoBello represents the game and all its features
  * @param gameMode game mode
@@ -100,6 +103,7 @@ function CampoBello(scene,gameMode) {
   this.numberOfPiecesPlayer1=0;
   this.numberOfPiecesPlayer2=0;
   this.winner = [];
+  this.actualPlayer=PLAYER;
   this.game();
 };
 
@@ -582,7 +586,11 @@ CampoBello.prototype.movementPC=function(){
       }
       else{
         this_t.switchPlayer();
-        state=this_t.state.MOVEMENT_PC;
+        if(this_t.gameMode==XMLscene.gameMode.PC_VS_PC)
+          state=this_t.state.MOVEMENT_PC;
+        else {
+          state=this_t.state.CHOOSE_ORIGIN;
+        }
       }
 
 //      pausecomp(150);
@@ -848,9 +856,9 @@ CampoBello.prototype.game = function(){
   switch (this.currentState) {
     case this.state.INITIAL_STATE:
     console.log('Welcome!');
-    if(this.gameMode==XMLscene.gameMode.PLAYER_VS_PLAYER){
+    if(this.gameMode==XMLscene.gameMode.PLAYER_VS_PLAYER || this.gameMode==XMLscene.gameMode.PC_VS_PLAYER){
     this.getInitialBoard(this.state.CHOOSE_ORIGIN);
-
+    this.actualPlayer=PLAYER;
     this.game();
   }
     else if(this.gameMode==XMLscene.gameMode.PC_VS_PC){
@@ -876,19 +884,38 @@ CampoBello.prototype.game = function(){
     if(this.gameMode==XMLscene.gameMode.PC_VS_PC){
       this.choosePieceToRemovePC();
     }
+    else if(this.gameMode==XMLscene.gameMode.PC_VS_PLAYER){
+      if(this.actualPlayer==PC)
+        this.choosePieceToRemovePC();
+    }
       break;
     case this.state.ANOTHER_MOVE:
+    console.log('actualPlayer',this.actualPlayer);
     console.log('Choose another destiny!');
     if(this.gameMode==XMLscene.gameMode.PC_VS_PC){
         this.checkEndGame(this.state.MOVEMENT_PC);
+    }
+    else if(this.gameMode==XMLscene.gameMode.PC_VS_PLAYER){
+      if(this.actualPlayer==PC)
+      this.checkEndGame(this.state.MOVEMENT_PC);
     }
     break;
     case this.state.CHECK_END_GAME:
     if(this.gameMode==XMLscene.gameMode.PLAYER_VS_PLAYER){
       this.checkEndGame(this.state.CHOOSE_ORIGIN);
     }
-    else{
+    else if(this.gameMode==XMLscene.gameMode.PC_VS_PC){
       this.checkEndGame(this.state.MOVEMENT_PC);
+    }
+    else{
+      if(this.actualPlayer==PLAYER){
+        this.actualPlayer=PC;
+        this.checkEndGame(this.state.MOVEMENT_PC);
+      }
+      else{
+        this.actualPlayer=PLAYER;
+        this.checkEndGame(this.state.CHOOSE_ORIGIN);
+      }
     }
     break;
     default:

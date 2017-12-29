@@ -112,7 +112,8 @@ XMLscene.prototype.undoMove = function() {
 */
 XMLscene.gameMode = {
    PLAYER_VS_PLAYER: 0,
-   PC_VS_PC:1
+   PC_VS_PC:1,
+   PC_VS_PLAYER:2
 };
 
 /**
@@ -120,7 +121,6 @@ XMLscene.gameMode = {
 */
 XMLscene.prototype.setPlayerVsPlayer = function() {
     this.CampoBello = new CampoBello(this, XMLscene.gameMode.PLAYER_VS_PLAYER);
-        console.log('estado',this.CampoBello.currentState);
 }
 
 /**
@@ -128,7 +128,13 @@ XMLscene.prototype.setPlayerVsPlayer = function() {
 */
 XMLscene.prototype.setPcVsPc = function() {
     this.CampoBello = new CampoBello(this,  XMLscene.gameMode.PC_VS_PC);
-    console.log('estado2',this.CampoBello.currentState);
+}
+
+/**
+* Set Pc vs Player
+*/
+XMLscene.prototype.setPcVsPlayer = function() {
+    this.CampoBello = new CampoBello(this,  XMLscene.gameMode.PC_VS_PLAYER);
 }
 
 /**
@@ -420,6 +426,7 @@ XMLscene.prototype.logPicking = function ()
             this.anotherMove=customId;
             var pieceDestiny=this.CampoBello.pieceChosen(this.anotherMove);
             this.CampoBello.validateMove(this.CampoBello.actualOrigin,pieceDestiny);
+
             break;
             default:
 
