@@ -416,6 +416,7 @@ XMLscene.prototype.logPicking = function ()
             this.CampoBello.choosePieceToRemove();
             break;
             case this.CampoBello.state.ANOTHER_MOVE:
+            console.log('cheguei aqui');
             this.anotherMove=customId;
             var pieceDestiny=this.CampoBello.pieceChosen(this.anotherMove);
             this.CampoBello.validateMove(this.CampoBello.actualOrigin,pieceDestiny);

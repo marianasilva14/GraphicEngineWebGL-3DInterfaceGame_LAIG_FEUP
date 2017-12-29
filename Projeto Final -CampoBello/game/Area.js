@@ -27,13 +27,14 @@ function Area(scene,idPlayer,id) {
    for(var j=id*9+1; j < (id*9+10);j++){
 
     if(id==0 || id==1){
-     this.pieces[i]=new Piece(scene,idPlayer,j+100,PIECEX,true);
+     this.pieces[i]=new Piece(scene,idPlayer,j,PIECEX,true);
     }
      else if(id==2 || id==3){
-       this.pieces[i]=new Piece(scene,idPlayer,j+100,PIECEY,true);
+       this.pieces[i]=new Piece(scene,idPlayer,j,PIECEY,true);
      }
    i++;
   }
+
   var k=1;
   for(var j=id*9+1; j < (id*9+10);j++){
     if(id==0 || id==1){
@@ -58,6 +59,7 @@ function Area(scene,idPlayer,id) {
   }
   this.piecesInvisible[10]=new Piece(scene,idPlayer,lastID,NO_PIECE,false);
 
+  //this.pieces[10]=new Piece(scene,idPlayer,lastID,NO_PIECE,false);
 
  //pieces coordinates
  if(id==0){
