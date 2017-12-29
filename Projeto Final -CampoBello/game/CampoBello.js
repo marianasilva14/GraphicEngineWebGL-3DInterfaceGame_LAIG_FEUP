@@ -322,74 +322,75 @@ CampoBello.prototype.undoMove=function(piecesUndo){
   var pieceOrigin= this.pieceChosen(piecesUndo[0].pickingIdOrigin);
   var pieceDestiny=this.pieceChosen(piecesUndo[0].pickingIdDestiny);
 
-    var cpointsOrigin=new Array();
-    cpointsOrigin[0]=new Array(4);
-    for(var k=0; k < 4;k++){
-      cpointsOrigin[0][k]=new Array();
-    }
+  var cpointsOrigin=new Array();
+  cpointsOrigin[0]=new Array(4);
+  for(var k=0; k < 4;k++){
+    cpointsOrigin[0][k]=new Array();
+  }
+
+  var x=(piecesUndo[0].NewCoordinatesOriginX-piecesUndo[0].coordinatesOriginX)/3;
+  var y=(piecesUndo[0].NewCoordinatesOriginY-piecesUndo[0].coordinatesOriginY)/3;
+  var z=(piecesUndo[0].NewCoordinatesOriginZ-piecesUndo[0].coordinatesOriginZ)/3;
+
+  cpointsOrigin[0][0][0]=piecesUndo[0].NewCoordinatesOriginX;
+  cpointsOrigin[0][0][1]=piecesUndo[0].NewCoordinatesOriginY;
+  cpointsOrigin[0][0][2]=piecesUndo[0].NewCoordinatesOriginZ;
+
+  cpointsOrigin[0][1][0]=piecesUndo[0].NewCoordinatesOriginX+x;
+  cpointsOrigin[0][1][1]=piecesUndo[0].NewCoordinatesOriginY+y;
+  cpointsOrigin[0][1][2]=piecesUndo[0].NewCoordinatesOriginZ+z;
+
+  cpointsOrigin[0][2][0]=piecesUndo[0].NewCoordinatesOriginX+(2*x);
+  cpointsOrigin[0][2][1]=piecesUndo[0].NewCoordinatesOriginY+(2*y);
+  cpointsOrigin[0][2][2]=piecesUndo[0].NewCoordinatesOriginZ+(2*z);
+  
+  cpointsOrigin[0][3][0]=piecesUndo[0].coordinatesOriginX;
+  cpointsOrigin[0][3][1]=piecesUndo[0].coordinatesOriginY;
+  cpointsOrigin[0][3][2]=piecesUndo[0].coordinatesOriginZ;
+
+  var animation = new BezierAnimation(this.scene,3,cpointsOrigin,6);
+  console.log('cpointsOrigin', cpointsOrigin);
+  pieceOrigin.animation=animation;
+  pieceOrigin.animationFinished=false;
+  pieceOrigin.initial_time=0;
+  pieceOrigin.delta_time=0;
 
 
-    var x2=(piecesUndo[0].NewCoordinatesDestinyX-piecesUndo[0].coordinatesDestinyX)/3;
-    var y2=(piecesUndo[0].NewCoordinatesDestinyY-piecesUndo[0].coordinatesDestinyY)/3;
-    var z2=(piecesUndo[0].NewCoordinatesDestinyZ-piecesUndo[0].coordinatesDestinyZ)/3;
-
-    cpointsOrigin[0][0][0]=piecesUndo[0].NewCoordinatesDestinyX;
-    cpointsOrigin[0][0][1]=piecesUndo[0].NewCoordinatesDestinyY;
-    cpointsOrigin[0][0][2]=piecesUndo[0].NewCoordinatesDestinyZ;
-
-    cpointsOrigin[0][1][0]=piecesUndo[0].coordinatesDestinyX+(2*x2);
-    cpointsOrigin[0][1][1]=piecesUndo[0].coordinatesDestinyY+(3*y2);
-    cpointsOrigin[0][1][2]=piecesUndo[0].coordinatesDestinyZ+(2*z2);
-
-    cpointsOrigin[0][2][0]=piecesUndo[0].coordinatesDestinyX+x2;
-    cpointsOrigin[0][2][1]=piecesUndo[0].coordinatesDestinyY+(2*y2);
-    cpointsOrigin[0][2][2]=piecesUndo[0].coordinatesDestinyZ+z2;
-
-    cpointsOrigin[0][3][0]=piecesUndo[0].coordinatesDestinyX;
-    cpointsOrigin[0][3][1]=piecesUndo[0].coordinatesDestinyY;
-    cpointsOrigin[0][3][2]=piecesUndo[0].coordinatesDestinyZ;
-
-    var animation = new BezierAnimation(this.scene,3,cpointsOrigin,2);
-
-    pieceOrigin.animation=animation;
-    pieceOrigin.animationFinished=false;
-    pieceOrigin.initial_time=0;
-    pieceOrigin.delta_time=0;
+  var cpointsDestiny=new Array();
+  cpointsDestiny[0]=new Array(4);
+  for(var k=0; k < 4;k++){
+    cpointsDestiny[0][k]=new Array();
+  }
 
 
-    var cpointsDestiny=new Array();
-    cpointsDestiny[0]=new Array(4);
-    for(var k=0; k < 4;k++){
-      cpointsDestiny[0][k]=new Array();
-    }
+var x2=(piecesUndo[0].NewCoordinatesDestinyX-piecesUndo[0].coordinatesDestinyX)/3;
+var y2=(piecesUndo[0].NewCoordinatesDestinyY-piecesUndo[0].coordinatesDestinyY)/3;
+var z2=(piecesUndo[0].NewCoordinatesDestinyZ-piecesUndo[0].coordinatesDestinyZ)/3;
+
+cpointsDestiny[0][0][0]=piecesUndo[0].NewCoordinatesDestinyX;
+cpointsDestiny[0][0][1]=piecesUndo[0].NewCoordinatesDestinyY;
+cpointsDestiny[0][0][2]=piecesUndo[0].NewCoordinatesDestinyZ;
+
+cpointsDestiny[0][1][0]=piecesUndo[0].coordinatesDestinyX+(2*x2);
+cpointsDestiny[0][1][1]=piecesUndo[0].coordinatesDestinyY+(3*y2);
+cpointsDestiny[0][1][2]=piecesUndo[0].coordinatesDestinyZ+(2*z2);
+
+cpointsDestiny[0][2][0]=piecesUndo[0].coordinatesDestinyX+x2;
+cpointsDestiny[0][2][1]=piecesUndo[0].coordinatesDestinyY+(2*y2);
+cpointsDestiny[0][2][2]=piecesUndo[0].coordinatesDestinyZ+z2;
+
+cpointsDestiny[0][3][0]=piecesUndo[0].coordinatesDestinyX;
+cpointsDestiny[0][3][1]=piecesUndo[0].coordinatesDestinyY;
+cpointsDestiny[0][3][2]=piecesUndo[0].coordinatesDestinyZ;
 
 
-    var x=(piecesUndo[0].NewCoordinatesOriginX-piecesUndo[0].coordinatesOriginX)/3;
-    var y=(piecesUndo[0].NewCoordinatesOriginY-piecesUndo[0].coordinatesOriginY)/3;
-    var z=(piecesUndo[0].NewCoordinatesOriginZ-piecesUndo[0].coordinatesOriginZ)/3;
+var animation = new LinearAnimation(this.scene,3,cpointsDestiny,6);
+console.log('cpointsDestiny', cpointsDestiny);
 
-  cpointsDestiny[0][0][0]=piecesUndo[0].NewCoordinatesOriginX;
-  cpointsDestiny[0][0][1]=piecesUndo[0].NewCoordinatesOriginY;
-  cpointsDestiny[0][0][2]=piecesUndo[0].NewCoordinatesOriginZ;
-
-  cpointsDestiny[0][2][0]=piecesUndo[0].coordinatesOriginX+x;
-  cpointsDestiny[0][2][1]=piecesUndo[0].coordinatesOriginY+y;
-  cpointsDestiny[0][2][2]=piecesUndo[0].coordinatesOriginZ+z;
-
-  cpointsDestiny[0][1][0]=piecesUndo[0].coordinatesOriginX+(2*x);
-  cpointsDestiny[0][1][1]=piecesUndo[0].coordinatesOriginY+(2*y);
-  cpointsDestiny[0][1][2]=piecesUndo[0].coordinatesOriginZ+(2*z);
-
-  cpointsDestiny[0][3][0]=piecesUndo[0].coordinatesOriginX;
-  cpointsDestiny[0][3][1]=piecesUndo[0].coordinatesOriginY;
-  cpointsDestiny[0][3][2]=piecesUndo[0].coordinatesOriginZ;
-
-  var animation = new LinearAnimation(this.scene,3,cpointsDestiny,6);
-
-  pieceDestiny.animation=animation;
-  pieceDestiny.animationFinished=false;
-  pieceDestiny.initial_time=0;
-  pieceDestiny.delta_time=0;
+pieceDestiny.animation=animation;
+pieceDestiny.animationFinished=false;
+pieceDestiny.initial_time=0;
+pieceDestiny.delta_time=0;
 }
 
 /**
