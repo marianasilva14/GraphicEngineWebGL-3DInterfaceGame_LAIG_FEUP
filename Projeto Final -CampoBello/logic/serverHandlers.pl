@@ -5,14 +5,22 @@
 :-use_module(library(system)).
 :- include('campoBello.pl').
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%                                       Commands                                                  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Require your Prolog Files here
+
+% Get Initial Board
 parse_input(initialBoard,Board):-
 	set_player('playerX'),
 	set_mode_game(1),
 	initialBoard(TmpBoard),
 	boardToNumbers(TmpBoard,Board).
 
-%valid move
 
+% Validate Move
 parse_input(validateGame(Board,Source,Destiny,AreaNumber),BoardOut):-
 	boardToNumbers(TmpBoard,Board),
 	transformPiece(Source,Piece),
@@ -43,6 +51,10 @@ parse_input(validateGame(Board,Source,Destiny,AreaNumber),BoardOut):-
 	printFinalBoard(TmpBoard3),
 	boardToNumbers(TmpBoard3,BoardOut).
 
+%invalid move
+parse_input(validateGame(Board,Source,Destiny,AreaNumber),[]).
+
+% Remove piece
 parse_input(removePiece(Board,Piece,Player),BoardOut):-
 	boardToNumbers(TmpBoard,Board),
 	Player==1,
@@ -63,9 +75,7 @@ parse_input(removePiece(Board,Piece,Player),BoardOut):-
 
 parse_input(removePiece(Board,Piece,Player),[]).
 
-%invalid move
-parse_input(validateGame(Board,Source,Destiny,AreaNumber),[]).
-
+% Movement of pc
 parse_input(pcMove(Board,Player),[BoardOut,PieceDestinyAux,PieceSourceAux]):-
 	boardToNumbers(TmpBoard,Board),
   Player==1,
@@ -175,9 +185,10 @@ parse_input(pcMove(Board,Player),[BoardOut,PieceDestinyAux,PieceSourceAux]):-
 	printFinalBoard(TmpBoard3),
 	boardToNumbers(TmpBoard3,BoardOut).
 
-
+% Invalid movement
 parse_input(pcMove(Board,Player),[]).
 
+% Pc removes a piece on board
 parse_input(pcRemovePiece(Board,Player),[PieceToRemove,BoardOut]):-
 	boardToNumbers(TmpBoard,Board),
 	Player==1,
@@ -205,12 +216,13 @@ parse_input(pcRemovePiece(Board,Player),[PieceToRemove,BoardOut]):-
 
 parse_input(pcRemovePiece(Board,Player),[]).
 
+%	Check if is the end of the game
 parse_input(checkEndGame(Board),Value):-
 		boardToNumbers(TmpBoard,Board),
 		checkEndGame(TmpBoard,Value),
 		write(Value).
 
-
+% Get's the winner of the game
 parse_input(getWinner(Board),Winner):-
 	boardToNumbers(TmpBoard,Board),
 	calculatePoints(TmpBoard,PointsX,PointsY),

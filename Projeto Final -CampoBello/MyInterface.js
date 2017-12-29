@@ -45,6 +45,9 @@ MyInterface.prototype.addLightsGroup = function(lights) {
     group.close();
 }
 
+/**
+  * Adds a folder containing the possible camaras
+*/
 MyInterface.prototype.chooseCamera = function(){
   var group = this.gui.addFolder("Choose Camera");
   group.open();
@@ -63,15 +66,9 @@ MyInterface.prototype.chooseCamera = function(){
   group.close();
 }
 
-MyInterface.prototype.levelDifficulty = function(){
-
-this.gui.add(this.scene, 'level', {
-  'High Level':0,
-  'Low Level':1
-}).name('Choose level');
-
-}
-
+/**
+  * Adds a folder containing the possible scenarios
+*/
 MyInterface.prototype.scenarios = function(){
 
   var group = this.gui.addFolder("Scenario");
@@ -96,6 +93,9 @@ MyInterface.prototype.scenarios = function(){
   group.close();
 }
 
+/**
+  * Adds a folder containing the possible game mode
+*/
 MyInterface.prototype.modeGame = function(){
 
   var group = this.gui.addFolder("Mode Game");
@@ -115,6 +115,9 @@ MyInterface.prototype.modeGame = function(){
   group.close();
 }
 
+/**
+  * Adds a folder containing the game options
+*/
 MyInterface.prototype.menuOptions = function(){
 
     var group = this.gui.addFolder("Options");

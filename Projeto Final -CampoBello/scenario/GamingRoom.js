@@ -1,3 +1,7 @@
+/**
+  * GamingRoom scenario
+  * @constructor
+*/
 function GamingRoom(scene){
   this.scene = scene;
   this.reader = this.scene.reader;
@@ -49,6 +53,9 @@ function GamingRoom(scene){
 
 }
 
+/**
+  * Displays GamingRoom
+*/
 GamingRoom.prototype.display=function(){
 
   this.scene.pushMatrix();

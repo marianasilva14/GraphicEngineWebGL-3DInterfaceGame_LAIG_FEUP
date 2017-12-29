@@ -1,3 +1,7 @@
+/**
+  * GamingHouse scenario
+  * @constructor
+*/
 function GamingHouse(scene){
   this.scene = scene;
   this.reader = this.scene.reader;
@@ -49,6 +53,9 @@ function GamingHouse(scene){
 
 }
 
+/**
+  * Displays GamingHouse
+*/
 GamingHouse.prototype.display=function(){
   this.scene.pushMatrix();
   this.scene.scale(1.65,1.65,1.65);

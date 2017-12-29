@@ -4,8 +4,6 @@ var DEGREE_TO_RAD = Math.PI / 180;
  * XMLscene class, representing the scene that is to be rendered.
  * @constructor
  */
-
-
 function XMLscene(interface) {
     CGFscene.call(this);
 
@@ -90,6 +88,9 @@ XMLscene.prototype.setStartGame = function() {
 
 };
 
+/**
+  * Game movie
+*/
 XMLscene.prototype.viewMovie = function() {
   console.log('aqui');
 };
@@ -107,13 +108,16 @@ XMLscene.prototype.undoMove = function() {
 
 }
 
+/**
+  * Possible game mode
+*/
 XMLscene.gameMode = {
    PLAYER_VS_PLAYER: 0,
    PC_VS_PC:1
 };
 
 /**
-* Calls the blockade game player vs player mode
+* Set player vs player mode
 */
 XMLscene.prototype.setPlayerVsPlayer = function() {
     this.CampoBello = new CampoBello(this, XMLscene.gameMode.PLAYER_VS_PLAYER);
@@ -121,17 +125,23 @@ XMLscene.prototype.setPlayerVsPlayer = function() {
 }
 
 /**
-* Calls the blockade game player vs bot mode
+* Set Pc vs Pc
 */
 XMLscene.prototype.setPcVsPc = function() {
     this.CampoBello = new CampoBello(this,  XMLscene.gameMode.PC_VS_PC);
     console.log('estado2',this.CampoBello.currentState);
 }
 
+/**
+  * Set Camera default
+*/
 XMLscene.prototype.setCameraDefault = function() {
   this.newCamera = false;
 }
 
+/**
+  * Set new camara
+*/
 XMLscene.prototype.setNewCamera = function() {
   this.newCamera = true;
 }
@@ -371,7 +381,9 @@ if(this.timer.resFinalDozens>2){
 
 }
 
-
+/**
+  * Log picking function
+*/
 XMLscene.prototype.logPicking = function ()
 {
 	if (this.pickMode == false) {
