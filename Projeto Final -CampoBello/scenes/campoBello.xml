@@ -202,7 +202,7 @@
         <NODEREF id="pointsPlayerXDozens"/>
         <NODEREF id="pointsPlayerYUnits"/>
         <NODEREF id="pointsPlayerYDozens"/>
-        <!--<NODEREF id="winner" />-->
+        <NODEREF id="winner" />
 
 
       </DESCENDANTS>
