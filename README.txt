@@ -5,9 +5,7 @@ LAIG
 
 ###PROJECT 3
 
-![Demo](https://media.giphy.com/media/q91mbAILv0xig/giphy.gif)
-
-![Demo](https://media.giphy.com/media/7McsfJeGN4SuQ/giphy.gif)
+![](https://github.com/FranciscaCerquinho/feup-LAIG/blob/master/Projeto%20Final%20-CampoBello/screenshots/Captura%20de%20ecr%C3%A3%202017-12-29%2C%20%C3%A0s%2016.55.34.png)
 
 Game Functionalitites: 
 
