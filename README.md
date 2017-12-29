@@ -13,7 +13,7 @@ Game Functionalitites:
 
 - [x] Three different game scenarios
 - [x] Pieces Animations
-- [x] Different Game type (Player vs Player / Human vs Human) 
+- [x] Different Game type (Player vs Player / Human vs Human / Human vs Pc) 
 - [X] Illumination
 - [x] Undo functionality 
 - [X] Counter
