@@ -19,7 +19,6 @@ function XMLscene(interface) {
     this.selectObjectDestiny=0;
     this.anotherMove;
     this.pieceToRemove=0;
-    this.level=0;
     this.modeGame=0;
     this.startGame=0;
     this.continueGame=0;
@@ -166,7 +165,6 @@ XMLscene.prototype.onGraphLoaded = function()
 
     // Adds lights group.
     this.interface.addLightsGroup(this.graph.lights);
-    this.interface.levelDifficulty();
     this.interface.modeGame();
     this.interface.scenarios();
     this.interface.menuOptions();
