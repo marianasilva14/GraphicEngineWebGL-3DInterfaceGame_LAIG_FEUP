@@ -284,7 +284,7 @@ pieceDestiny.delta_time=0;
 }
 CampoBello.prototype.undoMove=function(piecesUndo){
 
-  var pieceOrigin= this.pieceChoosen(piecesUndo[0].pickingIdOrigin);
+  var pieceOrigin= this.pieceChoosen(piecesUndo[0].positionOnBoard);
   var pieceDestiny=this.pieceChoosen(piecesUndo[0].pickingIdDestiny);
 
   var cpointsOrigin=new Array();
@@ -293,22 +293,22 @@ CampoBello.prototype.undoMove=function(piecesUndo){
     cpointsOrigin[0][k]=new Array();
   }
 
-  var x=(piecesUndo[0].NewCoordinatesOriginX-piecesUndo[0].coordinatesOriginX)/2;
-  var y=(piecesUndo[0].NewCoordinatesOriginY-piecesUndo[0].coordinatesOriginY)/2;
-  var z=(piecesUndo[0].NewCoordinatesOriginZ-piecesUndo[0].coordinatesOriginZ)/2;
+  var x=(piecesUndo[0].NewCoordinatesOriginX-piecesUndo[0].coordinatesOriginX)/3;
+  var y=(piecesUndo[0].NewCoordinatesOriginY-piecesUndo[0].coordinatesOriginY)/3;
+  var z=(piecesUndo[0].NewCoordinatesOriginZ-piecesUndo[0].coordinatesOriginZ)/3;
 
-  cpointsOrigin[0][0][0]=piecesUndo[0].coordinatesOriginX;
-  cpointsOrigin[0][0][1]=piecesUndo[0].coordinatesOriginY;
-  cpointsOrigin[0][0][2]=piecesUndo[0].coordinatesOriginZ;
-  cpointsOrigin[0][1][0]=piecesUndo[0].coordinatesOriginX+x;
-  cpointsOrigin[0][1][1]=piecesUndo[0].coordinatesOriginY+y;
-  cpointsOrigin[0][1][2]=piecesUndo[0].coordinatesOriginZ+z;
-  cpointsOrigin[0][2][0]=piecesUndo[0].coordinatesOriginX+(2*x);
-  cpointsOrigin[0][2][1]=piecesUndo[0].coordinatesOriginY+(2*y);
-  cpointsOrigin[0][2][2]=piecesUndo[0].coordinatesOriginZ+(2*z);
-  cpointsOrigin[0][3][0]=piecesUndo[0].NewCoordinatesOriginX;
-  cpointsOrigin[0][3][1]=piecesUndo[0].NewCoordinatesOriginY;
-  cpointsOrigin[0][3][2]=piecesUndo[0].NewCoordinatesOriginZ;
+  cpointsOrigin[0][0][0]=piecesUndo[0].NewCoordinatesOriginX;
+  cpointsOrigin[0][0][1]=piecesUndo[0].NewCoordinatesOriginY;
+  cpointsOrigin[0][0][2]=piecesUndo[0].NewCoordinatesOriginZ;
+  cpointsOrigin[0][1][0]=piecesUndo[0].NewCoordinatesOriginX+x;
+  cpointsOrigin[0][1][1]=piecesUndo[0].NewCoordinatesOriginY+y;
+  cpointsOrigin[0][1][2]=piecesUndo[0].NewCoordinatesOriginZ+z;
+  cpointsOrigin[0][2][0]=piecesUndo[0].NewCoordinatesOriginX+(2*x);
+  cpointsOrigin[0][2][1]=piecesUndo[0].NewCoordinatesOriginY+(2*y);
+  cpointsOrigin[0][2][2]=piecesUndo[0].NewCoordinatesOriginZ+(2*z);
+  cpointsOrigin[0][3][0]=piecesUndo[0].coordinatesOriginX;
+  cpointsOrigin[0][3][1]=piecesUndo[0].coordinatesOriginY;
+  cpointsOrigin[0][3][2]=piecesUndo[0].coordinatesOriginZ;
 
   var animation = new BezierAnimation(this.scene,3,cpointsOrigin,6);
   console.log('cpointsOrigin', cpointsOrigin);
@@ -325,25 +325,25 @@ CampoBello.prototype.undoMove=function(piecesUndo){
   }
 
 
-var x2=(piecesUndo[0].NewCoordinatesDestinyX-piecesUndo[0].coordinatesOriginX)/2;
-var y2=(piecesUndo[0].NewCoordinatesDestinyY-piecesUndo[0].coordinatesOriginY)/2;
-var z2=(piecesUndo[0].NewCoordinatesDestinyZ-piecesUndo[0].coordinatesOriginZ)/2;
+var x2=(piecesUndo[0].NewCoordinatesDestinyX-piecesUndo[0].coordinatesDestinyX)/3;
+var y2=(piecesUndo[0].NewCoordinatesDestinyY-piecesUndo[0].coordinatesDestinyY)/3;
+var z2=(piecesUndo[0].NewCoordinatesDestinyZ-piecesUndo[0].coordinatesDestinyZ)/3;
 
-cpointsDestiny[0][0][0]=piecesUndo[0].coordinatesOriginX;
-cpointsDestiny[0][0][1]=piecesUndo[0].coordinatesOriginY;
-cpointsDestiny[0][0][2]=piecesUndo[0].coordinatesOriginZ;
+cpointsDestiny[0][0][0]=piecesUndo[0].NewCoordinatesDestinyX;
+cpointsDestiny[0][0][1]=piecesUndo[0].NewCoordinatesDestinyY;
+cpointsDestiny[0][0][2]=piecesUndo[0].NewCoordinatesDestinyZ;
 
-cpointsDestiny[0][1][0]=piecesUndo[0].coordinatesOriginX+x2;
-cpointsDestiny[0][1][1]=piecesUndo[0].coordinatesOriginY+(2*y2);
-cpointsDestiny[0][1][2]=piecesUndo[0].coordinatesOriginZ+z2;
+cpointsDestiny[0][1][0]=piecesUndo[0].NewCoordinatesDestinyX+x2;
+cpointsDestiny[0][1][1]=piecesUndo[0].NewCoordinatesDestinyY+(2*y2);
+cpointsDestiny[0][1][2]=piecesUndo[0].NewCoordinatesDestinyZ+z2;
 
-cpointsDestiny[0][2][0]=piecesUndo[0].coordinatesOriginX+(2*x2);
-cpointsDestiny[0][2][1]=piecesUndo[0].coordinatesOriginY+(3*y2);
-cpointsDestiny[0][2][2]=piecesUndo[0].coordinatesOriginZ+(2*z2);
+cpointsDestiny[0][2][0]=piecesUndo[0].NewCoordinatesDestinyX+(2*x2);
+cpointsDestiny[0][2][1]=piecesUndo[0].NewCoordinatesDestinyY+(3*y2);
+cpointsDestiny[0][2][2]=piecesUndo[0].NewCoordinatesDestinyZ+(2*z2);
 
-cpointsDestiny[0][3][0]=piecesUndo[0].NewCoordinatesDestinyX;
-cpointsDestiny[0][3][1]=piecesUndo[0].NewCoordinatesDestinyY;
-cpointsDestiny[0][3][2]=piecesUndo[0].NewCoordinatesDestinyZ;
+cpointsDestiny[0][3][0]=piecesUndo[0].coordinatesDestinyX;
+cpointsDestiny[0][3][1]=piecesUndo[0].coordinatesDestinyY;
+cpointsDestiny[0][3][2]=piecesUndo[0].coordinatesDestinyZ;
 
 
 var animation = new LinearAnimation(this.scene,3,cpointsDestiny,6);
