@@ -758,8 +758,8 @@ else{
 */
 CampoBello.prototype.switchPlayer=function(){
     this.scene.animcam.animationCameraFinished=false;
-    this.scene.timer.initialTime=0;
-    this.scene.timer.deltaTime=0;
+    this.scene.marker.initialTime=0;
+    this.scene.marker.deltaTime=0;
 
   if(this.currentPlayer==PLAYER1_ID){
       this.currentPlayer=PLAYER2_ID;

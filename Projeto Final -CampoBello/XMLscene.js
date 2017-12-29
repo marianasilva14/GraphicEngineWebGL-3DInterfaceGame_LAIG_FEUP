@@ -25,7 +25,7 @@ function XMLscene(interface) {
     this.undo=0;
     this.CampoBello;
     this.newCamera = false;
-    this.timer;
+    this.marker;
     this.animcam;
 
 }
@@ -77,8 +77,8 @@ XMLscene.prototype.setScenarioGamingKidsRoom = function() {
 * Starts a game
 */
 XMLscene.prototype.setStartGame = function() {
-  this.timer.initialTime=0;
-  this.timer.deltaTime=0;
+  this.marker.initialTime=0;
+  this.marker.deltaTime=0;
 
   if(this.CampoBello.gameMode == 0)
     this.CampoBello= new CampoBello(this,XMLscene.gameMode.PLAYER_VS_PLAYER);
@@ -171,7 +171,7 @@ XMLscene.prototype.onGraphLoaded = function()
     this.interface.chooseCamera();
 
   console.log("no campo bello", this.graph.nodes.timer);
-  this.timer = new Timer(this);
+  this.marker = new Marker(this);
 }
 
 /**
@@ -369,11 +369,11 @@ for(var j=0; j < this.CampoBello.areas.length;j++){
 
 this.updateScaleFactor(current_time);
 this.animcam.update(current_time);
-this.timer.update(current_time);
+this.marker.update(current_time);
 
-if(this.timer.resFinalDozens>2){
-  this.timer.initialTime=0;
-  this.timer.deltaTime=0;
+if(this.marker.resFinalDozens>2){
+  this.marker.initialTime=0;
+  this.marker.deltaTime=0;
   this.CampoBello.switchPlayer();
 }
 

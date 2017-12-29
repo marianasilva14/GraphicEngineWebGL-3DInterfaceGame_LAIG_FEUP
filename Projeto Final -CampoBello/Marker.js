@@ -1,12 +1,12 @@
 
 /**
- * Constructor of a Timer object. Used to display decrescing time.
+ * Constructor of a Marker object. Used to display decrescing time.
  *
- * @constructor Timer
+ * @constructor Marker
  *
  */
 
-function Timer(scene) {
+function Marker(scene) {
 	this.scene = scene;
 
 	this.initialTime = 0;
@@ -14,15 +14,15 @@ function Timer(scene) {
 	this.resFinalDozens;
 };
 
-Timer.prototype = Object.create(CGFobject.prototype);
-Timer.prototype.constructor = Timer;
+Marker.prototype = Object.create(CGFobject.prototype);
+Marker.prototype.constructor = Marker;
 
 /**
 * Gets the time to be displayed on the screen
 * @param secs Seconds passed to be processed in hours/minuts/seconds format
 */
 
-Timer.prototype.getTime = function(nameTextureUnits, nameTextureDozens){
+Marker.prototype.getTime = function(nameTextureUnits, nameTextureDozens){
 
 this.scene.graph.nodes.timerUnits.textureID = nameTextureUnits;
 this.scene.graph.nodes.timerDozens.textureID = nameTextureDozens;
@@ -30,7 +30,7 @@ this.scene.graph.nodes.timerDozens.textureID = nameTextureDozens;
 
 }
 
-Timer.prototype.update = function(current_time){
+Marker.prototype.update = function(current_time){
 
 	var current_time2 = current_time/1000;
 
