@@ -311,6 +311,7 @@ CampoBello.prototype.undoMove=function(piecesUndo){
   cpointsOrigin[0][3][2]=piecesUndo[0].NewCoordinatesOriginZ;
 
   var animation = new BezierAnimation(this.scene,3,cpointsOrigin,6);
+  console.log('cpointsOrigin', cpointsOrigin);
   pieceOrigin.animation=animation;
   pieceOrigin.animationFinished=false;
   pieceOrigin.initial_time=0;
@@ -346,6 +347,8 @@ cpointsDestiny[0][3][2]=piecesUndo[0].NewCoordinatesDestinyZ;
 
 
 var animation = new LinearAnimation(this.scene,3,cpointsDestiny,6);
+console.log('cpointsDestiny', cpointsDestiny);
+
 pieceDestiny.animation=animation;
 pieceDestiny.animationFinished=false;
 pieceDestiny.initial_time=0;
@@ -632,7 +635,7 @@ CampoBello.prototype.setCoordinates=function(origin,destiny,coordinates){
 CampoBello.prototype.addInfo=function(origin,destiny,coordinates){
   if(coordinates.length!=0){
   var addInfo=[
-    {'pickingIdOrigin':origin.getPickingID(),
+    {'pickingIdOrigin':origin.positionOnBoard,
    'coordinatesOriginX':origin.x,
    'coordinatesOriginY':origin.y,
    'coordinatesOriginZ':origin.z,
@@ -651,7 +654,7 @@ CampoBello.prototype.addInfo=function(origin,destiny,coordinates){
 }
 else{
   var addInfo=[
-    {'pickingIdOrigin':origin.getPickingID(),
+    {'pickingIdOrigin':origin.positionOnBoard,
    'coordinatesOriginX':origin.x,
    'coordinatesOriginY':origin.y,
    'coordinatesOriginZ':origin.z,
@@ -664,7 +667,7 @@ else{
    'NewCoordinatesDestinyX':destiny.x,
    'NewCoordinatesDestinyY':destiny.y,
    'NewCoordinatesDestinyZ':destiny.z,
-   'pickingIdDestiny':destiny.getPickingID(),
+   'pickingIdDestiny':destiny.getPickingID()-100,
    'lastBoard':this.board}
   ];
 }
