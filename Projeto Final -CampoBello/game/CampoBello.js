@@ -834,6 +834,14 @@ CampoBello.prototype.validateMove=function(pieceOrigin,pieceDestiny){
   }
 
 /**
+  * Game movie
+*/
+CampoBello.prototype.viewMovie = function(){
+  for(var i = 0; i < this.infoPlay.length; i++)
+    this.undoMove(this.infoPlay[i]);
+
+}
+/**
   * Game state machine
 */
 CampoBello.prototype.game = function(){
