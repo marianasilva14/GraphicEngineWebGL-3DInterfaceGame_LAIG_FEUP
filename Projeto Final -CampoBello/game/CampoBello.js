@@ -367,6 +367,7 @@ CampoBello.prototype.choosePieceToRemove=function(){
       info=JSON.parse(data.target.response);
 
       if(info.length!=0){
+
         this_t.board=info;
         var piece=this_t.pieceChoosen(this_t.scene.pieceToRemove);
 
@@ -420,10 +421,10 @@ CampoBello.prototype.choosePieceToRemove=function(){
       piece.x=coordinates[0].x;
       piece.y=coordinates[0].y;
       piece.z=coordinates[0].z;
-      }
-
       this_t.switchPlayer();
       this_t.currentState=this_t.state.CHECK_END_GAME;
+      }
+
       this_t.game();
     });
 }
@@ -679,6 +680,8 @@ CampoBello.prototype.switchPlayer=function(){
     this.scene.animcam.animationCameraFinished=false;
     this.scene.timer.initialTime=0;
     this.scene.timer.deltaTime=0;
+
+    console.log('currentState',this.currentState);
   if(this.currentPlayer==PLAYER1_ID){
       this.currentPlayer=PLAYER2_ID;
 
@@ -688,6 +691,11 @@ CampoBello.prototype.switchPlayer=function(){
   else{
     this.currentPlayer=PLAYER1_ID;
       this.scene.animcam.setFinalPoint(vec3.fromValues(5, 10, 14));
+  }
+
+  if(this.currentState == this.state.ANOTHER_MOVE || this.currentState == this.state.REMOVE_PIECE){
+    this.currentState=this.state.CHECK_END_GAME;
+    this.game();
   }
 
   console.log('Its your turn player',this.currentPlayer);
