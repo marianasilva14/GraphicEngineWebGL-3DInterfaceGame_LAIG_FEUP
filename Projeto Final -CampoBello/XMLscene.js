@@ -362,12 +362,12 @@ for(var j=0; j < this.CampoBello.areas.length;j++){
 this.updateScaleFactor(current_time);
 this.animcam.update(current_time);
 this.timer.update(current_time);
-/*
+
 if(this.timer.resFinalDozens>2){
   this.timer.initialTime=0;
   this.timer.deltaTime=0;
   this.CampoBello.switchPlayer();
-}*/
+}
 
 }
 
