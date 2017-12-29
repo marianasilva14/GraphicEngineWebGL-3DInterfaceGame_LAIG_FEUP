@@ -87,8 +87,8 @@ Timer.prototype.update = function(current_time){
 			this.scene.graph.nodes.winner.textureID = "winnerPlayer1";
 		else
 			this.scene.graph.nodes.winner.textureID = "winnerPlayer2";
-*/
 
+*/
 
 
 		this.getTime(this.resFinalUnits.toString(), this.resFinalDozens.toString());
