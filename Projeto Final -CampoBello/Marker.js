@@ -1,9 +1,7 @@
 
 /**
- * Constructor of a Marker object. Used to display decrescing time.
- *
+ * Constructor of a Marker object. Used to display time and winner of game
  * @constructor Marker
- *
  */
 
 function Marker(scene) {
@@ -19,7 +17,8 @@ Marker.prototype.constructor = Marker;
 
 /**
 * Gets the time to be displayed on the screen
-* @param secs Seconds passed to be processed in hours/minuts/seconds format
+* @param nameTextureUnits Units of seconds passed
+* @param nameTextureDozens Dozens of seconds passed
 */
 
 Marker.prototype.getTime = function(nameTextureUnits, nameTextureDozens){
@@ -30,6 +29,10 @@ this.scene.graph.nodes.timerDozens.textureID = nameTextureDozens;
 
 }
 
+/**
+* Function responsible to update the time and to display the messaage of who is the winner of the game
+*@param current_time
+*/
 Marker.prototype.update = function(current_time){
 
 	var current_time2 = current_time/1000;
@@ -94,9 +97,6 @@ Marker.prototype.update = function(current_time){
 		else{
 			this.scene.graph.nodes.winner.textureID = "paper";
 		}
-
-
-
 
 		this.getTime(this.resFinalUnits.toString(), this.resFinalDozens.toString());
 
