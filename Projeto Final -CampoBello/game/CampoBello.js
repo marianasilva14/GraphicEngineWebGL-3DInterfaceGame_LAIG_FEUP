@@ -11,9 +11,6 @@ const PIECEX=1;
 const PIECEY=2;
 const NO_PIECE=3;
 
-const PLAYER =1;
-const PC=2;
-
 /**
  * CampoBello represents the game and all its features
  * @param gameMode game mode
@@ -103,7 +100,6 @@ function CampoBello(scene,gameMode) {
   this.numberOfPiecesPlayer1=0;
   this.numberOfPiecesPlayer2=0;
   this.winner = [];
-  this.actualPlayer=PLAYER;
   this.game();
 };
 
@@ -602,6 +598,35 @@ CampoBello.prototype.movementPC=function(){
 }
 
 /**
+  * Pc choose the piece destination
+*/
+CampoBello.prototype.pcDoubleMove=function(){
+    var this_t=this;
+    var origin= this_t.actualOrigin.getPickingID();
+    console.log('origin',origin);
+    getPrologRequest(
+      "pcDoubleMove("+JSON.stringify(this_t.board)+","+
+      JSON.stringify(this_t.currentPlayer)+ "," + JSON.stringify(origin)+")",
+      function(data){
+          var info= JSON.parse(data.target.response);
+          console.log('info',info);
+          if(info.length!=0){
+              this_t.board=info[0];
+
+              var pieceDestiny=this_t.pieceChosen(info[1]);
+              this_t.gameCycle(this_t.actualOrigin,pieceDestiny);
+          }
+          else{
+            this_t.switchPlayer();
+            this_t.currentState=this_t.state.CHECK_END_GAME;
+            this_t.game();
+}
+      });
+
+
+}
+
+/**
   * Game cycle
   * @param pieceOrigin origin piece
   * @param pieceDestiny destiny piece
@@ -714,7 +739,7 @@ console.log('cheguei aquiii');
   * @param coordinates destiny piece coordinates
 */
 CampoBello.prototype.resetCoordinates=function(origin,destiny,piecesUndo){
-console.log('cheguei aquiii');
+
   origin.x=piecesUndo.coordinatesOriginX;
   origin.y=piecesUndo.coordinatesOriginY;
   origin.z=piecesUndo.coordinatesOriginZ;
@@ -858,7 +883,6 @@ CampoBello.prototype.game = function(){
     console.log('Welcome!');
     if(this.gameMode==XMLscene.gameMode.PLAYER_VS_PLAYER || this.gameMode==XMLscene.gameMode.PC_VS_PLAYER){
     this.getInitialBoard(this.state.CHOOSE_ORIGIN);
-    this.actualPlayer=PLAYER;
     this.game();
   }
     else if(this.gameMode==XMLscene.gameMode.PC_VS_PC){
@@ -885,7 +909,7 @@ CampoBello.prototype.game = function(){
       this.choosePieceToRemovePC();
     }
     else if(this.gameMode==XMLscene.gameMode.PC_VS_PLAYER){
-      if(this.actualPlayer==PC)
+      if(this.currentPlayer==PLAYER2_ID)
         this.choosePieceToRemovePC();
     }
       break;
@@ -893,11 +917,13 @@ CampoBello.prototype.game = function(){
     console.log('actualPlayer',this.actualPlayer);
     console.log('Choose another destiny!');
     if(this.gameMode==XMLscene.gameMode.PC_VS_PC){
-        this.checkEndGame(this.state.MOVEMENT_PC);
+        this.pcDoubleMove();
     }
     else if(this.gameMode==XMLscene.gameMode.PC_VS_PLAYER){
-      if(this.actualPlayer==PC)
-      this.checkEndGame(this.state.MOVEMENT_PC);
+      if(this.currentPlayer==PLAYER2_ID){
+        this.pcDoubleMove();
+      console.log('fiz double move');
+      }
     }
     break;
     case this.state.CHECK_END_GAME:
@@ -908,12 +934,10 @@ CampoBello.prototype.game = function(){
       this.checkEndGame(this.state.MOVEMENT_PC);
     }
     else{
-      if(this.actualPlayer==PLAYER){
-        this.actualPlayer=PC;
+      if(this.currentPlayer==PLAYER2_ID){
         this.checkEndGame(this.state.MOVEMENT_PC);
       }
       else{
-        this.actualPlayer=PLAYER;
         this.checkEndGame(this.state.CHOOSE_ORIGIN);
       }
     }

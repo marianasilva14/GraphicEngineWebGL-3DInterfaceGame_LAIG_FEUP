@@ -185,6 +185,81 @@ parse_input(pcMove(Board,Player),[BoardOut,PieceDestinyAux,PieceSourceAux]):-
 	printFinalBoard(TmpBoard3),
 	boardToNumbers(TmpBoard3,BoardOut).
 
+
+parse_input(pcDoubleMove(Board,Player,PieceOrigin),[BoardOut,PieceDestinyAux]):-
+	boardToNumbers(TmpBoard,Board),
+	write('aquii'),nl,
+	transformToCoordinates(RowSource,ColSource,PieceOrigin),
+		write('aquii'),nl,
+	areaOfPiece(RowSource,ColSource,Area),
+		write('aquii'),nl,
+	listOfValidDestinyMove(List,RowSource,ColSource,Area,TmpBoard),
+		write('aquii'),nl,
+	eliminatePieceOnList(List,List2),
+		write('aquii'),nl,
+	length(List2,LengthOfList2),
+		write('aquii'),nl,
+	random(0,LengthOfList2,Index2),
+		write('aquii'),nl,
+	nth0(Index2,List2,RowDestiny-ColDestiny),
+		write('aquii'),nl,
+	validateMovePC(Area,ColSource,RowSource,ColDestiny,RowDestiny,TmpBoard),
+		write('aquii'),nl,
+	setPiece(TmpBoard,RowSource,ColSource,'noPiece',TmpBoard2),
+		write('aquii'),nl,
+	setPiece(TmpBoard2,RowDestiny,ColDestiny,Piece,TmpBoard3),
+		write('aquii'),nl,
+	transformToCoordinates(RowDestiny,ColDestiny,PieceDestinyAux),
+		write('aquii'),nl,
+	transformPiece(PieceDestinyAux,PieceDestiny),
+		write('aquii'),nl,
+	PieceDestiny\='noPiece',
+	printFinalBoard(TmpBoard3),
+	boardToNumbers(TmpBoard3,BoardOut).
+
+parse_input(pcDoubleMove(Board,Player,PieceOrigin),[BoardOut,PieceDestinyAux]):-
+		write('aquii1'),nl,
+	boardToNumbers(TmpBoard,Board),
+		write('aquii2'),nl,
+	transformToCoordinates(RowSource,ColSource,PieceOrigin),
+		write('aquii1'),nl,
+	areaOfPiece(RowSource,ColSource,Area),
+		write('aquii1'),nl,
+	listOfValidDestinyMove(List,RowSource,ColSource,Area,TmpBoard),
+			write('aquii1'),nl,
+	eliminatePieceOnList(List,List2),
+				write('aquii1'),nl,
+	length(List2,LengthOfList2),
+			write('aquii1'),nl,
+	random(0,LengthOfList2,Index2),
+			write('aquii1'),nl,
+	nth0(Index2,List2,RowDestiny-ColDestiny),
+			write('aquii1'),nl,
+	validateMovePC(Area,ColSource,RowSource,ColDestiny,RowDestiny,TmpBoard),
+			write('aquii1'),nl,
+	setPiece(TmpBoard,RowSource,ColSource,'noPiece',TmpBoard2),
+			write('aquii1'),nl,
+	setPiece(TmpBoard2,RowDestiny,ColDestiny,Piece,TmpBoard3),
+			write('aquii1'),nl,
+	transformToCoordinates(RowDestiny,ColDestiny,PieceDestinyAux),
+			write('aquii1'),nl,
+	transformPiece(PieceDestinyAux,PieceDestiny),
+			write('aquii1'),nl,
+	transformPiece(PieceOrigin,PieceSource),
+			write('aquii1'),nl,
+	PieceDestiny=='noPiece',
+			write('aquii1'),nl,
+	retract(transformPiece(PieceDestinyAux,PieceDestiny)),
+			write('aquii1'),nl,
+	asserta(transformPiece(PieceDestinyAux,PieceSource)),
+			write('aquii1'),nl,
+	printFinalBoard(TmpBoard3),
+			write('aquii1'),nl,
+	boardToNumbers(TmpBoard3,BoardOut).
+
+parse_input(pcDoubleMove(Board,Player,PieceOrigin),[]).
+
+
 % Invalid movement
 parse_input(pcMove(Board,Player),[]).
 

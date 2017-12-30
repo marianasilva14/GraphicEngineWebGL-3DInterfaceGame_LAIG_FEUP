@@ -99,11 +99,13 @@ XMLscene.prototype.viewMovie = function() {
 * Undos a play
 */
 XMLscene.prototype.undoMove = function() {
+
+  if(this.CampoBello.infoPlay.length!=0){
   let infoToReturn= this.CampoBello.infoPlay.length-1;
   let piecesUndo= this.CampoBello.infoPlay[infoToReturn];
-  console.log('piecesUndo',piecesUndo);
   this.CampoBello.undoMove(piecesUndo);
   this.CampoBello.infoPlay.pop();
+  }
 
 }
 
