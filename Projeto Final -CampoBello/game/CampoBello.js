@@ -324,7 +324,44 @@ pieceDestiny.delta_time=0;
   * @param piecesUndo last play information
 */
 CampoBello.prototype.undoMove=function(piecesUndo){
+  console.log('piecesUndo',piecesUndo[0].pickingIdOrigin);
+  if(piecesUndo.length>1){
+      var pieceOrigin= this.pieceChosen(piecesUndo[0].pickingIdOrigin);
+      console.log('PieceOrigin',pieceOrigin);
+      var cpointsOrigin=new Array();
+      cpointsOrigin[0]=new Array(4);
+      for(var k=0; k < 4;k++){
+        cpointsOrigin[0][k]=new Array();
+      }
 
+      var x=(piecesUndo[1].coordinatesOriginX-piecesUndo[1].NewCoordinatesOriginX)/3;
+      var y=(piecesUndo[1].coordinatesOriginY-piecesUndo[1].NewCoordinatesOriginY)/3;
+      var z=(piecesUndo[1].coordinatesOriginZ-piecesUndo[1].NewCoordinatesOriginZ)/3;
+
+      cpointsOrigin[0][0][0]=piecesUndo[1].NewCoordinatesOriginX;
+      cpointsOrigin[0][0][1]=piecesUndo[1].NewCoordinatesOriginY;
+      cpointsOrigin[0][0][2]=piecesUndo[1].NewCoordinatesOriginZ;
+
+      cpointsOrigin[0][1][0]=piecesUndo[1].NewCoordinatesOriginX+x;
+      cpointsOrigin[0][1][1]=40;
+      cpointsOrigin[0][1][2]=piecesUndo[1].NewCoordinatesOriginZ+z;
+
+      cpointsOrigin[0][2][0]=piecesUndo[1].NewCoordinatesOriginX+(2*x);
+      cpointsOrigin[0][2][1]=40;
+      cpointsOrigin[0][2][2]=piecesUndo[1].NewCoordinatesOriginZ+(2*z);
+
+      cpointsOrigin[0][3][0]=piecesUndo[1].coordinatesOriginX;
+      cpointsOrigin[0][3][1]=piecesUndo[1].coordinatesOriginY;
+      cpointsOrigin[0][3][2]=piecesUndo[1].coordinatesOriginZ;
+
+      var animation = new BezierAnimation(this.scene,3,cpointsOrigin,6);
+
+      pieceOrigin.animation=animation;
+      pieceOrigin.animationFinished=false;
+      pieceOrigin.initial_time=0;
+      pieceOrigin.delta_time=0;
+  }
+  else{
   var pieceOrigin= this.pieceChosen(piecesUndo[0].pickingIdOrigin);
   var pieceDestiny=this.pieceChosen(piecesUndo[0].pickingIdDestiny);
 
@@ -396,7 +433,11 @@ pieceOrigin.animationFinished=false;
 pieceOrigin.initial_time=0;
 pieceOrigin.delta_time=0;
 }
-this.resetCoordinates(pieceOrigin,pieceDestiny,piecesUndo[0]);
+
+this.resetCoordinates(pieceOrigin,pieceDestiny,piecesUndo);
+}
+
+
 }
 
 /**
@@ -463,15 +504,14 @@ CampoBello.prototype.choosePieceToRemove=function(){
       var animation = new LinearAnimation(this.scene,3,cpointsDestiny,6);
       piece.animation=animation;
       piece.animationFinished=false;
+      piece.initial_time=0;
+      piece.delta_time=0;
 
-      piece.x=coordinates[0].x;
-      piece.y=coordinates[0].y;
-      piece.z=coordinates[0].z;
       this_t.switchPlayer();
       this_t.currentState=this_t.state.CHECK_END_GAME;
 
 
-    //  this_t.addInfo(piece,1,coordinates);
+      this_t.addInfo(piece,1,coordinates);
       }
 
       this_t.game();
@@ -544,6 +584,8 @@ CampoBello.prototype.choosePieceToRemovePC=function(){
     piece.x=coordinates[0].x;
     piece.y=coordinates[0].y;
     piece.z=coordinates[0].z;
+
+    this_t.addInfo(piece,1,coordinates);
   }
   this_t.switchPlayer();
   this_t.currentState=this_t.state.CHECK_END_GAME;
@@ -703,6 +745,7 @@ var stateToReturn;
       }
 
       this.createPieceAnimation(pieceOrigin,pieceDestiny,coordinates);
+
       this.addInfo(pieceOrigin,pieceDestiny,coordinates);
       this.setCoordinates(pieceOrigin,pieceDestiny,coordinates);
 
@@ -739,19 +782,20 @@ console.log('cheguei aquiii');
   * @param coordinates destiny piece coordinates
 */
 CampoBello.prototype.resetCoordinates=function(origin,destiny,piecesUndo){
+  if(piecesUndo.length==1){
 
-  origin.x=piecesUndo.coordinatesOriginX;
-  origin.y=piecesUndo.coordinatesOriginY;
-  origin.z=piecesUndo.coordinatesOriginZ;
-  destiny.x=piecesUndo.coordinatesDestinyX;
-  destiny.y=piecesUndo.coordinatesDestinyY;
-  destiny.z=piecesUndo.coordinatesDestinyZ;
+  origin.x=piecesUndo[0].coordinatesOriginX;
+  origin.y=piecesUndo[0].coordinatesOriginY;
+  origin.z=piecesUndo[0].coordinatesOriginZ;
+  destiny.x=piecesUndo[0].coordinatesDestinyX;
+  destiny.y=piecesUndo[0].coordinatesDestinyY;
+  destiny.z=piecesUndo[0].coordinatesDestinyZ;
 
 
-  origin.setPickingID(piecesUndo.pickingIdDestiny);
+  origin.setPickingID(piecesUndo[0].pickingIdDestiny);
   if(destiny.typeOfPiece!=NO_PIECE)
-  destiny.setPickingID(piecesUndo.pickingIdOrigin);
-
+  destiny.setPickingID(piecesUndo[0].pickingIdOrigin);
+  }
 }
 
 /**
@@ -761,6 +805,19 @@ CampoBello.prototype.resetCoordinates=function(origin,destiny,piecesUndo){
   * @param coordinates destiny piece coordinates
 */
 CampoBello.prototype.addInfo=function(origin,destiny,coordinates){
+
+  if(destiny==1){
+      var addInfo=[
+        {'pickingIdOrigin': origin.getPickingID()},
+        { 'coordinatesOriginX':origin.x,
+         'coordinatesOriginY':origin.y,
+         'coordinatesOriginZ':origin.z,
+         'NewCoordinatesOriginX':coordinates[0].x,
+         'NewCoordinatesOriginY':coordinates[0].y,
+         'NewCoordinatesOriginZ':coordinates[0].z}
+      ];
+  }
+  else{
   if(coordinates.length!=0){
   var addInfo=[
     {'pickingIdOrigin':origin.getPickingID(),
@@ -798,6 +855,7 @@ else{
    'pickingIdDestiny':destiny.getPickingID(),
    'lastBoard':this.board}
   ];
+}
 }
   this.infoPlay.push(addInfo);
   console.log('addInfo',addInfo);
