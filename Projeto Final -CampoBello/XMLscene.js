@@ -123,6 +123,7 @@ XMLscene.gameMode = {
 */
 XMLscene.prototype.setPlayerVsPlayer = function() {
     this.CampoBello = new CampoBello(this, XMLscene.gameMode.PLAYER_VS_PLAYER);
+    this.animcam.setFinalPoint(vec3.fromValues(5, 10, 14));
 }
 
 /**
@@ -130,6 +131,7 @@ XMLscene.prototype.setPlayerVsPlayer = function() {
 */
 XMLscene.prototype.setPcVsPc = function() {
     this.CampoBello = new CampoBello(this,  XMLscene.gameMode.PC_VS_PC);
+    this.animcam.setFinalPoint(vec3.fromValues(5, 10, 14));
 }
 
 /**
@@ -137,6 +139,7 @@ XMLscene.prototype.setPcVsPc = function() {
 */
 XMLscene.prototype.setPcVsPlayer = function() {
     this.CampoBello = new CampoBello(this,  XMLscene.gameMode.PC_VS_PLAYER);
+    this.animcam.setFinalPoint(vec3.fromValues(5, 10, 14));
 }
 
 /**

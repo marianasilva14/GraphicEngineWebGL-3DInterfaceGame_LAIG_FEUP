@@ -31,24 +31,9 @@ parse_input(validateGame(Board,Source,Destiny,AreaNumber),BoardOut):-
 	validateMove(Area,ColSource,RowSource,ColDestiny,RowDestiny,TmpBoard),
 	setPiece(TmpBoard,RowSource,ColSource,'noPiece',TmpBoard2),
 	setPiece(TmpBoard2,RowDestiny,ColDestiny,Piece,TmpBoard3),
-	PieceDestiny=='noPiece',
-	retract(transformPiece(Destiny,PieceDestiny)),
-	asserta(transformPiece(Destiny,Piece)),
-	printFinalBoard(TmpBoard3),
-	boardToNumbers(TmpBoard3,BoardOut).
-
-parse_input(validateGame(Board,Source,Destiny,AreaNumber),BoardOut):-
-	boardToNumbers(TmpBoard,Board),
-	transformPiece(Source,Piece),
-	transformPiece(Destiny,PieceDestiny),
-	transformArea(Area,AreaNumber),
-	transformToCoordinates(RowSource,ColSource,Source),
-	transformToCoordinates(RowDestiny,ColDestiny,Destiny),
-	validateMove(Area,ColSource,RowSource,ColDestiny,RowDestiny,TmpBoard),
-	setPiece(TmpBoard,RowSource,ColSource,'noPiece',TmpBoard2),
-	setPiece(TmpBoard2,RowDestiny,ColDestiny,Piece,TmpBoard3),
-	PieceDestiny\='noPiece',
-	printFinalBoard(TmpBoard3),
+	if_then_else(PieceDestiny=='noPiece',
+	(retract(transformPiece(Destiny,PieceDestiny)),
+	asserta(transformPiece(Destiny,Piece)),printFinalBoard(TmpBoard3)),printFinalBoard(TmpBoard3)),
 	boardToNumbers(TmpBoard3,BoardOut).
 
 %invalid move
@@ -98,37 +83,11 @@ parse_input(pcMove(Board,Player),[BoardOut,PieceDestinyAux,PieceSourceAux]):-
 	transformToCoordinates(RowSource,ColSource,PieceSourceAux),
 	transformPiece(PieceDestinyAux,PieceDestiny),
 	transformPiece(PieceSourceAux,PieceSource),
-	PieceDestiny=='noPiece',
-	retract(transformPiece(PieceDestinyAux,PieceDestiny)),
-	asserta(transformPiece(PieceDestinyAux,PieceSource)),
-	printFinalBoard(TmpBoard3),
+	if_then_else(PieceDestiny=='noPiece',
+	(retract(transformPiece(PieceDestinyAux,PieceDestiny)),
+	asserta(transformPiece(PieceDestinyAux,PieceSource)),printFinalBoard(TmpBoard3)),printFinalBoard(TmpBoard3)),
 	boardToNumbers(TmpBoard3,BoardOut).
 
-parse_input(pcMove(Board,Player),[BoardOut,PieceDestinyAux,PieceSourceAux]):-
-	boardToNumbers(TmpBoard,Board),
-  Player==1,
-	listOfPiecesThatHasPossibleMoveX(FinalList,TmpBoard),
-	eliminatePieceOnList(FinalList,FinalList2),
-	length(FinalList2,LengthOfList),
-	random(0,LengthOfList,Index),
-	nth0(Index,FinalList2,RowSource-ColSource),
-	getPiece(TmpBoard,RowSource,ColSource,Piece),
-	areaOfPiece(RowSource,ColSource,Area),
-	listOfValidDestinyMove(List,RowSource,ColSource,Area,TmpBoard),
-	eliminatePieceOnList(List,List2),
-	length(List2,LengthOfList2),
-	random(0,LengthOfList2,Index2),
-	nth0(Index2,List2,RowDestiny-ColDestiny),
-	validateMovePC(Area,ColSource,RowSource,ColDestiny,RowDestiny,TmpBoard),
-	setPiece(TmpBoard,RowSource,ColSource,'noPiece',TmpBoard2),
-	setPiece(TmpBoard2,RowDestiny,ColDestiny,Piece,TmpBoard3),
-	transformToCoordinates(RowDestiny,ColDestiny,PieceDestinyAux),
-	transformToCoordinates(RowSource,ColSource,PieceSourceAux),
-	transformPiece(PieceDestinyAux,PieceDestiny),
-	transformPiece(PieceSourceAux,PieceSource),
-	PieceDestiny\='noPiece',
-	printFinalBoard(TmpBoard3),
-	boardToNumbers(TmpBoard3,BoardOut).
 
 
 parse_input(pcMove(Board,Player),[BoardOut,PieceDestinyAux,PieceSourceAux]):-
@@ -153,115 +112,36 @@ parse_input(pcMove(Board,Player),[BoardOut,PieceDestinyAux,PieceSourceAux]):-
 	transformToCoordinates(RowSource,ColSource,PieceSourceAux),
 	transformPiece(PieceDestinyAux,PieceDestiny),
 	transformPiece(PieceSourceAux,PieceSource),
-	PieceDestiny=='noPiece',
-	retract(transformPiece(PieceDestinyAux,PieceDestiny)),
-	asserta(transformPiece(PieceDestinyAux,PieceSource)),
-	printFinalBoard(TmpBoard3),
+	if_then_else(PieceDestiny=='noPiece',
+	(retract(transformPiece(PieceDestinyAux,PieceDestiny)),
+	asserta(transformPiece(PieceDestinyAux,PieceSource)),printFinalBoard(TmpBoard3)),printFinalBoard(TmpBoard3)),
 	boardToNumbers(TmpBoard3,BoardOut).
 
-parse_input(pcMove(Board,Player),[BoardOut,PieceDestinyAux,PieceSourceAux]):-
-	boardToNumbers(TmpBoard,Board),
-	Player==2,
-	listOfPiecesThatHasPossibleMoveY(FinalList,TmpBoard),
-	eliminatePieceOnList(FinalList,FinalList2),
-	length(FinalList2,LengthOfList),
-	random(0,LengthOfList,Index),
-	nth0(Index,FinalList2,RowSource-ColSource),
-	getPiece(TmpBoard,RowSource,ColSource,Piece),
-	areaOfPiece(RowSource,ColSource,Area),
-	listOfValidDestinyMove(List,RowSource,ColSource,Area,TmpBoard),
-	eliminatePieceOnList(List,List2),
-	length(List2,LengthOfList2),
-	random(0,LengthOfList2,Index2),
-	nth0(Index2,List2,RowDestiny-ColDestiny),
-	validateMovePC(Area,ColSource,RowSource,ColDestiny,RowDestiny,TmpBoard),
-	setPiece(TmpBoard,RowSource,ColSource,'noPiece',TmpBoard2),
-	setPiece(TmpBoard2,RowDestiny,ColDestiny,Piece,TmpBoard3),
-	transformToCoordinates(RowDestiny,ColDestiny,PieceDestinyAux),
-	transformToCoordinates(RowSource,ColSource,PieceSourceAux),
-	transformPiece(PieceDestinyAux,PieceDestiny),
-	transformPiece(PieceSourceAux,PieceSource),
-	PieceDestiny\='noPiece',
-	printFinalBoard(TmpBoard3),
-	boardToNumbers(TmpBoard3,BoardOut).
+% Invalid movement
+parse_input(pcMove(Board,Player),[]).
 
 
 parse_input(pcDoubleMove(Board,Player,PieceOrigin),[BoardOut,PieceDestinyAux]):-
 	boardToNumbers(TmpBoard,Board),
-	write('aquii'),nl,
 	transformToCoordinates(RowSource,ColSource,PieceOrigin),
-		write('aquii'),nl,
 	areaOfPiece(RowSource,ColSource,Area),
-		write('aquii'),nl,
 	listOfValidDestinyMove(List,RowSource,ColSource,Area,TmpBoard),
-		write('aquii'),nl,
 	eliminatePieceOnList(List,List2),
-		write('aquii'),nl,
 	length(List2,LengthOfList2),
-		write('aquii'),nl,
 	random(0,LengthOfList2,Index2),
-		write('aquii'),nl,
 	nth0(Index2,List2,RowDestiny-ColDestiny),
-		write('aquii'),nl,
 	validateMovePC(Area,ColSource,RowSource,ColDestiny,RowDestiny,TmpBoard),
-		write('aquii'),nl,
 	setPiece(TmpBoard,RowSource,ColSource,'noPiece',TmpBoard2),
-		write('aquii'),nl,
 	setPiece(TmpBoard2,RowDestiny,ColDestiny,Piece,TmpBoard3),
-		write('aquii'),nl,
 	transformToCoordinates(RowDestiny,ColDestiny,PieceDestinyAux),
-		write('aquii'),nl,
 	transformPiece(PieceDestinyAux,PieceDestiny),
-		write('aquii'),nl,
-	PieceDestiny\='noPiece',
-	printFinalBoard(TmpBoard3),
-	boardToNumbers(TmpBoard3,BoardOut).
-
-parse_input(pcDoubleMove(Board,Player,PieceOrigin),[BoardOut,PieceDestinyAux]):-
-		write('aquii1'),nl,
-	boardToNumbers(TmpBoard,Board),
-		write('aquii2'),nl,
-	transformToCoordinates(RowSource,ColSource,PieceOrigin),
-		write('aquii1'),nl,
-	areaOfPiece(RowSource,ColSource,Area),
-		write('aquii1'),nl,
-	listOfValidDestinyMove(List,RowSource,ColSource,Area,TmpBoard),
-			write('aquii1'),nl,
-	eliminatePieceOnList(List,List2),
-				write('aquii1'),nl,
-	length(List2,LengthOfList2),
-			write('aquii1'),nl,
-	random(0,LengthOfList2,Index2),
-			write('aquii1'),nl,
-	nth0(Index2,List2,RowDestiny-ColDestiny),
-			write('aquii1'),nl,
-	validateMovePC(Area,ColSource,RowSource,ColDestiny,RowDestiny,TmpBoard),
-			write('aquii1'),nl,
-	setPiece(TmpBoard,RowSource,ColSource,'noPiece',TmpBoard2),
-			write('aquii1'),nl,
-	setPiece(TmpBoard2,RowDestiny,ColDestiny,Piece,TmpBoard3),
-			write('aquii1'),nl,
-	transformToCoordinates(RowDestiny,ColDestiny,PieceDestinyAux),
-			write('aquii1'),nl,
-	transformPiece(PieceDestinyAux,PieceDestiny),
-			write('aquii1'),nl,
-	transformPiece(PieceOrigin,PieceSource),
-			write('aquii1'),nl,
-	PieceDestiny=='noPiece',
-			write('aquii1'),nl,
-	retract(transformPiece(PieceDestinyAux,PieceDestiny)),
-			write('aquii1'),nl,
-	asserta(transformPiece(PieceDestinyAux,PieceSource)),
-			write('aquii1'),nl,
-	printFinalBoard(TmpBoard3),
-			write('aquii1'),nl,
+		if_then_else(PieceDestiny=='noPiece',
+		(retract(transformPiece(PieceDestinyAux,PieceDestiny)),
+		asserta(transformPiece(PieceDestinyAux,PieceSource)),printFinalBoard(TmpBoard3)),printFinalBoard(TmpBoard3)),
 	boardToNumbers(TmpBoard3,BoardOut).
 
 parse_input(pcDoubleMove(Board,Player,PieceOrigin),[]).
 
-
-% Invalid movement
-parse_input(pcMove(Board,Player),[]).
 
 % Pc removes a piece on board
 parse_input(pcRemovePiece(Board,Player),[PieceToRemove,BoardOut]):-
