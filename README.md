@@ -3,6 +3,12 @@
 - Francisca Leão Cerquinho R.Fonseca - up201505791@fe.up.pt
 - Mariana Lopes Silva - up201506197@fe.up.pt
 
+### Project 1 and 2
+
+- [x] Application with a small 3D graphic engine.
+- [x] Introduce new graphic techniques such as animation and shaders based on GLSL ES 1.0 (OpenGL for Embedded Systems' Shading Language).
+
+
 ### Project 3 
 
 Game Functionalitites: 
