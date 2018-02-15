@@ -1,12 +1,15 @@
 # LAIG 
 
-### Project 1 and 2
+### Project 1: Development of a graphic web engine
 
 - [x] Application with a small 3D graphic engine.
+
+### Project 2: Improving WebGL Usage Techniques
+
 - [x] Introduce new graphic techniques such as animation and shaders based on GLSL ES 1.0 (OpenGL for Embedded Systems' Shading Language).
 
 
-### Project 3 
+### Project 3: 3D interface of a game
 
 Game Functionalitites: 
 
